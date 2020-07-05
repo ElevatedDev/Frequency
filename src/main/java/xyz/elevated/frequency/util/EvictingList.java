@@ -3,7 +3,7 @@ package xyz.elevated.frequency.util;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class EvictingList<T> extends LinkedList<T> {
+public final class EvictingList<T> extends LinkedList<T> {
     private final int maxSize;
 
     public EvictingList(int maxSize) {

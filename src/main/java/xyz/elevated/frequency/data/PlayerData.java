@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import xyz.elevated.frequency.check.type.PositionCheck;
+import xyz.elevated.frequency.data.impl.ActionManager;
 import xyz.elevated.frequency.data.impl.CheckManager;
 import xyz.elevated.frequency.data.impl.PositionManager;
 import xyz.elevated.frequency.data.impl.RotationManager;
@@ -21,6 +22,7 @@ public final class PlayerData {
     private final EvictingList<BoundingBox> boundingBoxes = new EvictingList<>(10);
     private final EvictingList<Location> locationsSent = new EvictingList<>(10);
 
+    private final Observable<Boolean> sprinting = new Observable<>(false);
     private final Observable<BoundingBox> boundingBox = new Observable<>(new BoundingBox(0, 0, 0));
 
     private final RotationUpdate rotationUpdate = new RotationUpdate(0, 0);
@@ -30,6 +32,8 @@ public final class PlayerData {
     private final RotationManager rotationManager = new RotationManager(this);
     private final CheckManager checkManager = new CheckManager(this);
     private final ExemptManager exceptManager = new ExemptManager(this);
+
+    private final ActionManager actionManager = new ActionManager();
 
     public PlayerData(final Player bukkitPlayer) {
         this.bukkitPlayer = bukkitPlayer;

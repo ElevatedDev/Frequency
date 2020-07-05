@@ -28,6 +28,17 @@ public final class PlayerListener implements Listener {
 
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
+        final Player player = event.getPlayer();
 
+        final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
+
+        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+        final ChannelPipeline channelPipeline = entityPlayer.playerConnection.networkManager.channel.pipeline();
+
+        if (channelPipeline.get("frequency_packet_handler") != null) {
+            FrequencyAPI.INSTANCE.getExecutorPacket().execute(() -> channelPipeline.remove("frequency_packet_handler"));
+        }
+
+        FrequencyAPI.INSTANCE.getPlayerDataManager().remove(player);
     }
 }
