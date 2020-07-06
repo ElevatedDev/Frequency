@@ -1,12 +1,14 @@
 package xyz.elevated.frequency.check.impl.aimassist;
 
 import com.google.common.collect.Lists;
+import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.RotationCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.RotationUpdate;
 
 import java.util.Deque;
 
+@CheckData(name = "AimAssist (A)")
 public final class AimAssistA extends RotationCheck {
     private final Deque<Float> samples = Lists.newLinkedList();
     private double buffer = 0.0;
