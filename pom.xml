@@ -42,21 +42,7 @@
             </resource>
         </resources>
     </build>
-
-    <repositories>
-        <repository>
-            <id>viaversion-repo</id>
-            <url>https://repo.viaversion.com</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <dependency>
-            <groupId>us.myles</groupId>
-            <artifactId>viaversion</artifactId>
-            <version>1.4.1</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

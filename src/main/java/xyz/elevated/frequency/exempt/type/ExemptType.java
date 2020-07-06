@@ -16,7 +16,12 @@ public enum ExemptType {
     /**
      * Returns true if the player is inside or close to the void
      */
-    VOID(playerData -> playerData.getBukkitPlayer().getLocation().getY() < 4);
+    VOID(playerData -> playerData.getBukkitPlayer().getLocation().getY() < 4),
+
+    /**
+     * Returns true if the player has had any velocity changes in the past 9000ms
+     */
+    VELOCITY(playerData -> playerData.getVelocityManager().getMaxVertical() > 0.0 || playerData.getVelocityManager().getMaxHorizontal() > 0.0);
 
     private final Function<PlayerData, Boolean> exception;
 
