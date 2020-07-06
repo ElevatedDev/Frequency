@@ -2,4 +2,4 @@ name: Frequency
 author: Elevated
 version: 1.0
 softdepend: [DiscordLib]
-main: xyz.elevated.cerberus.CerberusPlugin
+main: xyz.elevated.frequency.FrequencyPlugin
