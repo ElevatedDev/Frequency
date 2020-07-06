@@ -19,6 +19,8 @@ public final class BadPacketsI extends PacketCheck {
         if (object instanceof WrappedPlayInFlying) {
             final WrappedPlayInFlying wrapper = (WrappedPlayInFlying) object;
 
+            if (!wrapper.hasLook()) return;
+
             final float yaw = wrapper.getYaw();
             final float pitch = wrapper.getPitch();
 
