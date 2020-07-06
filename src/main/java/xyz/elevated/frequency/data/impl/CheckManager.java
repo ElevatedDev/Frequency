@@ -20,6 +20,7 @@ public final class CheckManager {
                 .put(KillAuraC.class, new KillAuraC(playerData))
                 .put(KillAuraD.class, new KillAuraD(playerData))
                 .put(KillAuraE.class, new KillAuraE(playerData))
+                .put(KillAuraF.class, new KillAuraF(playerData))
                 .build();
     }
 
