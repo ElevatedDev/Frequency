@@ -38,7 +38,7 @@ public abstract class Check<T> {
     }
 
     protected void fail() {
-
+        alertManager.fail();
     }
 
     protected boolean isExempt(final ExemptType exceptType) {
