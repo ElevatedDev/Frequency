@@ -18,6 +18,7 @@ public enum FrequencyAPI {
     private final ProcessorManager processorManager = new ProcessorManager();
     private final PlayerDataManager playerDataManager = new PlayerDataManager();
 
+    private final Executor executorAlert = Executors.newSingleThreadExecutor();
     private final Executor executorPacket = Executors.newSingleThreadExecutor();
 
     public void start(final FrequencyPlugin plugin) {

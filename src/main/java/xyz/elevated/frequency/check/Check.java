@@ -1,9 +1,16 @@
 package xyz.elevated.frequency.check;
 
+import com.google.common.collect.Lists;
 import lombok.Getter;
+import org.bukkit.BanList;
+import org.bukkit.Bukkit;
+import xyz.elevated.frequency.alert.AlertManager;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.util.LogUtil;
+
+import java.util.Deque;
+import java.util.List;
 
 @Getter
 public abstract class Check<T> {
@@ -11,6 +18,9 @@ public abstract class Check<T> {
 
     private String checkName;
     private int threshold;
+
+    private final AlertManager alertManager = new AlertManager(this);
+    private final List<Long> violations = Lists.newArrayList();
 
     public Check(final PlayerData playerData) {
         this.playerData = playerData;
