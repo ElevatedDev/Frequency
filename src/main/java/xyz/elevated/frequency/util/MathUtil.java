@@ -14,6 +14,8 @@ public final class MathUtil {
         throw new Exception("You may not initialise utility classes.");
     }
 
+    public static final double EXPANDER = Math.pow(2, 24);
+
     /**
      *
      * @param data - The set of data you want to find the variance from
@@ -171,5 +173,15 @@ public final class MathUtil {
         } else {
             return data.get(data.size() / 2);
         }
+    }
+
+    /**
+     *
+     * @param current - The current value
+     * @param previous - The previous value
+     * @return - The GCD of those two values
+     */
+    public static long getGcd(long current, long previous) {
+        return (previous <= 16384L) ? current : getGcd(previous, current % previous);
     }
 }

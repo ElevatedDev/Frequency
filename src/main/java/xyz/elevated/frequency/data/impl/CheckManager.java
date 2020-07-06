@@ -6,6 +6,7 @@ import lombok.Getter;
 import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistA;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistB;
+import xyz.elevated.frequency.check.impl.aimassist.AimAssistC;
 import xyz.elevated.frequency.check.impl.killaura.*;
 import xyz.elevated.frequency.data.PlayerData;
 
@@ -25,6 +26,7 @@ public final class CheckManager {
                 .put(KillAuraF.class, new KillAuraF(playerData))
                 .put(AimAssistA.class, new AimAssistA(playerData))
                 .put(AimAssistB.class, new AimAssistB(playerData))
+                .put(AimAssistC.class, new AimAssistC(playerData))
                 .build();
     }
 
