@@ -31,7 +31,7 @@ public final class AimAssistD extends RotationCheck {
         final boolean attacking = now - playerData.getActionManager().getLastAttack() < 500L;
 
         ++rotations;
-        grid[rotations & grid.length] = deviation;
+        grid[rotations % grid.length] = deviation;
 
         // If the player wasn't using cinematic, where attacking and weren't spamming their aim
         if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.f && deltaPitch < 30.f && !cinematic && !attacking) {
