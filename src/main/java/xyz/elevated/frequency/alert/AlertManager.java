@@ -16,8 +16,8 @@ import java.util.List;
 public final class AlertManager {
     private final Check<?> check;
 
-    private final String base = ColorUtil.format("&8[&aFrequency&8] &a%s &7failed &a%s &8[&7VL&A%s&8]");
-    private final String broadcast = ColorUtil.format("&8[&aFrequency&8] &a%s &7was found using an unfair advantage and was removed from the network.");
+    private final String base = ColorUtil.format("&8[&7Frequency&8] &a%s &7failed &a%s &8[&7VL&A%s&8]");
+    private final String broadcast = ColorUtil.format("&8[&7Frequency&8] &a%s &7was found using an unfair advantage and was removed from the network.");
 
     private final List<Long> alerts = Lists.newArrayList();
 
