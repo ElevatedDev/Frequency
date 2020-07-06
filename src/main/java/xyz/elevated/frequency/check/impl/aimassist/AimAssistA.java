@@ -21,8 +21,10 @@ public final class AimAssistA extends RotationCheck {
     public void process(final RotationUpdate rotationUpdate) {
         final float deltaYaw = rotationUpdate.getDeltaYaw();
         final float deltaPitch = rotationUpdate.getDeltaPitch();
+
+        final boolean cinematic = playerData.getCinematic().get();
         
-        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.f && deltaPitch < 30.f) {
+        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.f && deltaPitch < 30.f && !cinematic) {
             samples.add(deltaPitch);
         }
         
