@@ -50,7 +50,9 @@ public final class KillAuraB extends RotationCheck {
                 buffer = Math.max(buffer - 0.125, 0);
             }
 
-            this.lastAverage = averagePitch;
+            samplesYaw.clear();
+            samplesPitch.clear();
+            lastAverage = averagePitch;
         }
     }
 }
