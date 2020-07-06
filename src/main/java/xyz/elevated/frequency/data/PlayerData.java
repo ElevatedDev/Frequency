@@ -5,10 +5,7 @@ import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import xyz.elevated.frequency.check.type.PositionCheck;
-import xyz.elevated.frequency.data.impl.ActionManager;
-import xyz.elevated.frequency.data.impl.CheckManager;
-import xyz.elevated.frequency.data.impl.PositionManager;
-import xyz.elevated.frequency.data.impl.RotationManager;
+import xyz.elevated.frequency.data.impl.*;
 import xyz.elevated.frequency.exempt.ExemptManager;
 import xyz.elevated.frequency.observable.Observable;
 import xyz.elevated.frequency.update.PositionUpdate;
@@ -32,6 +29,7 @@ public final class PlayerData {
     private final RotationManager rotationManager = new RotationManager(this);
     private final CheckManager checkManager = new CheckManager(this);
     private final ExemptManager exceptManager = new ExemptManager(this);
+    private final VelocityManager velocityManager = new VelocityManager();
 
     private final ActionManager actionManager = new ActionManager();
 
