@@ -14,8 +14,9 @@ public final class ActionManager {
     private final Observable<Boolean> swinging = new Observable<>(false);
     private final Observable<Boolean> digging = new Observable<>(false);
     private final Observable<Boolean> delayed = new Observable<>(false);
+    private final Observable<Boolean> teleported = new Observable<>(false);
 
-    private long lastAttack, lastDig, lastFlying, lastDelayedFlying;
+    private long lastAttack, lastDig, lastFlying, lastDelayedFlying, lastTeleport;
 
     public void onArmAnimation() {
         this.swinging.set(true);
@@ -41,6 +42,7 @@ public final class ActionManager {
         final boolean delayed = now - lastFlying > 120L;
         final boolean digging = now - lastDig < 120;
         final boolean lagging = now - lastDelayedFlying < 120L;
+        final boolean teleporting = now - lastTeleport < 120L;
 
         this.placing.set(false);
         this.attacking.set(false);
@@ -48,9 +50,14 @@ public final class ActionManager {
 
         this.digging.set(digging);
         this.delayed.set(lagging);
+        this.teleported.set(teleporting);
 
         this.lastDelayedFlying = delayed ? now : lastDelayedFlying;
         this.lastFlying = now;
+    }
+
+    public void onTeleport() {
+        this.lastTeleport = System.currentTimeMillis();
     }
 
     public void onBukkitDig() {
