@@ -24,6 +24,11 @@ public enum ExemptType {
     LAGGING(playerData -> playerData.getActionManager().getDelayed().get()),
 
     /**
+     * Return if a player sent a teleport packet in the last 120ms.
+     */
+    TELEPORTING(playerData -> playerData.getActionManager().getTeleported().get()),
+
+    /**
      * Returns true if the player has had any velocity changes in the past 9000ms
      */
     VELOCITY(playerData -> playerData.getVelocityManager().getMaxVertical() > 0.0 || playerData.getVelocityManager().getMaxHorizontal() > 0.0);

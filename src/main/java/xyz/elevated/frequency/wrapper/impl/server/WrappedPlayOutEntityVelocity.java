@@ -6,7 +6,7 @@ import xyz.elevated.frequency.wrapper.PacketWrapper;
 
 public final class WrappedPlayOutEntityVelocity extends PacketWrapper {
 
-    public WrappedPlayOutEntityVelocity(Packet<?> instance) {
+    public WrappedPlayOutEntityVelocity(final Packet<?> instance) {
         super(instance, PacketPlayOutEntityVelocity.class);
     }
 

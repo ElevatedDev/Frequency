@@ -89,6 +89,11 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
             final WrappedPlayInCustomPayload wrapper = new WrappedPlayInCustomPayload(packet);
 
             playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+        } else if (packet instanceof PacketPlayInArmAnimation) {
+            final WrappedPlayInArmAnimation wrapper = new WrappedPlayInArmAnimation(packet);
+
+            playerData.getActionManager().onArmAnimation();
+            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
         }
     }
 }

@@ -1,12 +1,10 @@
 package xyz.elevated.frequency.processor.impl;
 
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntity;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntityVelocity;
+import net.minecraft.server.v1_8_R3.*;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.processor.type.Processor;
 import xyz.elevated.frequency.wrapper.impl.server.WrappedPlayOutEntityVelocity;
+import xyz.elevated.frequency.wrapper.impl.server.WrappedPlayOutTeleport;
 
 public final class OutgoingPacketProcessor implements Processor<Packet<PacketListenerPlayOut>> {
 
@@ -24,6 +22,15 @@ public final class OutgoingPacketProcessor implements Processor<Packet<PacketLis
                 final double velocityZ = wrapper.getZ();
 
                 playerData.getVelocityManager().addVelocityEntry(velocityX, velocityY, velocityZ);
+            }
+        } else if (packet instanceof PacketPlayOutEntityTeleport) {
+            final WrappedPlayOutTeleport wrapper = new WrappedPlayOutTeleport(packet);
+
+            final int packetEntityId = wrapper.getEntityId();
+            final int playerEntityId = playerData.getBukkitPlayer().getEntityId();
+
+            if (packetEntityId == playerEntityId) {
+                playerData.getActionManager().onTeleport();
             }
         }
     }
