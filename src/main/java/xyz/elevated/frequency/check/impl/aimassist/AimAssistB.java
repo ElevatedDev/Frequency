@@ -27,8 +27,9 @@ public final class AimAssistB extends RotationCheck {
 
         final boolean attacking = now - playerData.getActionManager().getLastAttack() < 500L;
         final boolean cinematic = playerData.getCinematic().get();
+        final boolean identical = roundedYaw == lastRoundedYaw;
 
-        if (roundedDelta < 5 && deltaYaw < 20.f && deltaPitch < 20.f && attacking && cinematic) {
+        if (identical && roundedDelta < 5 && deltaYaw < 20.f && deltaPitch < 20.f && attacking && cinematic) {
             if (++streak > 7) {
                 fail();
             }
