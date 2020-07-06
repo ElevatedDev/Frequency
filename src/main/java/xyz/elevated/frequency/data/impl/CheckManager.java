@@ -7,6 +7,8 @@ import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistA;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistB;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistC;
+import xyz.elevated.frequency.check.impl.aimassist.AimAssistD;
+import xyz.elevated.frequency.check.impl.badpackets.*;
 import xyz.elevated.frequency.check.impl.killaura.*;
 import xyz.elevated.frequency.data.PlayerData;
 
@@ -27,6 +29,16 @@ public final class CheckManager {
                 .put(AimAssistA.class, new AimAssistA(playerData))
                 .put(AimAssistB.class, new AimAssistB(playerData))
                 .put(AimAssistC.class, new AimAssistC(playerData))
+                .put(AimAssistD.class, new AimAssistD(playerData))
+                .put(BadPacketsA.class, new BadPacketsA(playerData))
+                .put(BadPacketsB.class, new BadPacketsB(playerData))
+                .put(BadPacketsC.class, new BadPacketsC(playerData))
+                .put(BadPacketsD.class, new BadPacketsD(playerData))
+                .put(BadPacketsE.class, new BadPacketsE(playerData))
+                .put(BadPacketsF.class, new BadPacketsF(playerData))
+                .put(BadPacketsG.class, new BadPacketsG(playerData))
+                .put(BadPacketsH.class, new BadPacketsH(playerData))
+                .put(BadPacketsI.class, new BadPacketsI(playerData))
                 .build();
     }
 
