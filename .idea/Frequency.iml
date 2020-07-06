@@ -11,15 +11,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: us.myles:viaversion:1.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: us.myles:viaversion-common:1.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: us.myles:viaversion-bukkit:1.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: us.myles:viaversion-bungee:1.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: us.myles:viaversion-sponge:1.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: us.myles:viaversion-sponge-legacy:1.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.10-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.gson:gson:2.3.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.0" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: org.spigotmc:spigot-1.8.8-R0.1-SNAPSHOT-latest:1.0-SNAPSHOT">
