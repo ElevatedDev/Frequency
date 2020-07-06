@@ -26,17 +26,15 @@ public final class AimAssistB extends RotationCheck {
         final int roundedDelta = Math.abs(roundedPitch - lastRoundedPitch);
 
         final boolean attacking = now - playerData.getActionManager().getLastAttack() < 500L;
+        final boolean cinematic = playerData.getCinematic().get();
+        final boolean identical = roundedYaw == lastRoundedYaw;
 
-        if (roundedDelta < 5 && deltaYaw < 20.f && deltaPitch < 20.f && attacking) {
-            final boolean invalid = roundedYaw == lastRoundedYaw;
-
-            if (invalid) {
-                if (++streak > 7) {
-                    fail();
-                }
-            } else {
-                streak = 0;
+        if (identical && roundedDelta < 5 && deltaYaw < 20.f && deltaPitch < 20.f && attacking && cinematic) {
+            if (++streak > 7) {
+                fail();
             }
+        } else {
+            streak = 0;
         }
 
         this.lastRoundedYaw = roundedYaw;

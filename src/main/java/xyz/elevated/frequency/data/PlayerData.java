@@ -19,6 +19,7 @@ public final class PlayerData {
     private final EvictingList<Location> locationsSent = new EvictingList<>(10);
 
     private final Observable<Boolean> sprinting = new Observable<>(false);
+    private final Observable<Boolean> cinematic = new Observable<>(false);
     private final Observable<BoundingBox> boundingBox = new Observable<>(new BoundingBox(0, 0, 0));
 
     private final RotationUpdate rotationUpdate = new RotationUpdate(0, 0);
