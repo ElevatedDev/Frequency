@@ -41,6 +41,7 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
                 rotationManager.handle(yaw, pitch);
             }
 
+            playerData.getActionManager().onFlying();
             playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInUseEntity) {
             final WrappedPlayInUseEntity wrapper = new WrappedPlayInUseEntity(packet);
