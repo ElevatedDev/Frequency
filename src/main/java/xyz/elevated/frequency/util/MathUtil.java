@@ -14,7 +14,7 @@ public final class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public static double getVariance(final Iterable<Number> data) {
+    public static double getVariance(final Iterable<? extends Number> data) {
         int count = 0;
 
         double sum = 0.0;
@@ -45,7 +45,7 @@ public final class MathUtil {
      * @See - https://en.wikipedia.org/wiki/Standard_deviation
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public static double getStandardDeviation(final Iterable<Number> data) {
+    public static double getStandardDeviation(final Iterable<? extends Number> data) {
         final double variance = getVariance(data);
 
         // The standard deviation is the square root of variance. (sqrt(s^2))
