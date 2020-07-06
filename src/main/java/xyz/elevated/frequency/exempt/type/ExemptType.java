@@ -19,6 +19,11 @@ public enum ExemptType {
     VOID(playerData -> playerData.getBukkitPlayer().getLocation().getY() < 4),
 
     /**
+     * Returns true if the player is lagging
+     */
+    LAGGING(playerData -> playerData.getActionManager().getDelayed().get()),
+
+    /**
      * Returns true if the player has had any velocity changes in the past 9000ms
      */
     VELOCITY(playerData -> playerData.getVelocityManager().getMaxVertical() > 0.0 || playerData.getVelocityManager().getMaxHorizontal() > 0.0);
