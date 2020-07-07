@@ -2,18 +2,17 @@ package xyz.elevated.frequency.check.type;
 
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayIn;
+import org.bukkit.Bukkit;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.wrapper.PacketWrapper;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
 public class PostCheck extends PacketCheck {
     private final Class<? extends PacketWrapper> packet;
-    private boolean flag = false;
-    private boolean post = false;
     private boolean sent = false;
 
-    private long lastFlying, lastPacket;
-    private double buffer = 0.0;
+    public long lastFlying, lastPacket;
+    public double buffer = 0.0;
 
     public PostCheck(final PlayerData playerData, final Class<? extends PacketWrapper> packet) {
         super(playerData);
@@ -28,21 +27,19 @@ public class PostCheck extends PacketCheck {
 
     // Flag only when its both a post and a flag
     public boolean isPost(final Object object) {
-        if (object instanceof WrappedPlayInFlying) {
+        if (object.getClass() == WrappedPlayInFlying.class) {
             final long now = System.currentTimeMillis();
             final long delay = now - lastPacket;
 
             if (sent) {
                 if (delay > 40L && delay < 100L) {
-                    post = true;
                     buffer += 0.25;
 
                     if (buffer > 0.5) {
-                        flag = true;
+                        return true;
                     }
                 } else {
                     buffer = Math.max(buffer - 0.025, 0);
-                    post = false;
                 }
 
                 sent = false;
@@ -51,8 +48,9 @@ public class PostCheck extends PacketCheck {
             this.lastFlying = now;
         } else if (object.getClass() == packet) {
             final long now = System.currentTimeMillis();
+            final long delay = now - lastFlying;
 
-            if (now - lastFlying < 10L) {
+            if (delay < 10L) {
                 lastPacket = now;
                 sent = true;
             } else {
@@ -60,6 +58,6 @@ public class PostCheck extends PacketCheck {
             }
         }
 
-        return flag && post;
+        return false;
     }
 }

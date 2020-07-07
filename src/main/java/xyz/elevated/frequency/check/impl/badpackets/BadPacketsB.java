@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.badpackets;
 
+import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PostCheck;
 import xyz.elevated.frequency.data.PlayerData;
