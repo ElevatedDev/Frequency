@@ -25,16 +25,16 @@ public final class AimAssistD extends RotationCheck {
         final float deltaYaw = rotationUpdate.getDeltaYaw();
         final float deltaPitch = rotationUpdate.getDeltaPitch();
 
-        final double deviation = getDeviation(deltaPitch);
-
         final boolean cinematic = playerData.getCinematic().get();
         final boolean attacking = now - playerData.getActionManager().getLastAttack() < 500L;
+
+        final double deviation = getDeviation(deltaPitch);
 
         ++rotations;
         grid[rotations % grid.length] = deviation;
 
         // If the player wasn't using cinematic, where attacking and weren't spamming their aim
-        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.f && deltaPitch < 30.f && !cinematic && !attacking) {
+        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.f && deltaPitch < 30.f && !cinematic && attacking) {
             final boolean reached = rotations > grid.length;
 
             // If the rotations made were greater than the gcd length
@@ -53,10 +53,6 @@ public final class AimAssistD extends RotationCheck {
 
                     applied = false;
                 }
-
-                // Reset the rotations and the grid
-                rotations = 0;
-                grid = new double[10];
             }
         }
 
@@ -70,8 +66,13 @@ public final class AimAssistD extends RotationCheck {
         final long previousExpandedPitch = (long) (lastDeltaPitch * MathUtil.EXPANDER);
 
         final double result = applied ? MathUtil.getGcd(expandedPitch, previousExpandedPitch) : 0;
-        applied = !applied;
 
-        return result;
+        if (applied) {
+            applied = false;
+
+            return result;
+        }
+
+        return 0.0;
     }
 }

@@ -4,6 +4,7 @@ import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInEntityAction;
+import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
 @CheckData(name = "BadPackets (G)")
 public final class BadPacketsG extends PacketCheck {
@@ -21,7 +22,7 @@ public final class BadPacketsG extends PacketCheck {
             if (invalid) {
                 fail();
             }
-        } else {
+        } else if (object instanceof WrappedPlayInFlying) {
             count = 0;
         }
     }

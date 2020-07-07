@@ -16,12 +16,10 @@ public final class BadPacketsD extends PostCheck {
 
     @Override
     public void process(final Object object) {
-        if (object instanceof WrappedPlayInFlying) {
-            final boolean post = this.isPost();
+        final boolean post = this.isPost(object);
 
-            if (post) {
-                fail();
-            }
+        if (post) {
+            fail();
         }
     }
 }

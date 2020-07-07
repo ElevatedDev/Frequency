@@ -23,6 +23,11 @@ public class PostCheck extends PacketCheck {
 
     @Override
     public void process(final Object object) {
+
+    }
+
+    // Flag only when its both a post and a flag
+    public boolean isPost(final Object object) {
         if (object instanceof WrappedPlayInFlying) {
             final long now = System.currentTimeMillis();
             final long delay = now - lastPacket;
@@ -54,10 +59,7 @@ public class PostCheck extends PacketCheck {
                 buffer = Math.max(buffer - 0.025, 0.0);
             }
         }
-    }
 
-    // Flag only when its both a post and a flag
-    public boolean isPost() {
         return flag && post;
     }
 }

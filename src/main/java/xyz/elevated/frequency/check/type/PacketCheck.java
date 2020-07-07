@@ -11,6 +11,9 @@ public class PacketCheck extends Check<Object> {
 
     @Override
     public void process(final Object object) {
-
+        playerData.getCheckManager().getChecks()
+                .stream()
+                .filter(PostCheck.class::isInstance)
+                .forEach(check -> check.process(object));
     }
 }
