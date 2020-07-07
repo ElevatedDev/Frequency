@@ -19,6 +19,8 @@ public final class KillAuraF extends PacketCheck {
         if (object instanceof WrappedPlayInFlying) {
             final WrappedPlayInFlying wrapper = (WrappedPlayInFlying) object;
 
+            if (!wrapper.hasLook() || !wrapper.hasPos()) return;
+
             final double posX = wrapper.getX();
             final double posZ = wrapper.getZ();
 
