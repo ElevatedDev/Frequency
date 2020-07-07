@@ -25,10 +25,10 @@ public final class PlayerData {
     private final RotationUpdate rotationUpdate = new RotationUpdate(0, 0);
     private final PositionUpdate positionUpdate = new PositionUpdate(null, null);
 
-    private final PositionManager positionManager = new PositionManager(this);
     private final RotationManager rotationManager = new RotationManager(this);
     private final CheckManager checkManager = new CheckManager(this);
     private final ExemptManager exceptManager = new ExemptManager(this);
+    private final PositionManager positionManager = new PositionManager(this);
     private final VelocityManager velocityManager = new VelocityManager();
 
     private final ActionManager actionManager = new ActionManager();

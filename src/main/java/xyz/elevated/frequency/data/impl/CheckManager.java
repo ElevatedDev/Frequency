@@ -3,12 +3,15 @@ package xyz.elevated.frequency.data.impl;
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
 import lombok.Getter;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistA;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistB;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistC;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistD;
 import xyz.elevated.frequency.check.impl.badpackets.*;
+import xyz.elevated.frequency.check.impl.invalid.InvalidA;
+import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.killaura.*;
 import xyz.elevated.frequency.data.PlayerData;
 
@@ -39,6 +42,8 @@ public final class CheckManager {
                 .put(BadPacketsG.class, new BadPacketsG(playerData))
                 .put(BadPacketsH.class, new BadPacketsH(playerData))
                 .put(BadPacketsI.class, new BadPacketsI(playerData))
+                .put(InvalidA.class, new InvalidA(playerData))
+                .put(InvalidB.class, new InvalidB(playerData))
                 .build();
     }
 

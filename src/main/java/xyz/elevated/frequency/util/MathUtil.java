@@ -1,6 +1,9 @@
 package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -183,5 +186,11 @@ public final class MathUtil {
      */
     public static long getGcd(long current, long previous) {
         return (previous <= 16384L) ? current : getGcd(previous, current % previous);
+    }
+
+    public static int getPotionLevel(final Player player, final PotionEffectType effect) {
+        final int effectId = effect.getId();
+
+        return player.getActivePotionEffects().stream().filter(potionEffect -> potionEffect.getType().getId() == effectId).map(PotionEffect::getAmplifier).findAny().orElse(0) + 1;
     }
 }
