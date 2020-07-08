@@ -18,12 +18,15 @@ public final class PlayerListener implements Listener {
 
     @EventHandler
     public void onJoin(final PlayerJoinEvent event) {
+        final long now = System.currentTimeMillis();
+
         final Player player = event.getPlayer();
         final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
 
         final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
         final ChannelPipeline channelPipeline = entityPlayer.playerConnection.networkManager.channel.pipeline();
 
+        playerData.getJoined().set(now);
         FrequencyAPI.INSTANCE.getExecutorPacket().execute(() -> channelPipeline.addBefore("packet_handler", "frequency_packet_handler", new PacketHandler(playerData)));
     }
 

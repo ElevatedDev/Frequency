@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
+import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -102,7 +103,7 @@ public final class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Outlier
      */
-    public static Pair<ArrayList<Double>, ArrayList<Double>> getOutliers(final Collection<? extends Number> collection) {
+    public static Pair<List<Double>, List<Double>> getOutliers(final Collection<? extends Number> collection) {
         final List<Double> values = new ArrayList<>();
 
         for (final Number number : collection) {
@@ -115,18 +116,18 @@ public final class MathUtil {
         final double iqr = Math.abs(q1 - q3);
         final double lowThreshold = q1 - 1.5 * iqr, highThreshold = q3 + 1.5 * iqr;
 
-        final Pair<ArrayList<Double>, ArrayList<Double>> pair = new Pair<>();
+        final Pair<List<Double>, List<Double>> tuple = new Pair<>(new ArrayList<>(), new ArrayList<>());
 
         for (final Double value : values) {
             if (value < lowThreshold) {
-                pair.getX().add(value);
+                tuple.getX().add(value);
             }
             else if (value > highThreshold) {
-                pair.getY().add(value);
+                tuple.getY().add(value);
             }
         }
 
-        return pair;
+        return tuple;
     }
 
     /**

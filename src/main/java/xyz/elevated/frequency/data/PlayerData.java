@@ -35,9 +35,6 @@ public final class PlayerData {
     private final ActionManager actionManager = new ActionManager();
 
     public PlayerData(final Player bukkitPlayer) {
-        final long now = System.currentTimeMillis();
-
         this.bukkitPlayer = bukkitPlayer;
-        this.joined.set(now);
     }
 }
