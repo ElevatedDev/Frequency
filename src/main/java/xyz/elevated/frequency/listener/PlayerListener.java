@@ -5,6 +5,8 @@ import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import xyz.elevated.frequency.FrequencyAPI;
@@ -24,6 +26,16 @@ public final class PlayerListener implements Listener {
         final ChannelPipeline channelPipeline = entityPlayer.playerConnection.networkManager.channel.pipeline();
 
         FrequencyAPI.INSTANCE.getExecutorPacket().execute(() -> channelPipeline.addBefore("packet_handler", "frequency_packet_handler", new PacketHandler(playerData)));
+    }
+
+    @EventHandler
+    public void onInteract(final PlayerInteractEvent event) {
+        final Player player = event.getPlayer();
+        final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
+
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+            playerData.getActionManager().onBukkitDig();
+        }
     }
 
     @EventHandler
