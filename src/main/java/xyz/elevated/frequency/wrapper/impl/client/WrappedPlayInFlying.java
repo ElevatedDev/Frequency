@@ -38,4 +38,8 @@ public final class WrappedPlayInFlying extends PacketWrapper {
     public boolean hasLook() {
         return get("hasLook");
     }
+
+    public boolean onGround() {
+        return get("f");
+    }
 }

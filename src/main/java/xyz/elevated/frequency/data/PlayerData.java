@@ -20,10 +20,11 @@ public final class PlayerData {
 
     private final Observable<Boolean> sprinting = new Observable<>(false);
     private final Observable<Boolean> cinematic = new Observable<>(false);
+    private final Observable<Long> joined = new Observable<>(0L);
     private final Observable<BoundingBox> boundingBox = new Observable<>(new BoundingBox(0, 0, 0));
 
     private final RotationUpdate rotationUpdate = new RotationUpdate(0, 0);
-    private final PositionUpdate positionUpdate = new PositionUpdate(null, null);
+    private final PositionUpdate positionUpdate = new PositionUpdate(null, null, false);
 
     private final RotationManager rotationManager = new RotationManager(this);
     private final CheckManager checkManager = new CheckManager(this);
@@ -34,6 +35,9 @@ public final class PlayerData {
     private final ActionManager actionManager = new ActionManager();
 
     public PlayerData(final Player bukkitPlayer) {
+        final long now = System.currentTimeMillis();
+
         this.bukkitPlayer = bukkitPlayer;
+        this.joined.set(now);
     }
 }

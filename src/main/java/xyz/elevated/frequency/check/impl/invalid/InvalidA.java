@@ -6,6 +6,7 @@ import org.bukkit.potion.PotionEffectType;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
+import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.update.PositionUpdate;
 import xyz.elevated.frequency.util.MathUtil;
 
@@ -30,8 +31,11 @@ public final class InvalidA extends PositionCheck {
         final int amplifierJump = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
         final double threshold = amplifierJump > 0 ? 0.42 + amplifierJump * 0.1 : 0.42;
 
+        // Make sure the player isn't exempt
+        final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.TPS);
+
         // If the player is ascending higher than the threshold and has no velocity
-        if (velocityY == 0.0 && deltaY > threshold) {
+        if (velocityY == 0.0 && deltaY > threshold && !exempt) {
             fail();
         }
     }

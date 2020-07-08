@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.fly;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
@@ -35,7 +36,7 @@ public final class FlyC extends PositionCheck {
         if (!exempt && touchingAir) {
             ++ticks;
 
-            if (ticks > 6 && horizontalDistance > 0.1 && acceleration == 0.0) {
+            if (ticks > 6 && horizontalDistance > 0.1 && (deltaY == 0.0 || acceleration == 0.0)) {
                 buffer += 0.25;
 
                 if (buffer > 0.75) {

@@ -27,7 +27,7 @@ public final class FlyA extends PositionCheck {
 
         // If the posY of the player is modulo by (1/64) he's on ground.
         final boolean clientGround = entityPlayer.onGround;
-        final boolean serverGround = to.getY() % 0.015625 == 0.0;
+        final boolean serverGround = to.getY() % 0.015625 == 0.0 && from.getY() % 0.015625 == 0.0;
 
         final boolean illegal = playerData.getPositionManager().getTouchingClimbable().get() || playerData.getPositionManager().getTouchingLiquid().get();
 

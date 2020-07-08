@@ -26,11 +26,12 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
 
             final boolean hasPos = wrapper.hasPos();
             final boolean hasLook = wrapper.hasLook();
+            final boolean onGround = wrapper.onGround();
 
             if (hasPos) {
                 final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ);
 
-                playerData.getPositionManager().handle(posX, posY, posZ);
+                playerData.getPositionManager().handle(posX, posY, posZ, onGround);
                 playerData.getBoundingBox().set(boundingBox);
                 playerData.getBoundingBoxes().add(boundingBox);
             }

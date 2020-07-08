@@ -15,7 +15,9 @@ import xyz.elevated.frequency.check.impl.fly.FlyB;
 import xyz.elevated.frequency.check.impl.fly.FlyC;
 import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
+import xyz.elevated.frequency.check.impl.invalid.InvalidC;
 import xyz.elevated.frequency.check.impl.killaura.*;
+import xyz.elevated.frequency.check.impl.timer.Timer;
 import xyz.elevated.frequency.data.PlayerData;
 
 import java.util.Collection;
@@ -47,9 +49,11 @@ public final class CheckManager {
                 .put(BadPacketsI.class, new BadPacketsI(playerData))
                 .put(InvalidA.class, new InvalidA(playerData))
                 .put(InvalidB.class, new InvalidB(playerData))
+                .put(InvalidC.class, new InvalidC(playerData))
                 .put(FlyA.class, new FlyA(playerData))
                 .put(FlyB.class, new FlyB(playerData))
                 .put(FlyC.class, new FlyC(playerData))
+                .put(Timer.class, new Timer(playerData))
                 .build();
     }
 

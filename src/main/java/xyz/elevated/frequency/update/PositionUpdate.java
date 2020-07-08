@@ -8,4 +8,5 @@ import org.bukkit.Location;
 @AllArgsConstructor @Getter @Setter
 public final class PositionUpdate {
     private final Location from, to;
+    private final boolean onGround;
 }

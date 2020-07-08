@@ -30,7 +30,7 @@ public final class PositionManager {
     private final Observable<Boolean> touchingHalfBlock = new Observable<>(false);
     private final Observable<Boolean> touchingClimbable = new Observable<>(false);
 
-    public void handle(final double posX, final double posY, final double posZ) {
+    public void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
         this.handleCollisions(playerData);
 
         final World world = playerData.getBukkitPlayer().getWorld();
@@ -40,7 +40,7 @@ public final class PositionManager {
         final Location location = new Location(world, posX, posY, posZ);
         final Location lastLocation = new Location(world, lastPosX, lastPosY, lastPosZ);
 
-        final PositionUpdate positionUpdate = new PositionUpdate(lastLocation, location);
+        final PositionUpdate positionUpdate = new PositionUpdate(lastLocation, location, onGround);
         final ExemptManager exemptManager = playerData.getExceptManager();
 
         // Make sure the player isn't inside the void or getting teleported

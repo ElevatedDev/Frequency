@@ -15,14 +15,14 @@ public final class WrappedPlayOutEntityVelocity extends PacketWrapper {
     }
 
     public double getX() {
-        return ((double) get("b")) / 8000.0;
+        return ((int) get("b") / 8000.0);
     }
 
     public double getY() {
-        return (double) ((int) get("c")) / 8000.0;
+        return ((int) get("c") / 8000.0);
     }
 
     public double getZ() {
-        return ((double) get("d")) / 8000.0;
+        return ((int) get("d") / 8000.0);
     }
 }
