@@ -10,6 +10,7 @@ import xyz.elevated.frequency.check.impl.aimassist.AimAssistB;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistC;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistD;
 import xyz.elevated.frequency.check.impl.autoclicker.AutoClickerA;
+import xyz.elevated.frequency.check.impl.autoclicker.AutoClickerB;
 import xyz.elevated.frequency.check.impl.badpackets.*;
 import xyz.elevated.frequency.check.impl.fly.FlyA;
 import xyz.elevated.frequency.check.impl.fly.FlyB;
@@ -55,6 +56,7 @@ public final class CheckManager {
                 .put(FlyB.class, new FlyB(playerData))
                 .put(FlyC.class, new FlyC(playerData))
                 .put(AutoClickerA.class, new AutoClickerA(playerData))
+                .put(AutoClickerB.class, new AutoClickerB(playerData))
                 .put(Timer.class, new Timer(playerData))
                 .build();
     }
