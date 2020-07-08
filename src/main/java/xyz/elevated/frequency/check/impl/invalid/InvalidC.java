@@ -27,11 +27,13 @@ public final class InvalidC extends PositionCheck {
         final double deltaX = to.getX() - from.getZ();
         final double deltaZ = to.getZ() - from.getZ();
 
-        final double horizontalDistance = deltaX + deltaZ;
+        final double horizontalDistance = Math.hypot(deltaX, deltaZ);
         final double horizontalVelocity = playerData.getVelocityManager().getMaxHorizontal();
 
-        if (!entityPlayer.onGround) {
-            final boolean invalid = horizontalDistance > 0.45 && horizontalVelocity == 0.0;
+        final boolean onGround = positionUpdate.isOnGround();
+
+        if (!onGround) {
+            final boolean invalid = horizontalDistance > 0.3 && horizontalVelocity == 0.0;
 
             if (invalid) {
                 buffer += 0.5;
