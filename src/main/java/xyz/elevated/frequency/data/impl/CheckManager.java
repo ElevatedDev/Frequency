@@ -10,6 +10,9 @@ import xyz.elevated.frequency.check.impl.aimassist.AimAssistB;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistC;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistD;
 import xyz.elevated.frequency.check.impl.badpackets.*;
+import xyz.elevated.frequency.check.impl.fly.FlyA;
+import xyz.elevated.frequency.check.impl.fly.FlyB;
+import xyz.elevated.frequency.check.impl.fly.FlyC;
 import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.killaura.*;
@@ -44,6 +47,9 @@ public final class CheckManager {
                 .put(BadPacketsI.class, new BadPacketsI(playerData))
                 .put(InvalidA.class, new InvalidA(playerData))
                 .put(InvalidB.class, new InvalidB(playerData))
+                .put(FlyA.class, new FlyA(playerData))
+                .put(FlyB.class, new FlyB(playerData))
+                .put(FlyC.class, new FlyC(playerData))
                 .build();
     }
 
