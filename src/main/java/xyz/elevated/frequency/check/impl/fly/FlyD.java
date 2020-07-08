@@ -52,9 +52,9 @@ public final class FlyD extends PositionCheck {
                     buffer = 0.0;
                 }
             } else {
+                total = 0.0;
                 buffer = 0.0;
             }
-        } else {
         }
     }
 }
