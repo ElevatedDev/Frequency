@@ -19,7 +19,6 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-
         final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
 
         final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
