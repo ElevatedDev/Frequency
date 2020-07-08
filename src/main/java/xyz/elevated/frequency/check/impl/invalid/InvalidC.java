@@ -22,8 +22,6 @@ public final class InvalidC extends PositionCheck {
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
-
         final double deltaX = to.getX() - from.getZ();
         final double deltaZ = to.getZ() - from.getZ();
 
