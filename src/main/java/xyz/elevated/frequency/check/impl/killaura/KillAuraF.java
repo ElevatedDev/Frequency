@@ -30,7 +30,7 @@ public final class KillAuraF extends PacketCheck {
             final double horizontalDistance = Math.hypot(posX - lastPosX, posZ - lastPosZ);
 
             // Player moved
-            if (posX != lastPosX || posZ != lastPosZ) {
+            if (horizontalDistance > 0.0) {
                 final float deltaYaw = Math.abs(yaw - lastYaw);
                 final float deltaPitch = Math.abs(pitch - lastPitch);
 
