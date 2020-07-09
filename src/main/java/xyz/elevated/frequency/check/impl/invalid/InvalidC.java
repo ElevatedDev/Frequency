@@ -12,6 +12,7 @@ import xyz.elevated.frequency.util.NmsUtil;
 @CheckData(name = "Invalid (C)")
 public final class InvalidC extends PositionCheck {
     private double buffer = 0.0;
+    private int ticks = 0;
 
     public InvalidC(final PlayerData playerData) {
         super(playerData);
@@ -22,16 +23,18 @@ public final class InvalidC extends PositionCheck {
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
+        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+
         final double deltaX = to.getX() - from.getZ();
         final double deltaZ = to.getZ() - from.getZ();
 
-        final double horizontalDistance = Math.hypot(deltaX, deltaZ);
-        final double horizontalVelocity = playerData.getVelocityManager().getMaxHorizontal();
+        final double offset = Math.hypot(deltaX, deltaZ);
+        final double velocity = entityPlayer.motX + entityPlayer.motY;
 
         final boolean onGround = positionUpdate.isOnGround();
 
         if (!onGround) {
-            final boolean invalid = horizontalDistance > 0.3 && horizontalVelocity == 0.0;
+            final boolean invalid = ++ticks > 8 && offset > 0.3 && velocity == 0.0;
 
             if (invalid) {
                 buffer += 0.5;
@@ -42,6 +45,8 @@ public final class InvalidC extends PositionCheck {
             } else {
                 buffer = Math.max(buffer - 0.025, 0);
             }
+        } else {
+            ticks = 0;
         }
     }
 }
