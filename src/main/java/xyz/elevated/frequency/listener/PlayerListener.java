@@ -2,6 +2,7 @@ package xyz.elevated.frequency.listener;
 
 import io.netty.channel.ChannelPipeline;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +14,8 @@ import xyz.elevated.frequency.FrequencyAPI;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.packet.PacketHandler;
 import xyz.elevated.frequency.util.NmsUtil;
+
+import java.time.Instant;
 
 public final class PlayerListener implements Listener {
 
@@ -35,9 +38,9 @@ public final class PlayerListener implements Listener {
         final Player player = event.getPlayer();
         final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
 
-        if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-            playerData.getActionManager().onBukkitDig();
-        }
+        final Instant instantFirst = Instant.now();
+
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK) playerData.getActionManager().onBukkitDig();
     }
 
     @EventHandler
