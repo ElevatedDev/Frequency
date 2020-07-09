@@ -12,7 +12,7 @@ public final class AimAssistD extends RotationCheck {
     private boolean applied = false;
 
     private int rotations;
-    private double[] grid = new double[10];
+    private long[] grid = new long[10];
 
     public AimAssistD(final PlayerData playerData) {
         super(playerData);
@@ -28,7 +28,7 @@ public final class AimAssistD extends RotationCheck {
         final boolean cinematic = playerData.getCinematic().get();
         final boolean attacking = now - playerData.getActionManager().getLastAttack() < 500L;
 
-        final double deviation = getDeviation(deltaPitch);
+        final long deviation = getDeviation(deltaPitch);
 
         ++rotations;
         grid[rotations % grid.length] = deviation;
@@ -61,11 +61,11 @@ public final class AimAssistD extends RotationCheck {
     }
 
     // Get the GCD from the stored rotations and return a result whenever applied isn't false.
-    private double getDeviation(final float deltaPitch) {
+    private long getDeviation(final float deltaPitch) {
         final long expandedPitch = (long) (deltaPitch * MathUtil.EXPANDER);
         final long previousExpandedPitch = (long) (lastDeltaPitch * MathUtil.EXPANDER);
 
-        final double result = applied ? MathUtil.getGcd(expandedPitch, previousExpandedPitch) : 0;
+        final long result = applied ? MathUtil.getGcd(expandedPitch, previousExpandedPitch) : 0;
 
         if (applied) {
             applied = false;
@@ -73,6 +73,6 @@ public final class AimAssistD extends RotationCheck {
             return result;
         }
 
-        return 0.0;
+        return 0L;
     }
 }
