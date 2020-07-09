@@ -42,6 +42,8 @@ public final class AlertManager {
         if (violations > threshold) {
             Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), "[Frequency] Unfair Advantage", null, "CONSOLE");
             Bukkit.broadcastMessage(message);
+
+            alerts.clear();
         }
 
         // Execute the alert on a separate thread as we need to loop

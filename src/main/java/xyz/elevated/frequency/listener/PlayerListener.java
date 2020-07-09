@@ -38,8 +38,6 @@ public final class PlayerListener implements Listener {
         final Player player = event.getPlayer();
         final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
 
-        final Instant instantFirst = Instant.now();
-
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) playerData.getActionManager().onBukkitDig();
     }
 

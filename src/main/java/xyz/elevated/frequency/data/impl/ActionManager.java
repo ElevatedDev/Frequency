@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.data.impl;
 
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import xyz.elevated.frequency.observable.Observable;
 
 @Getter
@@ -33,14 +34,14 @@ public final class ActionManager {
     }
 
     public void onDig() {
-        this.digging.set(true);
+        this.lastDig = System.currentTimeMillis();
     }
 
     public void onFlying() {
         final long now = System.currentTimeMillis();
 
         final boolean delayed = now - lastFlying > 120L;
-        final boolean digging = now - lastDig < 120;
+        final boolean digging = now - lastDig < 500;
         final boolean lagging = now - lastDelayedFlying < 120L;
         final boolean teleporting = now - lastTeleport < 120L;
 

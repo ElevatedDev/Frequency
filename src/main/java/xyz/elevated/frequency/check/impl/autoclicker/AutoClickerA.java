@@ -36,6 +36,8 @@ public final class AutoClickerA extends PacketCheck {
                 final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
 
+                Bukkit.broadcastMessage("D: " + deviation);
+
                 if (deviation < 2.d && outliers < 2) fail();
 
                 samples.clear();
