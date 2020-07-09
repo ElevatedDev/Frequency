@@ -71,7 +71,7 @@ public final class PositionManager {
         final World world = playerData.getBukkitPlayer().getWorld();
         final BoundingBox boundingBox = playerData.getBoundingBox().get();
 
-        boundingBox.expand(0.075, 0.075, 0.075).move(0.0, -0.55, 0.0);
+        boundingBox.expand(0.5, 0.07, 0.5).move(0.0, -0.55, 0.0);
 
         final boolean touchingAir = boundingBox.checkBlocks(world, material -> material == Material.AIR);
         final boolean touchingLiquid = boundingBox.checkBlocks(world, material -> material == Material.WATER || material == Material.LAVA || material == Material.STATIONARY_WATER || material == Material.STATIONARY_LAVA);
