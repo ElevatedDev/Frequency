@@ -2,10 +2,10 @@ package xyz.elevated.frequency.check.impl.speed;
 
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.Material;
 import net.minecraft.server.v1_8_R3.MathHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -70,9 +70,10 @@ public final class Speed extends PositionCheck {
         attributeSpeed += playerData.getVelocityManager().getMaxVertical();
 
         // Get the proper speedup threshold
-        final double threshold = playerData.getBoundingBox().get().move(0.0, 1.0, 0.0)
-                .checkBlocks(playerData.getBukkitPlayer().getWorld(), material -> material != Material.AIR)
-                ? 3.6 : 1.0;
+        final double threshold = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
+                MathHelper.floor(entityPlayer.getBoundingBox().b) + 1,
+                MathHelper.floor(to.getZ())))
+                .getBlock().getMaterial() == Material.AIR ? 1.0 : 3.6;
 
         // Get the horizontal distance and convert to the movement speed
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
