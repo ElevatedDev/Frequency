@@ -118,3 +118,4 @@ $RECYCLE.BIN/
 # Notepad++ backups #
 *.bak
 target/
+.idea/**

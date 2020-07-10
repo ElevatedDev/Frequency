@@ -40,7 +40,8 @@ public final class AlertManager {
         final String message = String.format(broadcast, player.getName());
 
         if (violations > threshold) {
-            Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), "[Frequency] Unfair Advantage", null, "CONSOLE");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName()
+                    + " [Frequency] Unfair Advantage");;
             Bukkit.broadcastMessage(message);
 
             alerts.clear();
