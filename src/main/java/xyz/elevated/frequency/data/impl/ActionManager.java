@@ -43,7 +43,7 @@ public final class ActionManager {
         final boolean delayed = now - lastFlying > 120L;
         final boolean digging = now - lastDig < 500;
         final boolean lagging = now - lastDelayedFlying < 120L;
-        final boolean teleporting = now - lastTeleport < 120L;
+        final boolean teleporting = now - lastTeleport < 500L;
 
         this.placing.set(false);
         this.attacking.set(false);

@@ -2,6 +2,7 @@ package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
 import net.minecraft.server.v1_8_R3.Tuple;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -187,6 +188,12 @@ public final class MathUtil {
      */
     public static long getGcd(long current, long previous) {
         return (previous <= 16384L) ? current : getGcd(previous, current % previous);
+    }
+
+    public static double getDistance(final Location from, final Location to) {
+        if (from.getWorld() != to.getWorld()) return 0.0;
+
+        return to.distanceSquared(from);
     }
 
     public static int getPotionLevel(final Player player, final PotionEffectType effect) {
