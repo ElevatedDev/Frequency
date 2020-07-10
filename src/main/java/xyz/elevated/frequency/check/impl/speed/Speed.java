@@ -22,18 +22,23 @@ public final class Speed extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+        // Get the location update from the position update
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
+        // Get the entity player from the NMS util
         final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
 
+        // Get the pos deltas
         final double deltaX = to.getX() - from.getX();
         final double deltaY = to.getY() - from.getY();
         final double deltaZ = to.getZ() - from.getZ();
 
+        // Get the player's attribute speed and last friction
         double blockSlipperiness = this.blockSlipperiness;
         double attributeSpeed = entityPlayer.bI();
 
+        // Run calculations to if the player is on ground and if they're exempt
         final boolean onGround = positionUpdate.isOnGround();
         final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
 
@@ -59,17 +64,22 @@ public final class Speed extends PositionCheck {
             blockSlipperiness = 0.91f;
         }
 
+        // Add to the attribute speed according to velocity
         attributeSpeed += playerData.getVelocityManager().getMaxVertical();
 
+        // Get the proper speedup threshold
         final double threshold = playerData.getPositionManager().getUnderBlock().get() ? 3.6 : 1.0;
 
+        // Get the horizontal distance and convert to the movement speed
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
         final double movementSpeed = (horizontalDistance - lastHorizontalDistance) / attributeSpeed;
 
+        // If thr movement speed is greater than the threshold and the player isn't exempt, fail
         if (movementSpeed > threshold && !exempt) {
             fail();
         }
 
+        // Update previous values
         this.lastHorizontalDistance = horizontalDistance / blockSlipperiness;
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,
