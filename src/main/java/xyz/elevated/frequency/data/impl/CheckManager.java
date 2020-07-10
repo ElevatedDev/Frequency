@@ -19,6 +19,7 @@ import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.invalid.InvalidC;
 import xyz.elevated.frequency.check.impl.killaura.*;
+import xyz.elevated.frequency.check.impl.speed.Speed;
 import xyz.elevated.frequency.check.impl.timer.Timer;
 import xyz.elevated.frequency.data.PlayerData;
 
@@ -62,6 +63,7 @@ public final class CheckManager {
                 .put(AutoClickerD.class, new AutoClickerD(playerData))
                 .put(AutoClickerE.class, new AutoClickerE(playerData))
                 .put(Timer.class, new Timer(playerData))
+                .put(Speed.class, new Speed(playerData))
                 .build();
     }
 
