@@ -13,12 +13,13 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 import java.util.Deque;
 import java.util.List;
 
-@CheckData(name = "AutoClicker (C)")
-public final class AutoClickerC extends PacketCheck {
+@CheckData(name = "AutoClicker (F)")
+public final class AutoClickerF extends PacketCheck {
+
     private int movements = 0;
     private final Deque<Integer> samples = Lists.newLinkedList();
 
-    public AutoClickerC(final PlayerData playerData) {
+    public AutoClickerF(final PlayerData playerData) {
         super(playerData);
     }
 
@@ -29,16 +30,14 @@ public final class AutoClickerC extends PacketCheck {
 
             if (valid) samples.add(movements);
 
-            //Sample size is adjustable. Can flag as low as 12CPS or lower depending on clicker patterns.
-            if (samples.size() == 15) {
+            if (samples.size() == 13 ) {
                 final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
-                final double skewness = MathUtil.getSkewness(samples);
-                final double kurtosis = MathUtil.getKurtosis(samples);
+                final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
-                Bukkit.broadcastMessage("SK: & KU: " + skewness + kurtosis);
-                // See if skewness and kurtosis is exceeding a specific limit.
-                if (skewness < 0.75 && kurtosis < 0.0 && outliers < 2) fail();
+                Bukkit.broadcastMessage("OSC: " + deviation);
+                // Check what the devation needs to be rounded to. Possibly round it towards 0.3
+                if (deviation < 0.3 && outliers < 2) fail();
 
                 samples.clear();
             }
@@ -47,4 +46,5 @@ public final class AutoClickerC extends PacketCheck {
             ++movements;
         }
     }
+
 }

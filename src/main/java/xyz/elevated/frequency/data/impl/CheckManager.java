@@ -62,6 +62,7 @@ public final class CheckManager {
                 .put(AutoClickerC.class, new AutoClickerC(playerData))
                 .put(AutoClickerD.class, new AutoClickerD(playerData))
                 .put(AutoClickerE.class, new AutoClickerE(playerData))
+                .put(AutoClickerF.class, new AutoClickerF(playerData))
                 .put(Timer.class, new Timer(playerData))
                 .put(Speed.class, new Speed(playerData))
                 .build();
