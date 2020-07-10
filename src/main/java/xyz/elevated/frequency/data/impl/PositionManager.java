@@ -29,7 +29,6 @@ public final class PositionManager {
     private final Observable<Boolean> touchingLiquid = new Observable<>(false);
     private final Observable<Boolean> touchingHalfBlock = new Observable<>(false);
     private final Observable<Boolean> touchingClimbable = new Observable<>(false);
-    private final Observable<Boolean> underBlock = new Observable<>(false);
 
     public void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
         this.handleCollisions();
@@ -79,7 +78,6 @@ public final class PositionManager {
         final boolean touchingHalfBlock = boundingBox.checkBlocks(world, material -> material.getData() == Stairs.class || material.getData() == Step.class);
         final boolean touchingClimbable = boundingBox.checkBlocks(world, material ->  material == Material.LADDER || material == Material.LAVA);
 
-        this.underBlock.set(false);
         this.touchingAir.set(touchingAir);
         this.touchingLiquid.set(touchingLiquid);
         this.touchingHalfBlock.set(touchingHalfBlock);
