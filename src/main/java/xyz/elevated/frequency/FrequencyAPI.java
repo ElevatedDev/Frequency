@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import xyz.elevated.frequency.data.type.PlayerDataManager;
 import xyz.elevated.frequency.listener.PlayerListener;
 import xyz.elevated.frequency.processor.ProcessorManager;
+import xyz.elevated.frequency.tick.TickProcessor;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -17,6 +18,7 @@ public enum FrequencyAPI {
 
     private final ProcessorManager processorManager = new ProcessorManager();
     private final PlayerDataManager playerDataManager = new PlayerDataManager();
+    private final TickProcessor tickProcessor = new TickProcessor();
 
     private final Executor executorAlert = Executors.newSingleThreadExecutor();
     private final Executor executorPacket = Executors.newSingleThreadExecutor();
@@ -26,6 +28,7 @@ public enum FrequencyAPI {
 
         assert plugin != null : "Something went wrong! The plugin was null. (Startup)";
 
+        tickProcessor.start();
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), plugin);
     }
 
@@ -33,5 +36,7 @@ public enum FrequencyAPI {
         this.plugin = plugin;
 
         assert plugin != null : "Something went wrong! The plugin was null. (Shutdown)";
+
+        tickProcessor.stop();
     }
 }

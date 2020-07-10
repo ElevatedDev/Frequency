@@ -15,6 +15,7 @@ import xyz.elevated.frequency.check.impl.fly.FlyA;
 import xyz.elevated.frequency.check.impl.fly.FlyB;
 import xyz.elevated.frequency.check.impl.fly.FlyC;
 import xyz.elevated.frequency.check.impl.fly.FlyD;
+import xyz.elevated.frequency.check.impl.hitbox.HitboxA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.invalid.InvalidC;
@@ -36,6 +37,7 @@ public final class CheckManager {
                 .put(KillAuraD.class, new KillAuraD(playerData))
                 .put(KillAuraE.class, new KillAuraE(playerData))
                 .put(KillAuraF.class, new KillAuraF(playerData))
+                .put(HitboxA.class, new HitboxA(playerData))
                 .put(AimAssistA.class, new AimAssistA(playerData))
                 .put(AimAssistB.class, new AimAssistB(playerData))
                 .put(AimAssistC.class, new AimAssistC(playerData))

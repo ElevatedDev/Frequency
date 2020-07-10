@@ -1,13 +1,18 @@
 package xyz.elevated.frequency.processor.impl;
 
 import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.check.type.RotationCheck;
 import xyz.elevated.frequency.data.BoundingBox;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.data.impl.RotationManager;
+import xyz.elevated.frequency.observable.Observable;
 import xyz.elevated.frequency.processor.type.Processor;
 import xyz.elevated.frequency.update.RotationUpdate;
+import xyz.elevated.frequency.util.NmsUtil;
 import xyz.elevated.frequency.wrapper.impl.client.*;
 
 public final class IncomingPacketProcessor implements Processor<Packet<PacketListenerPlayIn>> {
@@ -44,15 +49,21 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
 
             playerData.getVelocityManager().apply();
             playerData.getActionManager().onFlying();
-            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInUseEntity) {
             final WrappedPlayInUseEntity wrapper = new WrappedPlayInUseEntity(packet);
 
             if (wrapper.getAction() == PacketPlayInUseEntity.EnumEntityUseAction.ATTACK) {
                 playerData.getActionManager().onAttack();
+                Entity entity = wrapper.getTarget(NmsUtil.getWorld(playerData.getBukkitPlayer().getWorld()));
+                playerData.getTarget().set(entity);
             }
 
-            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInBlockDig) {
             final WrappedPlayInBlockDig wrapper = new WrappedPlayInBlockDig(packet);
 
@@ -65,11 +76,15 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
                 }
             }
 
-            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInHeldItemSlot) {
             final WrappedPlayInHeldItemSlot wrapper = new WrappedPlayInHeldItemSlot(packet);
 
-            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInEntityAction) {
             final WrappedPlayInEntityAction wrapper = new WrappedPlayInEntityAction(packet);
 
@@ -85,16 +100,31 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
                 }
             }
 
-            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInCustomPayload) {
             final WrappedPlayInCustomPayload wrapper = new WrappedPlayInCustomPayload(packet);
 
-            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInArmAnimation) {
             final WrappedPlayInArmAnimation wrapper = new WrappedPlayInArmAnimation(packet);
 
             playerData.getActionManager().onArmAnimation();
-            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
+        } else if(packet instanceof PacketPlayInKeepAlive) {
+            final WrappedInKeepAlive wrapper = new WrappedInKeepAlive(packet);
+
+            long now = System.currentTimeMillis();
+            playerData.getKeepAliveUpdates().computeIfPresent(wrapper.getTime(), (id, time) -> {
+                playerData.getPing().set(now - time);
+                playerData.getKeepAliveUpdates().remove(id);
+                return time;
+            });
         }
     }
 }

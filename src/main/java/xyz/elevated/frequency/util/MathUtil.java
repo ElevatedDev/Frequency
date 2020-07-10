@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
+import net.minecraft.server.v1_8_R3.MathHelper;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -49,6 +50,10 @@ public final class MathUtil {
         }
 
         return variance;
+    }
+
+    public static int getPingInTicks(long ping) {
+        return MathHelper.floor(ping / 50.);
     }
 
     /**
