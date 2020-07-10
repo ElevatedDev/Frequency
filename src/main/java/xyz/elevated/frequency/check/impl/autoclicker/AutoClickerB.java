@@ -15,7 +15,7 @@ import java.util.Deque;
 @CheckData(name = "AutoClicker (B)")
 public final class AutoClickerB extends PacketCheck {
     private final Deque<Integer> samples = Lists.newLinkedList();
-    private int movements;
+    private int movements = 0, streak = 0;
 
     private double lastKurtosis, lastSkewness, lastDeviation;
 
@@ -36,7 +36,11 @@ public final class AutoClickerB extends PacketCheck {
                 final double kurtosis = MathUtil.getKurtosis(samples);
 
                 if (deviation == lastDeviation && skewness == lastSkewness && kurtosis == lastKurtosis) {
-                    fail();
+                    if (++streak > 1) {
+                        fail();
+                    }
+                } else {
+                    streak = 0;
                 }
 
                 lastDeviation = deviation;
