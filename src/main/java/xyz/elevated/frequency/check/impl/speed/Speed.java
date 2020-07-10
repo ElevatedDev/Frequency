@@ -87,7 +87,7 @@ public final class Speed extends PositionCheck {
         final double movementSpeed = (horizontalDistance - lastHorizontalDistance) / attributeSpeed;
 
         // Increase the threshold according to the amplifier speed
-        if (amplifierSpeed > 1) threshold += amplifierSpeed * 0.17;
+        if (amplifierSpeed > 0) threshold += amplifierSpeed * 0.17;
         
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail
         if (movementSpeed > threshold && !exempt) {
