@@ -6,11 +6,14 @@ import net.minecraft.server.v1_8_R3.Material;
 import net.minecraft.server.v1_8_R3.MathHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.update.PositionUpdate;
+import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Speed")
@@ -29,6 +32,7 @@ public final class Speed extends PositionCheck {
         final Location to = positionUpdate.getTo();
 
         // Get the entity player from the NMS util
+        final Player player = playerData.getBukkitPlayer();
         final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
 
         // Get the pos deltas
@@ -38,11 +42,14 @@ public final class Speed extends PositionCheck {
 
         // Get the player's attribute speed and last friction
         double blockSlipperiness = this.blockSlipperiness;
-        double attributeSpeed = 1.f;
+        double attributeSpeed = 1.d;
 
         // Run calculations to if the player is on ground and if they're exempt
         final boolean onGround = entityPlayer.onGround;
         final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
+
+        // Calculate the player's amplifier speed
+        final int amplifierSpeed = MathUtil.getPotionLevel(player, PotionEffectType.SPEED);
 
         if (onGround) {
             blockSlipperiness *= 0.91f;
@@ -70,7 +77,7 @@ public final class Speed extends PositionCheck {
         attributeSpeed += playerData.getVelocityManager().getMaxVertical();
 
         // Get the proper speedup threshold
-        final double threshold = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
+        double threshold = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) + 1,
                 MathHelper.floor(to.getZ())))
                 .getBlock().getMaterial() == Material.AIR ? 1.0 : 3.6;
@@ -79,6 +86,9 @@ public final class Speed extends PositionCheck {
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
         final double movementSpeed = (horizontalDistance - lastHorizontalDistance) / attributeSpeed;
 
+        // Increase the threshold according to the amplifier speed
+        if (amplifierSpeed > 1) threshold += amplifierSpeed * 0.17;
+        
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail
         if (movementSpeed > threshold && !exempt) {
             fail();
