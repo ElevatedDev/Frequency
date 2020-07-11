@@ -42,7 +42,7 @@ public final class FlyE extends PositionCheck {
         // Get the jump modifier from the math util
         final int jumpModifier = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
 
-        if (moving && !exempt && !ground && deltaY > 0.0) {
+        if (moving && !exempt && !ground && deltaY >= 0.0) {
             final double distanceGround = MathUtil.getMagnitude(to, lastGroundLocation);
             final double threshold = jumpModifier > 0 ? 5.0 + (Math.pow(jumpModifier + 4.2, 2.0) / 16.0) : 5.0;
 
