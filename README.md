@@ -32,7 +32,7 @@ certain checks.
 handled in a different thread using an executor. The actual alerts/violations are handled via a list, to allow us to clear old alerts every 9000ms.
 
 ## Working on Frequency
-Here we will lay out all the important information you need to know getting setup to work on Frequency.
+Here we will lay out all the important information you need to know getting setup to work on Frequency. Always be sure to follow the structure of the project. We want everything to remain as readable and clean as possible so there's no future confusion or any conflicts. 
 
 ### Getting Setup
 1) Fork Frequency
