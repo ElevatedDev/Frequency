@@ -19,6 +19,7 @@ import xyz.elevated.frequency.util.NmsUtil;
 @CheckData(name = "Speed")
 public final class Speed extends PositionCheck {
     private double blockSlipperiness = 0.91;
+    private double buffer = 0.0;
     private double lastHorizontalDistance = 0.0;
 
     public Speed(final PlayerData playerData) {

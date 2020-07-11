@@ -191,9 +191,9 @@ public final class MathUtil {
     }
 
     /**
-     * @param from
-     * @param to
-     * @return
+     * @param from - The last location
+     * @param to - The current location
+     * @return - The horizontal distance using (x^2 + z^2)
      */
     public static double getMagnitude(final Location from, final Location to) {
         if (from.getWorld() != to.getWorld()) return 0.0;

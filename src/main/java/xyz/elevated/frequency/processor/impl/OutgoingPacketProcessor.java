@@ -24,7 +24,14 @@ public final class OutgoingPacketProcessor implements Processor<Packet<PacketLis
                 playerData.getVelocityManager().addVelocityEntry(velocityX, velocityY, velocityZ);
             }
         } else if (packet instanceof PacketPlayOutEntityTeleport) {
-            playerData.getActionManager().onTeleport();
+            final WrappedPlayOutTeleport wrapper = new WrappedPlayOutTeleport(packet);
+
+            final int entityId = wrapper.getEntityId();
+            final int playerId = playerData.getBukkitPlayer().getEntityId();
+
+            if (entityId == playerId) {
+                playerData.getActionManager().onTeleport();
+            }
         }
     }
 }

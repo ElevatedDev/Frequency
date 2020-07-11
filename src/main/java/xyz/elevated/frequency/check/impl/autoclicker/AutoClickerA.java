@@ -46,6 +46,7 @@ public final class AutoClickerA extends PacketCheck {
                 samples.clear();
             }
 
+            // Reset the movements
             movements = 0;
         } else if (object instanceof WrappedPlayInFlying) {
             ++movements;

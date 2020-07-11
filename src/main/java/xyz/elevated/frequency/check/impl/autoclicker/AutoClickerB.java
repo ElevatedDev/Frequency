@@ -28,13 +28,16 @@ public final class AutoClickerB extends PacketCheck {
         if (object instanceof WrappedPlayInArmAnimation) {
             final boolean valid = movements < 4 && !playerData.getActionManager().getDigging().get();
 
+            // If the movements are lower than 4 and the player isn;t digging
             if (valid) samples.add(movements);
 
             if (samples.size() == 10) {
+                // Get the standard deviation skewness and kurtosis from math utils
                 final double deviation = MathUtil.getStandardDeviation(samples);
                 final double skewness = MathUtil.getSkewness(samples);
                 final double kurtosis = MathUtil.getKurtosis(samples);
 
+                // If the statistic values are the same for two sample rotations, flag
                 if (deviation == lastDeviation && skewness == lastSkewness && kurtosis == lastKurtosis) {
                     if (++streak > 1) {
                         fail();
@@ -43,12 +46,14 @@ public final class AutoClickerB extends PacketCheck {
                     streak = 0;
                 }
 
+                // Parse values to the last values and clear the list
                 lastDeviation = deviation;
                 lastKurtosis = kurtosis;
                 lastSkewness = skewness;
                 samples.clear();
             }
 
+            // Reset the movements
             movements = 0;
         } else if (object instanceof WrappedPlayInFlying) {
             ++movements;
