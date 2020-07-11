@@ -94,16 +94,21 @@ public final class Speed extends PositionCheck {
 
         // Update previous values
         this.lastHorizontalDistance = horizontalDistance / blockSlipperiness;
-
-        this.belowBlock = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
-                MathHelper.floor(entityPlayer.getBoundingBox().b) + 1,
-                MathHelper.floor(to.getZ())))
-                .getBlock().getMaterial() != Material.AIR;
+        this.belowBlock = isUnderBlock(to, 1) || isUnderBlock(to, 2f);
 
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,
                 MathHelper.floor(to.getZ())))
                 .getBlock()
                 .frictionFactor * 0.91F;
+    }
+
+    private boolean isUnderBlock(final Location to, final int up) {
+        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
+
+        return entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
+                MathHelper.floor(entityPlayer.getBoundingBox().b) + up,
+                MathHelper.floor(to.getZ())))
+                .getBlock().getMaterial() != Material.AIR;
     }
 }
