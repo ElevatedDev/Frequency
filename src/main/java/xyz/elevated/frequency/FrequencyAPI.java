@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import xyz.elevated.frequency.data.type.PlayerDataManager;
 import xyz.elevated.frequency.listener.PlayerListener;
 import xyz.elevated.frequency.processor.ProcessorManager;
-import xyz.elevated.frequency.tick.TickProcessor;
+import xyz.elevated.frequency.tick.TickManager;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -18,7 +18,7 @@ public enum FrequencyAPI {
 
     private final ProcessorManager processorManager = new ProcessorManager();
     private final PlayerDataManager playerDataManager = new PlayerDataManager();
-    private final TickProcessor tickProcessor = new TickProcessor();
+    private final TickManager tickProcessor = new TickManager();
 
     private final Executor executorAlert = Executors.newSingleThreadExecutor();
     private final Executor executorPacket = Executors.newSingleThreadExecutor();

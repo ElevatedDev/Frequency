@@ -9,7 +9,7 @@ import xyz.elevated.frequency.FrequencyPlugin;
 import xyz.elevated.frequency.util.NmsUtil;
 import xyz.elevated.frequency.util.Pair;
 
-public class TickProcessor implements Runnable {
+public class TickManager implements Runnable {
 
     private int ticks;
     private static BukkitTask task;
@@ -32,6 +32,7 @@ public class TickProcessor implements Runnable {
     @Override
     public void run() {
         ticks++;
+
         //We use parallel in this instance since we could be looping through many players at once.
         FrequencyAPI.INSTANCE.getPlayerDataManager().getUniversalData().parallelStream()
                 .forEach(data -> {

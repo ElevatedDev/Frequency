@@ -1,8 +1,6 @@
 package xyz.elevated.frequency.check.impl.hitbox;
 
 import net.minecraft.server.v1_8_R3.AxisAlignedBB;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
@@ -10,13 +8,8 @@ import xyz.elevated.frequency.FrequencyAPI;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
-import xyz.elevated.frequency.tick.TickProcessor;
 import xyz.elevated.frequency.util.MathUtil;
-import xyz.elevated.frequency.util.Pair;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CheckData(name = "Hitbox (A)")
 public final class HitboxA extends PacketCheck {

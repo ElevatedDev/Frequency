@@ -25,8 +25,8 @@ public final class PlayerData {
 
     private final EvictingList<BoundingBox> boundingBoxes = new EvictingList<>(10);
     private final EvictingList<Location> locationsSent = new EvictingList<>(10);
-    private final Map<Integer, Long> keepAliveUpdates = new HashMap<>();
     private final EvictingList<Pair<AxisAlignedBB, Integer>> targetLocations = new EvictingList<>(30);
+    private final Map<Integer, Long> keepAliveUpdates = new HashMap<>();
 
     private final Observable<Boolean> sprinting = new Observable<>(false);
     private final Observable<Boolean> cinematic = new Observable<>(false);
