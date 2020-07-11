@@ -94,7 +94,7 @@ public final class Speed extends PositionCheck {
 
         // Update previous values
         this.lastHorizontalDistance = horizontalDistance / blockSlipperiness;
-        this.belowBlock = isUnderBlock(to, 1) || isUnderBlock(to, 2f);
+        this.belowBlock = isUnderBlock(to, 1) || isUnderBlock(to, 2);
 
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,
