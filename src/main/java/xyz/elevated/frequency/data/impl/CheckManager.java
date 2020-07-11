@@ -15,6 +15,9 @@ import xyz.elevated.frequency.check.impl.fly.*;
 import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.invalid.InvalidC;
+import xyz.elevated.frequency.check.impl.invaliddirection.InvalidDirection;
+import xyz.elevated.frequency.check.impl.inventory.InventoryA;
+import xyz.elevated.frequency.check.impl.inventory.InventoryB;
 import xyz.elevated.frequency.check.impl.killaura.*;
 import xyz.elevated.frequency.check.impl.speed.Speed;
 import xyz.elevated.frequency.check.impl.timer.Timer;
@@ -61,8 +64,11 @@ public final class CheckManager {
                 .put(AutoClickerD.class, new AutoClickerD(playerData))
                 .put(AutoClickerE.class, new AutoClickerE(playerData))
                 .put(AutoClickerF.class, new AutoClickerF(playerData))
+                .put(InventoryA.class, new InventoryA(playerData))
+                .put(InventoryB.class, new InventoryB(playerData))
                 .put(Timer.class, new Timer(playerData))
                 .put(Speed.class, new Speed(playerData))
+                .put(InvalidDirection.class, new InvalidDirection(playerData))
                 .build();
     }
 
