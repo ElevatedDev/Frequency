@@ -34,7 +34,7 @@ public final class AutoClickerE extends PacketCheck {
 
                 final int outliers = outlierPair.getX().size() + outlierPair.getY().size();
                 final int duplicates = (int) (samples.size() - samples.stream().distinct().count());
-                Bukkit.broadcastMessage("OUTLIERS: " + outliers);
+
                 // Impossible consistency
                 if (outliers < 2 && duplicates > 15) fail();
 

@@ -28,18 +28,21 @@ public final class AutoClickerA extends PacketCheck {
         if (object instanceof WrappedPlayInArmAnimation) {
             final boolean valid = movements < 4 && !playerData.getActionManager().getDigging().get();
 
+            // If the movement are not incredibly low and the player isn't digging
             if (valid) samples.add(movements);
 
             if (samples.size() == 20) {
+                // Get the putliers properly from the math utility
                 final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
+                // Get the deviation from the math utility and the outliers
                 final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
 
-                Bukkit.broadcastMessage("D: " + deviation);
-
+                // Low deviation and low outliers
                 if (deviation < 2.d && outliers < 2) fail();
 
+                // Clear the list
                 samples.clear();
             }
 
