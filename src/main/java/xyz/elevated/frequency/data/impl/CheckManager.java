@@ -11,14 +11,16 @@ import xyz.elevated.frequency.check.impl.aimassist.AimAssistC;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistD;
 import xyz.elevated.frequency.check.impl.autoclicker.*;
 import xyz.elevated.frequency.check.impl.badpackets.*;
-import xyz.elevated.frequency.check.impl.fly.FlyA;
-import xyz.elevated.frequency.check.impl.fly.FlyB;
-import xyz.elevated.frequency.check.impl.fly.FlyC;
-import xyz.elevated.frequency.check.impl.fly.FlyD;
+import xyz.elevated.frequency.check.impl.fly.*;
 import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.invalid.InvalidC;
+import xyz.elevated.frequency.check.impl.invaliddirection.InvalidDirection;
+import xyz.elevated.frequency.check.impl.invalidposition.InvalidPosition;
+import xyz.elevated.frequency.check.impl.inventory.InventoryA;
+import xyz.elevated.frequency.check.impl.inventory.InventoryB;
 import xyz.elevated.frequency.check.impl.killaura.*;
+import xyz.elevated.frequency.check.impl.speed.Speed;
 import xyz.elevated.frequency.check.impl.timer.Timer;
 import xyz.elevated.frequency.data.PlayerData;
 
@@ -36,6 +38,7 @@ public final class CheckManager {
                 .put(KillAuraD.class, new KillAuraD(playerData))
                 .put(KillAuraE.class, new KillAuraE(playerData))
                 .put(KillAuraF.class, new KillAuraF(playerData))
+                .put(KillAuraG.class, new KillAuraG(playerData))
                 .put(AimAssistA.class, new AimAssistA(playerData))
                 .put(AimAssistB.class, new AimAssistB(playerData))
                 .put(AimAssistC.class, new AimAssistC(playerData))
@@ -56,12 +59,19 @@ public final class CheckManager {
                 .put(FlyB.class, new FlyB(playerData))
                 .put(FlyC.class, new FlyC(playerData))
                 .put(FlyD.class, new FlyD(playerData))
+                .put(FlyE.class, new FlyE(playerData))
                 .put(AutoClickerA.class, new AutoClickerA(playerData))
                 .put(AutoClickerB.class, new AutoClickerB(playerData))
                 .put(AutoClickerC.class, new AutoClickerC(playerData))
                 .put(AutoClickerD.class, new AutoClickerD(playerData))
                 .put(AutoClickerE.class, new AutoClickerE(playerData))
+                .put(AutoClickerF.class, new AutoClickerF(playerData))
+                .put(InventoryA.class, new InventoryA(playerData))
+                .put(InventoryB.class, new InventoryB(playerData))
                 .put(Timer.class, new Timer(playerData))
+                .put(Speed.class, new Speed(playerData))
+                .put(InvalidPosition.class, new InvalidPosition(playerData))
+                .put(InvalidDirection.class, new InvalidDirection(playerData))
                 .build();
     }
 

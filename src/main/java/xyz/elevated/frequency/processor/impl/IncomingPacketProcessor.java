@@ -95,6 +95,14 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
 
             playerData.getActionManager().onArmAnimation();
             playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+        } else if (packet instanceof PacketPlayInClientCommand) {
+            final WrappedPlayInClientCommand wrapper = new WrappedPlayInClientCommand(packet);
+
+            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+        } else if (packet instanceof PacketPlayInBlockPlace) {
+            final WrappedPlayInBlockPlace wrapper =  new WrappedPlayInBlockPlace(packet);
+
+            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
         }
     }
 }

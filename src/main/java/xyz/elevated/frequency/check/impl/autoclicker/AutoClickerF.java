@@ -10,39 +10,49 @@ import xyz.elevated.frequency.util.Pair;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInArmAnimation;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-@CheckData(name = "AutoClicker (A)")
-public final class AutoClickerA extends PacketCheck {
-    private int movements = 0;
-    private Deque<Integer> samples = Lists.newLinkedList();
+@CheckData(name = "AutoClicker (F)")
+public final class AutoClickerF extends PacketCheck {
 
-    public AutoClickerA(final PlayerData playerData) {
+    private int movements = 0;
+    private double buffer = 0.0;
+    private final Deque<Integer> samples = Lists.newLinkedList();
+
+    public AutoClickerF(final PlayerData playerData) {
         super(playerData);
     }
 
     @Override
     public void process(final Object object) {
         if (object instanceof WrappedPlayInArmAnimation) {
-            final boolean valid = movements < 4 && !playerData.getActionManager().getDigging().get() && !playerData.getActionManager().getPlacing().get();
+            final boolean valid = movements < 4 && !playerData.getActionManager().getDigging().get();
 
-            // If the movement are not incredibly low and the player isn't digging
+            // If the movements is smaller than 4 and the player isn't digging
             if (valid) samples.add(movements);
 
-            if (samples.size() == 20) {
-                // Get the putliers properly from the math utility
+            // Once the samples size is equal to 15
+            if (samples.size() == 15) {
                 final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
-                // Get the deviation from the math utility and the outliers
+                // Get the deviation outliers the the cps from the math util
                 final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
+                final double cps = MathUtil.getCps(samples);
 
-                // Low deviation and low outliers
-                if (deviation < 2.d && outliers < 2) fail();
+                // If the deviation is relatively low along with the outliers and the cps is rounded
+                if (deviation < 0.3 && outliers < 2 && cps % 1.0 == 0.0) {
+                    buffer += 0.25;
 
-                // Clear the list
+                    if (buffer > 0.75) {
+                        fail();
+                    }
+                } else {
+                    buffer = Math.max(buffer - 0.2, 0);
+                }
+
+                // Clear the samples
                 samples.clear();
             }
 
@@ -52,4 +62,5 @@ public final class AutoClickerA extends PacketCheck {
             ++movements;
         }
     }
+
 }

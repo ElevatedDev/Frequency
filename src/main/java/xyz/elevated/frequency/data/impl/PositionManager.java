@@ -29,10 +29,9 @@ public final class PositionManager {
     private final Observable<Boolean> touchingLiquid = new Observable<>(false);
     private final Observable<Boolean> touchingHalfBlock = new Observable<>(false);
     private final Observable<Boolean> touchingClimbable = new Observable<>(false);
-    private final Observable<Boolean> underBlock = new Observable<>(false);
 
     public void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
-        this.handleCollisions(playerData);
+        this.handleCollisions();
 
         final World world = playerData.getBukkitPlayer().getWorld();
         final Player bukkitPlayer = playerData.getBukkitPlayer();
@@ -68,7 +67,7 @@ public final class PositionManager {
         this.lastPosZ = posZ;
     }
 
-    private void handleCollisions(final PlayerData playerData) {
+    private void handleCollisions() {
         final World world = playerData.getBukkitPlayer().getWorld();
         final BoundingBox boundingBox = playerData.getBoundingBox().get();
 
@@ -78,9 +77,7 @@ public final class PositionManager {
         final boolean touchingLiquid = boundingBox.checkBlocks(world, material -> material == Material.WATER || material == Material.LAVA || material == Material.STATIONARY_WATER || material == Material.STATIONARY_LAVA);
         final boolean touchingHalfBlock = boundingBox.checkBlocks(world, material -> material.getData() == Stairs.class || material.getData() == Step.class);
         final boolean touchingClimbable = boundingBox.checkBlocks(world, material ->  material == Material.LADDER || material == Material.LAVA);
-        final boolean underBlock = playerData.getBoundingBox().get().expand(0.0, 1.0, 0.0).checkBlocks(world, material -> material != Material.AIR);
 
-        this.underBlock.set(underBlock);
         this.touchingAir.set(touchingAir);
         this.touchingLiquid.set(touchingLiquid);
         this.touchingHalfBlock.set(touchingHalfBlock);

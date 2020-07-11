@@ -17,16 +17,19 @@ public final class AutoClickerD extends PacketCheck {
     @Override
     public void process(final Object object) {
         if (object instanceof WrappedPlayInArmAnimation) {
-            final boolean valid = movements < 10 && !playerData.getActionManager().getDigging().get();
+            final boolean valid = movements < 100 && !playerData.getActionManager().getDigging().get();
 
+            // If the player has clicked recently and the player isn't digging
             if (valid) ++clicks;
 
+            // 20 movements = 1 second
             if (movements == 20) {
                 final boolean flag = clicks > 20;
 
                 // Sent an extra swing in a tick
                 if (flag) fail();
 
+                // Reset the movements
                 movements = 0;
             }
         } else if (object instanceof WrappedPlayInFlying) {

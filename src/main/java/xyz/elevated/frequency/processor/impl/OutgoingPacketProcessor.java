@@ -26,12 +26,14 @@ public final class OutgoingPacketProcessor implements Processor<Packet<PacketLis
         } else if (packet instanceof PacketPlayOutEntityTeleport) {
             final WrappedPlayOutTeleport wrapper = new WrappedPlayOutTeleport(packet);
 
-            final int packetEntityId = wrapper.getEntityId();
-            final int playerEntityId = playerData.getBukkitPlayer().getEntityId();
+            final int entityId = wrapper.getEntityId();
+            final int playerId = playerData.getBukkitPlayer().getEntityId();
 
-            if (packetEntityId == playerEntityId) {
+            if (entityId == playerId) {
                 playerData.getActionManager().onTeleport();
             }
+        } else if (packet instanceof PacketPlayOutPosition) {
+            playerData.getActionManager().onTeleport();
         }
     }
 }

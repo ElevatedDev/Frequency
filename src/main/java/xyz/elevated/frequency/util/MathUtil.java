@@ -2,6 +2,7 @@ package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
 import net.minecraft.server.v1_8_R3.Tuple;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -189,9 +190,49 @@ public final class MathUtil {
         return (previous <= 16384L) ? current : getGcd(previous, current % previous);
     }
 
+    /**
+     * @param from - The last location
+     * @param to - The current location
+     * @return - The horizontal distance using (x^2 + z^2)
+     */
+    public static double getMagnitude(final Location from, final Location to) {
+        if (from.getWorld() != to.getWorld()) return 0.0;
+
+        final double deltaX = to.getX() - from.getX();
+        final double deltaZ = to.getZ() - from.getZ();
+
+        return (deltaX * deltaX + deltaZ * deltaZ);
+    }
+
+    /**
+     * @param player - The player you want to read the effect from
+     * @param effect - The potion effect you want to get the amplifier of
+     * @return - The amplifier added by one to make things more readable
+     */
     public static int getPotionLevel(final Player player, final PotionEffectType effect) {
         final int effectId = effect.getId();
 
+        if (!player.hasPotionEffect(PotionEffectType.SPEED)) return 0;
+
         return player.getActivePotionEffects().stream().filter(potionEffect -> potionEffect.getType().getId() == effectId).map(PotionEffect::getAmplifier).findAny().orElse(0) + 1;
+    }
+
+    /**
+     *
+     * @param data - The sample of clicks you want to get the cps from
+     * @return - The cps using the average as a method of calculation
+     */
+    public static double getCps(final Iterable<? extends Number> data) {
+        double sum = 0;
+        int count = 0;
+
+        for (final Number number : data) {
+            ++count;
+            sum += number.doubleValue();
+        }
+
+        final double average = sum / count;
+
+        return 20 / average;
     }
 }
