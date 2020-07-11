@@ -12,6 +12,7 @@ import xyz.elevated.frequency.check.impl.aimassist.AimAssistD;
 import xyz.elevated.frequency.check.impl.autoclicker.*;
 import xyz.elevated.frequency.check.impl.badpackets.*;
 import xyz.elevated.frequency.check.impl.fly.*;
+import xyz.elevated.frequency.check.impl.hitbox.HitboxA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.invalid.InvalidC;
@@ -39,6 +40,7 @@ public final class CheckManager {
                 .put(KillAuraE.class, new KillAuraE(playerData))
                 .put(KillAuraF.class, new KillAuraF(playerData))
                 .put(KillAuraG.class, new KillAuraG(playerData))
+                .put(HitboxA.class, new HitboxA(playerData))
                 .put(AimAssistA.class, new AimAssistA(playerData))
                 .put(AimAssistB.class, new AimAssistB(playerData))
                 .put(AimAssistC.class, new AimAssistC(playerData))

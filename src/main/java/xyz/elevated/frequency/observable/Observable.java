@@ -41,7 +41,7 @@ public final class Observable<T> {
     }
 
     @FunctionalInterface
-    interface ChangeObserver<T> {
+    public interface ChangeObserver<T> {
 
         void handle(final T from, final T to);
 

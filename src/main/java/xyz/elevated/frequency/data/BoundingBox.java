@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
+import xyz.elevated.frequency.util.NmsUtil;
 
 import java.util.function.Predicate;
 
@@ -153,7 +154,11 @@ public final class BoundingBox {
             while (blockLocation.getZ() < maxZ) {
                 while (blockLocation.getY() < maxY) {
 
-                    if (!predicate.test(blockLocation.getBlock(world).getType())) {
+                    Block block = blockLocation.getBlock(world);
+
+                    if(block == null) return false;
+
+                    if (!predicate.test(block.getType())) {
                         return false;
                     }
 
@@ -225,7 +230,7 @@ final class BlockPosition {
     }
 
     public Block getBlock(final World world) {
-        return world.getBlockAt(x, y, z);
+        return NmsUtil.getBlock(new Location(world, x, y, z));
     }
 
 }
