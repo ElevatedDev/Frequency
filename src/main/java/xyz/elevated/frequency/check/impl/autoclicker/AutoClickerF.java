@@ -17,6 +17,7 @@ import java.util.List;
 public final class AutoClickerF extends PacketCheck {
 
     private int movements = 0;
+    private double buffer = 0.0;
     private final Deque<Integer> samples = Lists.newLinkedList();
 
     public AutoClickerF(final PlayerData playerData) {
@@ -30,14 +31,22 @@ public final class AutoClickerF extends PacketCheck {
 
             if (valid) samples.add(movements);
 
-            if (samples.size() == 13) {
+            if (samples.size() == 15) {
                 final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
                 final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
                 final double cps = 20 / samples.stream().mapToDouble(d -> d).average().orElse(0.0);
 
-                if (deviation < 0.3 && outliers < 2 && cps % 1.0 == 0.0) fail();
+                if (deviation < 0.3 && outliers < 2 && cps % 1.0 == 0.0) {
+                    buffer += 0.25;
+
+                    if (buffer > 0.75) {
+                        fail();
+                    }
+                } else {
+                    buffer = Math.max(buffer - 0.2, 0);
+                }
 
                 samples.clear();
             }
