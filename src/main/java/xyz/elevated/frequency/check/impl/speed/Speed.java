@@ -96,7 +96,7 @@ public final class Speed extends PositionCheck {
                 fail();
             }
         } else {
-            buffer = Math.max(buffer - 0.05, 0);
+            buffer = Math.max(buffer - 0.005, 0);
         }
 
         // Update previous values
