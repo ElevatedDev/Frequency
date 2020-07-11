@@ -2,10 +2,10 @@ package xyz.elevated.frequency.check.impl.speed;
 
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.Material;
 import net.minecraft.server.v1_8_R3.MathHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import xyz.elevated.frequency.check.CheckData;
@@ -18,6 +18,7 @@ import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Speed")
 public final class Speed extends PositionCheck {
+    private double buffer = 0.0;
     private double blockSlipperiness = 0.91;
     private double lastHorizontalDistance = 0.0;
     private boolean belowBlock = false;
@@ -86,29 +87,29 @@ public final class Speed extends PositionCheck {
 
         // Increase the threshold according to the amplifier speed
         if (amplifierSpeed > 0) threshold += amplifierSpeed * 0.17;
-        
+
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail
         if (movementSpeed > threshold && !exempt) {
-            fail();
+            buffer += 0.25;
+
+            if (buffer > 0.5) {
+                fail();
+            }
+        } else {
+            buffer = Math.max(buffer - 0.05, 0);
         }
 
         // Update previous values
         this.lastHorizontalDistance = horizontalDistance / blockSlipperiness;
-        this.belowBlock = isUnderBlock(to, 1) || isUnderBlock(to, 2);
+        this.belowBlock = playerData.getBoundingBox().get().expand(0.25, 0.0, 0.25)
+                .move(0.0, 1.0, 0.0)
+                .checkBlocks(player.getWorld(),
+                m -> m != Material.AIR);
 
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,
                 MathHelper.floor(to.getZ())))
                 .getBlock()
                 .frictionFactor * 0.91F;
-    }
-
-    private boolean isUnderBlock(final Location to, final int up) {
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
-
-        return entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
-                MathHelper.floor(entityPlayer.getBoundingBox().b) + up,
-                MathHelper.floor(to.getZ())))
-                .getBlock().getMaterial() != Material.AIR;
     }
 }
