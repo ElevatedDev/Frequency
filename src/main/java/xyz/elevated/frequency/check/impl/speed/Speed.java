@@ -19,8 +19,8 @@ import xyz.elevated.frequency.util.NmsUtil;
 @CheckData(name = "Speed")
 public final class Speed extends PositionCheck {
     private double blockSlipperiness = 0.91;
-    private double buffer = 0.0;
     private double lastHorizontalDistance = 0.0;
+    private boolean belowBlock = false;
 
     public Speed(final PlayerData playerData) {
         super(playerData);
@@ -78,10 +78,7 @@ public final class Speed extends PositionCheck {
         attributeSpeed += playerData.getVelocityManager().getMaxVertical();
 
         // Get the proper speedup threshold
-        double threshold = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
-                MathHelper.floor(entityPlayer.getBoundingBox().b) + 1,
-                MathHelper.floor(to.getZ())))
-                .getBlock().getMaterial() == Material.AIR ? 1.0 : 3.6;
+        double threshold = belowBlock ? 3.6 : 1.0;
 
         // Get the horizontal distance and convert to the movement speed
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
@@ -97,6 +94,12 @@ public final class Speed extends PositionCheck {
 
         // Update previous values
         this.lastHorizontalDistance = horizontalDistance / blockSlipperiness;
+
+        this.belowBlock = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
+                MathHelper.floor(entityPlayer.getBoundingBox().b) + 1,
+                MathHelper.floor(to.getZ())))
+                .getBlock().getMaterial() != Material.AIR;
+
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,
                 MathHelper.floor(to.getZ())))
