@@ -32,6 +32,8 @@ public final class OutgoingPacketProcessor implements Processor<Packet<PacketLis
             if (entityId == playerId) {
                 playerData.getActionManager().onTeleport();
             }
+        } else if (packet instanceof PacketPlayOutPosition) {
+            playerData.getActionManager().onTeleport();
         }
     }
 }
