@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.fly;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.potion.PotionEffectType;
 import xyz.elevated.frequency.check.CheckData;
@@ -36,12 +37,12 @@ public final class FlyE extends PositionCheck {
         // Make sure the player is moving isn't exempt and isn't on ground
         final boolean moving = distanceH > 0.0 || distanceY > 0.0;
         final boolean exempt = this.isExempt(ExemptType.VELOCITY, ExemptType.TELEPORTING);
-        final boolean ground = positionUpdate.isOnGround();
+        final boolean ground = positionUpdate.isOnGround() && !playerData.getPositionManager().getTouchingAir().get();
 
         // Get the jump modifier from the math util
         final int jumpModifier = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
 
-        if (moving && !exempt && !ground) {
+        if (moving && !exempt && !ground && deltaY < 0.0) {
             final double distanceGround = MathUtil.getMagnitude(to, lastGroundLocation);
             final double threshold = jumpModifier > 0 ? 5.0 + (Math.pow(jumpModifier + 4.2, 2.0) / 16.0) : 5.0;
 
