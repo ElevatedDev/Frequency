@@ -26,7 +26,7 @@ public final class AutoClickerA extends PacketCheck {
     @Override
     public void process(final Object object) {
         if (object instanceof WrappedPlayInArmAnimation) {
-            final boolean valid = movements < 4 && !playerData.getActionManager().getDigging().get();
+            final boolean valid = movements < 4 && !playerData.getActionManager().getDigging().get() && !playerData.getActionManager().getPlacing().get();
 
             // If the movement are not incredibly low and the player isn't digging
             if (valid) samples.add(movements);

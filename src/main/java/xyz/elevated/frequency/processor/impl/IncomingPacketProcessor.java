@@ -99,6 +99,10 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
             final WrappedPlayInClientCommand wrapper = new WrappedPlayInClientCommand(packet);
 
             playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+        } else if (packet instanceof PacketPlayInBlockPlace) {
+            final WrappedPlayInBlockPlace wrapper =  new WrappedPlayInBlockPlace(packet);
+
+            playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
         }
     }
 }
