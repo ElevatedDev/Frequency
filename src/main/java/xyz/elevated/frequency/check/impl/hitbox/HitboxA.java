@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CheckData(name = "Hitbox (A)")
-public class HitboxA extends PacketCheck {
+public final class HitboxA extends PacketCheck {
 
     public HitboxA(PlayerData playerData) {
         super(playerData);
