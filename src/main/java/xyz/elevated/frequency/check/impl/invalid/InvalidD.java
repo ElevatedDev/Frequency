@@ -3,7 +3,6 @@ package xyz.elevated.frequency.check.impl.invalid;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import net.minecraft.server.v1_8_R3.World;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import xyz.elevated.frequency.check.CheckData;
@@ -16,8 +15,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 
 @CheckData(name = "Invalid (D)")
 public final class InvalidD extends PacketCheck {
-    private double lastPosX = 0.0, lastPosZ = 0.0;
-    private double lastHorizontalDistance = 0.0, buffer = 0.0;
+
+    private double lastPosX = 0.0d, lastPosZ = 0.0d, lastHorizontalDistance = 0.0d, buffer = 0.0d;
     private boolean attacked = false;
 
     public InvalidD(final PlayerData playerData) {

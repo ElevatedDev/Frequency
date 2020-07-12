@@ -1,6 +1,5 @@
 package xyz.elevated.frequency.check.impl.aimassist;
 
-import org.bukkit.Rotation;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.RotationCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -8,7 +7,8 @@ import xyz.elevated.frequency.update.RotationUpdate;
 
 @CheckData(name = "AimAssist (B)")
 public final class AimAssistB extends RotationCheck {
-    private int lastRoundedYaw, lastRoundedPitch, streak;
+
+    private int lastRoundedYaw = 0, lastRoundedPitch = 0, streak = 0;
 
     public AimAssistB(final PlayerData playerData) {
         super(playerData);

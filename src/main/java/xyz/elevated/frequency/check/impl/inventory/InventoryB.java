@@ -5,11 +5,11 @@ import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInClientCommand;
-import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInEntityAction;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
 @CheckData(name = "Inventory (B)", threshold = 3)
 public final class InventoryB extends PacketCheck {
+
     private boolean inventory = false;
 
     public InventoryB(final PlayerData playerData) {
