@@ -23,9 +23,7 @@ public final class PlayerListener implements Listener {
 
         final ChannelPipeline channelPipeline = NmsUtil.getPlayerPipeline(player);
 
-        final int now = playerData.getTicks().get();
-
-        playerData.getJoined().set(now);
+        playerData.getActionManager().onTeleport();
         Frequency.INSTANCE.getExecutorPacket().execute(() -> channelPipeline.addBefore("packet_handler", "frequency_packet_handler", new PacketHandler(playerData)));
     }
 
@@ -40,9 +38,6 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
-
-        final PlayerData playerData = Frequency.INSTANCE.getPlayerDataManager().getData(player);
-
         final ChannelPipeline channelPipeline = NmsUtil.getPlayerPipeline(player);
 
         if (channelPipeline.get("frequency_packet_handler") != null) {
