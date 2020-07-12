@@ -23,17 +23,17 @@ public final class JesusA extends PositionCheck {
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
-        // Get the client onGround from the client & also get touchingLiquid
-        final boolean onGround = positionUpdate.isOnGround();
-        final boolean touchingLiquid = playerData.getPositionManager().getTouchingLiquid().get();
-
         // Get the deltas for each axis
         final double deltaX = to.getX() - from.getX();
         final double deltaY = to.getY() - from.getY();
         final double deltaZ = to.getZ() - from.getZ();
 
-        // If the delta is greater than 0.0 and the player is on ground (impossible)
-        if (deltaY > 0.0 && onGround) {
+        // Get the player's on ground and make sure he is stationary
+        final boolean onGround = positionUpdate.isOnGround();
+        final boolean stationary = deltaX % 1.0 == 0.0 && deltaZ % 1.0 == 0.0;
+
+        // If the delta is greater than 0.0 and the player is stationary
+        if (deltaY > 0.0 && onGround && stationary) {
             final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
             // If the player is moving too, flag
