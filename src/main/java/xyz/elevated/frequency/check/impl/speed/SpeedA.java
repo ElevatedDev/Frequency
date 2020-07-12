@@ -100,7 +100,7 @@ public final class SpeedA extends PositionCheck {
         }
 
         // Update previous values
-        this.lastHorizontalDistance = horizontalDistance / blockSlipperiness;
+        this.lastHorizontalDistance = horizontalDistance * blockSlipperiness;
         this.belowBlock = playerData.getBoundingBox().get().expand(0.25, 0.0, 0.25)
                 .move(0.0, 1.0, 0.0)
                 .checkBlocks(player.getWorld(),

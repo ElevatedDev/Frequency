@@ -27,7 +27,7 @@ public class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public double getVariance(final Iterable<? extends Number> data) {
+    public double getVariance(final Collection<? extends Number> data) {
         int count = 0;
 
         double sum = 0.0;
