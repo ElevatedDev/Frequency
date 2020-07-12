@@ -22,6 +22,7 @@ public final class InvalidPosition extends PositionCheck {
         final Location to = positionUpdate.getTo();
 
         final double deltaX = to.getX() - from.getX();
+        final double deltaY = to.getY() - from.getY();
         final double deltaZ = to.getZ() - from.getZ();
 
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
@@ -32,7 +33,7 @@ public final class InvalidPosition extends PositionCheck {
 
         if (exempt || sprinting) return;
 
-        if (acceleration > 0.3) {
+        if (deltaY >= 0.0 && acceleration > 0.3) {
             buffer += 0.5;
 
             if (buffer > 1.5) {

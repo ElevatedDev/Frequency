@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayIn;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
-import xyz.elevated.frequency.FrequencyAPI;
+import xyz.elevated.frequency.Frequency;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.processor.impl.IncomingPacketProcessor;
 import xyz.elevated.frequency.processor.impl.OutgoingPacketProcessor;
@@ -23,7 +23,7 @@ public final class PacketHandler extends ChannelDuplexHandler {
         try {
             final Packet<PacketListenerPlayOut> packet = (Packet<PacketListenerPlayOut>) object;
 
-            FrequencyAPI.INSTANCE.getProcessorManager()
+            Frequency.INSTANCE.getProcessorManager()
                     .getProcessor(OutgoingPacketProcessor.class)
                     .process(playerData, packet);
         }
@@ -39,7 +39,7 @@ public final class PacketHandler extends ChannelDuplexHandler {
         try {
             final Packet<PacketListenerPlayIn> packet = (Packet<PacketListenerPlayIn>) object;
 
-            FrequencyAPI.INSTANCE.getProcessorManager()
+            Frequency.INSTANCE.getProcessorManager()
                     .getProcessor(IncomingPacketProcessor.class)
                     .process(playerData, packet);
         }

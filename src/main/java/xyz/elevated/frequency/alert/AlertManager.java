@@ -2,10 +2,9 @@ package xyz.elevated.frequency.alert;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import xyz.elevated.frequency.FrequencyAPI;
+import xyz.elevated.frequency.Frequency;
 import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.util.ColorUtil;
@@ -40,15 +39,14 @@ public final class AlertManager {
         final String message = String.format(broadcast, player.getName());
 
         if (violations > threshold) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName()
-                    + " [Frequency] Unfair Advantage");;
+            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName() + " [Frequency] Unfair Advantage");;
             Bukkit.broadcastMessage(message);
 
             alerts.clear();
         }
 
         // Execute the alert on a separate thread as we need to loop
-        FrequencyAPI.INSTANCE.getExecutorAlert().execute(() -> Bukkit.getOnlinePlayers()
+        Frequency.INSTANCE.getExecutorAlert().execute(() -> Bukkit.getOnlinePlayers()
                         .stream()
                         .filter(send -> send.hasPermission("frequency.alerts"))
                         .forEach(send -> send.sendMessage(alert)));
