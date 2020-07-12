@@ -7,7 +7,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInHeldItemSlot;
 
 @CheckData(name = "BadPackets (F)")
 public final class BadPacketsF extends PacketCheck {
-    private int lastSlot;
+
+    private int lastSlot = -1;
 
     public BadPacketsF(final PlayerData playerData) {
         super(playerData);
