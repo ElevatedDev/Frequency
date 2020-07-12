@@ -51,6 +51,7 @@ public final class ActionManager {
         this.placing.set(false);
         this.attacking.set(false);
         this.swinging.set(false);
+        this.attacking.set(false);
 
         this.digging.set(digging);
         this.delayed.set(lagging);
