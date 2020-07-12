@@ -1,14 +1,12 @@
 package xyz.elevated.frequency.util;
 
+import lombok.experimental.UtilityClass;
 import lombok.val;
 import net.minecraft.server.v1_8_R3.Packet;
 import java.lang.reflect.Field;
 
-public final class ReflectionUtil {
-
-    public ReflectionUtil() throws Exception {
-        throw new Exception("You may not initialise utility classes.");
-    }
+@UtilityClass
+public class ReflectionUtil {
 
     /**
      *
@@ -16,7 +14,7 @@ public final class ReflectionUtil {
      * @param fieldName - The name of the declared field you would like to modify.
      * @param alteration - The new value you want to give to the field.
      */
-    public static void modifyDeclaredField(final Object object, final String fieldName, final Object alteration) {
+    public void modifyDeclaredField(final Object object, final String fieldName, final Object alteration) {
         try {
             final Field declaredField = object.getClass().getDeclaredField(fieldName);
 
@@ -36,7 +34,7 @@ public final class ReflectionUtil {
      * @param fieldName - The name of the field you would like to modify.
      * @param alteration - The new value you want to give to the field.
      */
-    public static void modifyField(final Object object, final String fieldName, final Object alteration) {
+    public void modifyField(final Object object, final String fieldName, final Object alteration) {
         try {
             final Field field = object.getClass().getField(fieldName);
 
@@ -58,7 +56,7 @@ public final class ReflectionUtil {
      * @param instance - The instance for the class
      * @return - The value if found.
      */
-    public static <T> T getFieldValue(final Class<?> clazz, final String fieldName, final Class<?> type, final Object instance) {
+    public <T> T getFieldValue(final Class<?> clazz, final String fieldName, final Class<?> type, final Object instance) {
         final Field field = getField(clazz, fieldName, type);
 
         field.setAccessible(true);
@@ -79,7 +77,7 @@ public final class ReflectionUtil {
      * @param type - The type of data the field has..
      * @return
      */
-    private static Field getField(final Class<?> clazz, final String name, final Class<?> type) {
+    private Field getField(final Class<?> clazz, final String name, final Class<?> type) {
         try {
             final Field field = clazz.getDeclaredField(name);
 
