@@ -21,8 +21,8 @@ import xyz.elevated.frequency.check.impl.invalidposition.InvalidPosition;
 import xyz.elevated.frequency.check.impl.inventory.InventoryA;
 import xyz.elevated.frequency.check.impl.inventory.InventoryB;
 import xyz.elevated.frequency.check.impl.killaura.*;
-import xyz.elevated.frequency.check.impl.speed.Speed;
-import xyz.elevated.frequency.check.impl.timer.Timer;
+import xyz.elevated.frequency.check.impl.speed.SpeedA;
+import xyz.elevated.frequency.check.impl.timer.TimerA;
 import xyz.elevated.frequency.data.PlayerData;
 
 import java.util.Collection;
@@ -69,10 +69,11 @@ public final class CheckManager {
                 .put(AutoClickerD.class, new AutoClickerD(playerData))
                 .put(AutoClickerE.class, new AutoClickerE(playerData))
                 .put(AutoClickerF.class, new AutoClickerF(playerData))
+                .put(AutoClickerG.class, new AutoClickerG(playerData))
                 .put(InventoryA.class, new InventoryA(playerData))
                 .put(InventoryB.class, new InventoryB(playerData))
-                .put(Timer.class, new Timer(playerData))
-                .put(Speed.class, new Speed(playerData))
+                .put(TimerA.class, new TimerA(playerData))
+                .put(SpeedA.class, new SpeedA(playerData))
                 .put(InvalidPosition.class, new InvalidPosition(playerData))
                 .put(InvalidDirection.class, new InvalidDirection(playerData))
                 .build();
