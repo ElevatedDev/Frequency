@@ -7,11 +7,11 @@ import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.RotationUpdate;
 import xyz.elevated.frequency.util.GraphUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CheckData(name = "Cinematic")
 public final class Cinematic extends RotationCheck {
+
     private long lastSmooth, lastHighRate;
     private double lastDeltaYaw, lastDeltaPitch;
 

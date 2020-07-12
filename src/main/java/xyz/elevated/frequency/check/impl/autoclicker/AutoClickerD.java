@@ -8,7 +8,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
 @CheckData(name = "AutoClicker (D)")
 public final class AutoClickerD extends PacketCheck {
-    private int movements = 0, clicks = 0;
+
+    private int movements, clicks;
 
     public AutoClickerD(final PlayerData playerData) {
         super(playerData);

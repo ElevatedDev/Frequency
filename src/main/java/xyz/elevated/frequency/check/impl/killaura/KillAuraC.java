@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @CheckData(name = "KillAura (C)")
 public final class KillAuraC extends RotationCheck {
+
     private final Deque<Float> samplesYaw = Lists.newLinkedList();
     private final Deque<Float> samplesPitch = Lists.newLinkedList();
 

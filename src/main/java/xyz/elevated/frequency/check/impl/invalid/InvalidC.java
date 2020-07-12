@@ -2,7 +2,6 @@ package xyz.elevated.frequency.check.impl.invalid;
 
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -11,8 +10,9 @@ import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Invalid (C)")
 public final class InvalidC extends PositionCheck {
-    private double buffer = 0.0;
-    private int ticks = 0;
+
+    private double buffer;
+    private int ticks;
 
     public InvalidC(final PlayerData playerData) {
         super(playerData);

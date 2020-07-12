@@ -10,7 +10,8 @@ import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Fly (A)")
 public final class FlyA extends PositionCheck {
-    private double buffer = 0.0;
+
+    private double buffer;
 
     public FlyA(final PlayerData playerData) {
         super(playerData);

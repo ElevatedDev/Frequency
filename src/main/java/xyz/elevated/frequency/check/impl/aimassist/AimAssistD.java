@@ -8,11 +8,12 @@ import xyz.elevated.frequency.util.MathUtil;
 
 @CheckData(name = "AimAssist (D)")
 public final class AimAssistD extends RotationCheck {
-    private float lastDeltaYaw, lastDeltaPitch;
-    private boolean applied = false;
+
+    private float lastDeltaPitch;
+    private boolean applied;
 
     private int rotations;
-    private long[] grid = new long[10];
+    private final long[] grid = new long[10];
 
     public AimAssistD(final PlayerData playerData) {
         super(playerData);
@@ -56,7 +57,6 @@ public final class AimAssistD extends RotationCheck {
             }
         }
 
-        this.lastDeltaYaw = deltaYaw;
         this.lastDeltaPitch = deltaPitch;
     }
 

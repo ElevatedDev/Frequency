@@ -8,6 +8,7 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInBlockDig;
 
 @CheckData(name = "BadPackets (H)")
 public final class BadPacketsH extends PacketCheck {
+
     private int count;
 
     public BadPacketsH(final PlayerData playerData) {

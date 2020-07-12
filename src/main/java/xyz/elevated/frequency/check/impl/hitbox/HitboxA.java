@@ -15,7 +15,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 
 @CheckData(name = "Hitbox (A)")
 public final class HitboxA extends PacketCheck {
-    private double buffer = 0.0;
+
+    private double buffer;
 
     public HitboxA(PlayerData playerData) {
         super(playerData);

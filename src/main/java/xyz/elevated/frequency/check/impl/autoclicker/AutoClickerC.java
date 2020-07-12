@@ -1,7 +1,6 @@
 package xyz.elevated.frequency.check.impl.autoclicker;
 
 import com.google.common.collect.Lists;
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -15,7 +14,8 @@ import java.util.List;
 
 @CheckData(name = "AutoClicker (C)")
 public final class AutoClickerC extends PacketCheck {
-    private int movements = 0, buffer = 0;
+
+    private int movements, buffer;
     private final Deque<Integer> samples = Lists.newLinkedList();
 
     public AutoClickerC(final PlayerData playerData) {

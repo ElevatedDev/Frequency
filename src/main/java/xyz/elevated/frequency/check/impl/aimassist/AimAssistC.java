@@ -8,6 +8,7 @@ import xyz.elevated.frequency.util.MathUtil;
 
 @CheckData(name = "AimAssist (C)", threshold = 8)
 public final class AimAssistC extends RotationCheck {
+
     private double buffer;
     private float lastDeltaYaw, lastDeltaPitch;
 

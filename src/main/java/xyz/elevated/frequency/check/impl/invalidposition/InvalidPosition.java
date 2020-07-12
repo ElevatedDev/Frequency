@@ -9,8 +9,9 @@ import xyz.elevated.frequency.update.PositionUpdate;
 
 @CheckData(name = "InvalidPosition")
 public final class InvalidPosition extends PositionCheck {
-    private double lastHorizontalDistance = 0.0;
-    private double buffer = 0.0;
+
+    private double lastHorizontalDistance;
+    private double buffer;
 
     public InvalidPosition(final PlayerData playerData) {
         super(playerData);
