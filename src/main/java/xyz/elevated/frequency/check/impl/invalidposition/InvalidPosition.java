@@ -31,9 +31,9 @@ public final class InvalidPosition extends PositionCheck {
         final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.VELOCITY);
         final boolean sprinting = playerData.getSprinting().get();
 
-        if (exempt || sprinting) return;
+        if (exempt || !sprinting) return;
 
-        if (deltaY >= 0.0 && acceleration > 0.3) {
+        if (acceleration > 0.3) {
             buffer += 0.5;
 
             if (buffer > 1.5) {
@@ -45,7 +45,7 @@ public final class InvalidPosition extends PositionCheck {
             buffer = Math.max(buffer - 0.125, 0);
         }
 
-        if (horizontalDistance < 1e-02 && acceleration == 0.0) {
+        if (deltaY >= 0.0 && horizontalDistance < 1e-02 && acceleration == 0.0) {
             fail();
         }
 
