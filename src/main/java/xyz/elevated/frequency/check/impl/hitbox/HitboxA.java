@@ -1,6 +1,8 @@
 package xyz.elevated.frequency.check.impl.hitbox;
 
 import net.minecraft.server.v1_8_R3.AxisAlignedBB;
+import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
@@ -22,10 +24,15 @@ public final class HitboxA extends PacketCheck {
     @Override
     public void process(Object object) {
         if(object instanceof WrappedPlayInUseEntity) {
+            final WrappedPlayInUseEntity wrapper = (WrappedPlayInUseEntity) object;
+
             Entity target = playerData.getTarget().get();
 
             if(!(target instanceof LivingEntity)
                     || playerData.getTargetLocations().size() < 30) return;
+
+            if (wrapper.getAction() != PacketPlayInUseEntity.EnumEntityUseAction.ATTACK
+                    || playerData.getBukkitPlayer().getGameMode() == GameMode.CREATIVE) return;
 
             int now = Frequency.INSTANCE.getTickProcessor().getTicks();
             int ping = MathUtil.getPingInTicks(playerData.getPing().get()) + 3;
