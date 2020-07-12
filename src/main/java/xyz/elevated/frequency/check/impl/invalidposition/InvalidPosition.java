@@ -45,7 +45,8 @@ public final class InvalidPosition extends PositionCheck {
             buffer = Math.max(buffer - 0.125, 0);
         }
 
-        if (deltaY >= 0.0 && horizontalDistance < 1e-02 && acceleration == 0.0) {
+        // Its impossible to make that small of a movement without it being rounded to 0
+        if (deltaY >= 0.0 && horizontalDistance < 1e-06 && acceleration == 0.0) {
             fail();
         }
 
