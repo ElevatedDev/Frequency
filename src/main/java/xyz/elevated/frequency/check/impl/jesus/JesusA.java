@@ -8,11 +8,7 @@ import xyz.elevated.frequency.update.PositionUpdate;
 
 @CheckData(name = "Jesus (A)")
 public final class JesusA extends PositionCheck {
-    /**
-     *
-     * TODO: Invalid (B) Operates the same way as a Jesus check would
-     * TODO: So I will continue to make this check more Jesus specific that makes sense!
-     */
+
     public JesusA(final PlayerData playerData) {
         super(playerData);
     }
@@ -30,10 +26,11 @@ public final class JesusA extends PositionCheck {
 
         // Get the player's on ground and make sure he is stationary
         final boolean onGround = positionUpdate.isOnGround();
+        final boolean touchingLiquid = playerData.getPositionManager().getTouchingLiquid().get();
         final boolean stationary = deltaX % 1.0 == 0.0 && deltaZ % 1.0 == 0.0;
 
         // If the delta is greater than 0.0 and the player is stationary
-        if (deltaY > 0.0 && onGround && stationary) {
+        if (deltaY > 0.0 && !onGround && !touchingLiquid && stationary) {
             final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
             // If the player is moving too, flag
