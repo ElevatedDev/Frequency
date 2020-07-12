@@ -45,7 +45,7 @@ public final class ActionManager {
         final int now = playerData.getTicks().get();
 
         final boolean delayed = now - lastFlying > 2;
-        final boolean digging = now - lastDig < 5;
+        final boolean digging = now - lastDig < 8;
         final boolean lagging = now - lastDelayedFlying < 2;
         final boolean teleporting = now - lastTeleport < 2;
 
