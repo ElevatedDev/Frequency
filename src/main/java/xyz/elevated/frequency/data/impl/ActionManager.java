@@ -58,6 +58,8 @@ public final class ActionManager {
 
         this.lastDelayedFlying = delayed ? now : lastDelayedFlying;
         this.lastFlying = now;
+
+        playerData.getTicks().set(now + 1);
     }
 
     public void onTeleport() {
