@@ -12,6 +12,8 @@ import xyz.elevated.frequency.util.NmsUtil;
 @CheckData(name = "Invalid (B)")
 public final class InvalidB extends PositionCheck {
 
+    private double buffer = 0.0;
+
     public InvalidB(final PlayerData playerData) {
         super(playerData);
     }
@@ -32,11 +34,16 @@ public final class InvalidB extends PositionCheck {
 
         // If the delta is greater than 0.0 and the player is on ground (impossible)
         if (deltaY > 0.0 && onGround) {
-            final double horizontalDistance = Math.hypot(deltaX, deltaZ);
+            // Small amount of buffer, because there might be small false positives when you're lagging and taking falldamage
+            if(++this.buffer > 1) {
+                final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
-            // If the player is moving too, flag
-            if (horizontalDistance > 0.1) {
-                fail();
+                // If the player is moving too, flag
+                if (horizontalDistance > 0.1) {
+                    fail();
+                }
+            } else {
+                this.buffer = 0;
             }
         }
     }

@@ -40,10 +40,10 @@ public final class KillAuraB extends RotationCheck {
             final double deviation = MathUtil.getStandardDeviation(samplesPitch);
             final double averageDelta = Math.abs(averagePitch - lastAverage);
 
-            if (deviation > 6.f && averageDelta > 1.5f && averageYaw < 30.d) {
+            if (deviation > 6.f && averageDelta > 13.5f && averageYaw < 30.d && averageYaw > 0.5d ) {
                 buffer += 0.5;
 
-                if (buffer > 2.5) {
+                if (buffer > 3.5) {
                     fail();
                 }
             } else {

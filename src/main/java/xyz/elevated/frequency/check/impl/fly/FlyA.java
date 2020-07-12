@@ -11,6 +11,7 @@ import xyz.elevated.frequency.util.NmsUtil;
 @CheckData(name = "Fly (A)")
 public final class FlyA extends PositionCheck {
     private double buffer = 0.0;
+    private int airTicks = 0;
 
     public FlyA(final PlayerData playerData) {
         super(playerData);
@@ -29,9 +30,17 @@ public final class FlyA extends PositionCheck {
         final boolean clientGround = entityPlayer.onGround;
         final boolean serverGround = to.getY() % 0.015625 == 0.0 && from.getY() % 0.015625 == 0.0;
 
+        final boolean touchingAir = playerData.getPositionManager().getTouchingAir().get();
         final boolean illegal = playerData.getPositionManager().getTouchingClimbable().get() || playerData.getPositionManager().getTouchingLiquid().get();
 
-        if (!illegal && clientGround != serverGround) {
+        if(touchingAir) {
+            ++airTicks;
+        } else {
+            airTicks = 0;
+        }
+
+        //Added check for air ticks, because this falses on some positions when you are in air only for 1-2 ticks
+        if (!illegal && clientGround != serverGround && this.airTicks > 2) {
             if (++buffer > 4) {
                 fail();
             }

@@ -14,6 +14,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 @CheckData(name = "Hitbox (A)")
 public final class HitboxA extends PacketCheck {
 
+    private long lastFail;
+
     public HitboxA(PlayerData playerData) {
         super(playerData);
     }
@@ -43,8 +45,10 @@ public final class HitboxA extends PacketCheck {
                         return origin.setY(0).distance(loc) - Math.hypot(widthX, widthZ) - .1f;
                     }).min().orElse(-1);
 
-            if(distance > 3) {
+            //Added lastFail time check to ensure the player doesn't hit 2 attack packets within ~5ms to false the check
+            if(distance > 3 && System.currentTimeMillis() - this.lastFail >= 50) {
                 fail();
+                this.lastFail = System.currentTimeMillis();
             }
         }
     }
