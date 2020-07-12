@@ -39,7 +39,7 @@ public final class AutoClickerB extends PacketCheck {
 
                 // If the statistic values are the same for two sample rotations, flag
                 if (deviation == lastDeviation && skewness == lastSkewness && kurtosis == lastKurtosis) {
-                    if (++streak > 1) {
+                    if (++streak > 2) {
                         fail();
                     }
                 } else {
