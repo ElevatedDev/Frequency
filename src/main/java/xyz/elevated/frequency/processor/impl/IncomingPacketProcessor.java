@@ -57,6 +57,7 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
 
             if (wrapper.getAction() == PacketPlayInUseEntity.EnumEntityUseAction.ATTACK) {
                 playerData.getActionManager().onAttack();
+
                 Entity entity = wrapper.getTarget(NmsUtil.getWorld(playerData.getBukkitPlayer().getWorld()));
                 playerData.getTarget().set(entity);
             }

@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -201,12 +202,13 @@ public final class MathUtil {
      * @return - The horizontal distance using (x^2 + z^2)
      */
     public static double getMagnitude(final Location from, final Location to) {
-        if (from.getWorld() != to.getWorld()) return 0.0;
+        final Vector a = to.toVector();
+        final Vector b = from.toVector();
 
-        final double deltaX = to.getX() - from.getX();
-        final double deltaZ = to.getZ() - from.getZ();
+        a.setY(0.0);
+        b.setY(0.0);
 
-        return (deltaX * deltaX + deltaZ * deltaZ);
+        return a.subtract(b).length();
     }
 
     /**

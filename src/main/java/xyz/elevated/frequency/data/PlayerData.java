@@ -49,6 +49,7 @@ public final class PlayerData {
 
     public PlayerData(final Player bukkitPlayer) {
         this.bukkitPlayer = bukkitPlayer;
+
         target.observe((from, to) -> {
             if(from == null || from.getEntityId() != to.getEntityId()) {
                 getTargetLocations().clear();
