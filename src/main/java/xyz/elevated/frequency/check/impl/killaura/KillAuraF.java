@@ -8,8 +8,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 @CheckData(name = "KillAura (F)")
 public final class KillAuraF extends PacketCheck {
 
-    private double lastPosX, lastPosZ, lastHorizontalDistance;
-    private float lastYaw, lastPitch;
+    private double lastPosX = 0.0d, lastPosZ = 0.0d, lastHorizontalDistance = 0.0d;
+    private float lastYaw = 0L, lastPitch = 0L;
 
     public KillAuraF(final PlayerData playerData) {
         super(playerData);

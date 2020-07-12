@@ -15,8 +15,7 @@ import java.util.List;
 @CheckData(name = "AutoClicker (G)")
 public final class AutoClickerG extends PacketCheck {
 
-    private int movements;
-    private double buffer;
+    private int movements = 0;
     private final Deque<Integer> samples = Lists.newLinkedList();
 
     public AutoClickerG(final PlayerData playerData) {

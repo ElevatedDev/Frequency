@@ -9,10 +9,10 @@ import xyz.elevated.frequency.util.MathUtil;
 @CheckData(name = "AimAssist (D)")
 public final class AimAssistD extends RotationCheck {
 
-    private float lastDeltaPitch;
-    private boolean applied;
+    private float lastDeltaPitch = 0.0f;
+    private boolean applied = false;
 
-    private int rotations;
+    private int rotations = 0;
     private final long[] grid = new long[10];
 
     public AimAssistD(final PlayerData playerData) {

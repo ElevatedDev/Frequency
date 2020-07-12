@@ -10,7 +10,7 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 @CheckData(name = "Inventory (B)", threshold = 3)
 public final class InventoryB extends PacketCheck {
 
-    private boolean inventory;
+    private boolean inventory = false;
 
     public InventoryB(final PlayerData playerData) {
         super(playerData);

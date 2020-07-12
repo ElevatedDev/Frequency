@@ -12,7 +12,7 @@ import java.util.Deque;
 public final class AimAssistA extends RotationCheck {
 
     private final Deque<Float> samples = Lists.newLinkedList();
-    private double buffer;
+    private double buffer = 0.0d;
 
     public AimAssistA(final PlayerData playerData) {
         super(playerData);

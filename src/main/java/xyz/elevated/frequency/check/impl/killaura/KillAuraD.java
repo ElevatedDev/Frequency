@@ -9,7 +9,7 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 @CheckData(name = "KillAura (D)")
 public final class KillAuraD extends PacketCheck {
 
-    private int streak;
+    private int streak = 0;
 
     public KillAuraD(final PlayerData playerData) {
         super(playerData);

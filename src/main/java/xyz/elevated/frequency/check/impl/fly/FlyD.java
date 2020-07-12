@@ -13,8 +13,8 @@ import xyz.elevated.frequency.util.MathUtil;
 @CheckData(name = "Fly (D)")
 public final class FlyD extends PositionCheck {
 
-    private int ticks;
-    private double total, buffer;
+    private int ticks = 0;
+    private double total = 0.0d, buffer = 0.0d;
 
     public FlyD(final PlayerData playerData) {
         super(playerData);

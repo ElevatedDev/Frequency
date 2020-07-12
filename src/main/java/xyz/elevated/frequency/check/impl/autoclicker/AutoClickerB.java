@@ -14,9 +14,9 @@ import java.util.Deque;
 public final class AutoClickerB extends PacketCheck {
 
     private final Deque<Integer> samples = Lists.newLinkedList();
-    private int movements, streak;
+    private int movements = 0, streak = 0;
 
-    private double lastKurtosis, lastSkewness, lastDeviation;
+    private double lastKurtosis = 0.0d, lastSkewness = 0.0d, lastDeviation = 0.0d;
 
     public AutoClickerB(final PlayerData playerData) {
         super(playerData);

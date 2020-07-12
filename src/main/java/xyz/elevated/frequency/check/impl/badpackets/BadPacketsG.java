@@ -10,7 +10,7 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 @CheckData(name = "BadPackets (G)")
 public final class BadPacketsG extends PacketCheck {
 
-    private int count;
+    private int count = 0;
     private PacketPlayInEntityAction.EnumPlayerAction lastAction;
 
     public BadPacketsG(final PlayerData playerData) {

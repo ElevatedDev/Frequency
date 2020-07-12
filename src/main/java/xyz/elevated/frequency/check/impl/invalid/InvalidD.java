@@ -16,9 +16,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 @CheckData(name = "Invalid (D)")
 public final class InvalidD extends PacketCheck {
 
-    private double lastPosX, lastPosZ;
-    private double lastHorizontalDistance, buffer;
-    private boolean attacked;
+    private double lastPosX = 0.0d, lastPosZ = 0.0d, lastHorizontalDistance = 0.0d, buffer = 0.0d;
+    private boolean attacked = false;
 
     public InvalidD(final PlayerData playerData) {
         super(playerData);
