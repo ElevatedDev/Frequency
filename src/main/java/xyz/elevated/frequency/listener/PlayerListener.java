@@ -26,8 +26,7 @@ public final class PlayerListener implements Listener {
         final Player player = event.getPlayer();
         final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
 
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
-        final ChannelPipeline channelPipeline = entityPlayer.playerConnection.networkManager.channel.pipeline();
+        final ChannelPipeline channelPipeline = NmsUtil.getPlayerPipeline(player);
 
         playerData.getJoined().set(now);
         FrequencyAPI.INSTANCE.getExecutorPacket().execute(() -> channelPipeline.addBefore("packet_handler", "frequency_packet_handler", new PacketHandler(playerData)));
@@ -47,8 +46,7 @@ public final class PlayerListener implements Listener {
 
         final PlayerData playerData = FrequencyAPI.INSTANCE.getPlayerDataManager().getData(player);
 
-        final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
-        final ChannelPipeline channelPipeline = entityPlayer.playerConnection.networkManager.channel.pipeline();
+        final ChannelPipeline channelPipeline = NmsUtil.getPlayerPipeline(player);
 
         if (channelPipeline.get("frequency_packet_handler") != null) {
             FrequencyAPI.INSTANCE.getExecutorPacket().execute(() -> channelPipeline.remove("frequency_packet_handler"));
