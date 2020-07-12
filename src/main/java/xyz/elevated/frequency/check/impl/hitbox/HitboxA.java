@@ -4,7 +4,7 @@ import net.minecraft.server.v1_8_R3.AxisAlignedBB;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
-import xyz.elevated.frequency.FrequencyAPI;
+import xyz.elevated.frequency.Frequency;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -26,7 +26,7 @@ public final class HitboxA extends PacketCheck {
             if(!(target instanceof LivingEntity)
                     || playerData.getTargetLocations().size() < 30) return;
 
-            int now = FrequencyAPI.INSTANCE.getTickProcessor().getTicks();
+            int now = Frequency.INSTANCE.getTickProcessor().getTicks();
             int ping = MathUtil.getPingInTicks(playerData.getPing().get()) + 3;
 
             Vector origin = playerData.getPositionUpdate().getTo().toVector();
