@@ -62,7 +62,7 @@ public class MathUtil {
      * @See - https://en.wikipedia.org/wiki/Standard_deviation
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public double getStandardDeviation(final Iterable<? extends Number> data) {
+    public double getStandardDeviation(final Collection<? extends Number> data) {
         final double variance = getVariance(data);
 
         // The standard deviation is the square root of variance. (sqrt(s^2))
@@ -76,7 +76,7 @@ public class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Skewness
      */
-    public double getSkewness(Iterable<? extends Number> data) {
+    public double getSkewness(final Collection<? extends Number> data) {
         double sum = 0;
         int count = 0;
 
@@ -141,7 +141,7 @@ public class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Kurtosis
      */
-    public double getKurtosis(final Iterable<? extends Number> data) {
+    public double getKurtosis(final Collection<? extends Number> data) {
         double sum = 0.0;
         int count = 0;
 
@@ -189,7 +189,7 @@ public class MathUtil {
      * @param previous - The previous value
      * @return - The GCD of those two values
      */
-    public long getGcd(long current, long previous) {
+    public long getGcd(final long current, final long previous) {
         return (previous <= 16384L) ? current : getGcd(previous, current % previous);
     }
 
@@ -218,7 +218,7 @@ public class MathUtil {
     public int getPotionLevel(final Player player, final PotionEffectType effect) {
         final int effectId = effect.getId();
 
-        if (!player.hasPotionEffect(PotionEffectType.SPEED)) return 0;
+        if (!player.hasPotionEffect(effect)) return 0;
 
         return player.getActivePotionEffects().stream().filter(potionEffect -> potionEffect.getType().getId() == effectId).map(PotionEffect::getAmplifier).findAny().orElse(0) + 1;
     }
@@ -228,16 +228,8 @@ public class MathUtil {
      * @param data - The sample of clicks you want to get the cps from
      * @return - The cps using the average as a method of calculation
      */
-    public double getCps(final Iterable<? extends Number> data) {
-        double sum = 0;
-        int count = 0;
-
-        for (final Number number : data) {
-            ++count;
-            sum += number.doubleValue();
-        }
-
-        final double average = sum / count;
+    public double getCps(final Collection<? extends Number> data) {
+        final double average = data.stream().mapToDouble(Number::doubleValue).average().orElse(0.0);
 
         return 20 / average;
     }

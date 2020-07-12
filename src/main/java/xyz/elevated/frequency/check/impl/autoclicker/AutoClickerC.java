@@ -15,7 +15,7 @@ import java.util.List;
 
 @CheckData(name = "AutoClicker (C)")
 public final class AutoClickerC extends PacketCheck {
-    private int movements = 0;
+    private int movements = 0, buffer = 0;
     private final Deque<Integer> samples = Lists.newLinkedList();
 
     public AutoClickerC(final PlayerData playerData) {
@@ -38,7 +38,13 @@ public final class AutoClickerC extends PacketCheck {
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
 
                 // See if skewness and kurtosis is exceeding a specific limit.
-                if (skewness < 0.75 && kurtosis < 0.0 && outliers < 2) fail();
+                if (skewness < 0.75 && kurtosis < 0.0 && outliers < 2) {
+                    if (++buffer > 1) {
+                        fail();
+                    }
+                } else {
+                    buffer = 0;
+                }
 
                 samples.clear();
             }
