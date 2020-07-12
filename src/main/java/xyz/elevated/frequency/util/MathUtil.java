@@ -200,6 +200,10 @@ public class MathUtil {
      */
     public double getMagnitude(final Location from, final Location to) {
         if (from.getWorld() != to.getWorld()) return 0.0;
+
+        final Vector a = to.toVector();
+        final Vector b = from.toVector();
+
         a.setY(0.0);
         b.setY(0.0);
 
