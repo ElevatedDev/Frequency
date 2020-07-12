@@ -135,6 +135,8 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
             final WrappedPlayInBlockPlace wrapper =  new WrappedPlayInBlockPlace(packet);
 
             playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
+        } else if (packet instanceof PacketPlayInSteerVehicle) {
+
         }
     }
 }
