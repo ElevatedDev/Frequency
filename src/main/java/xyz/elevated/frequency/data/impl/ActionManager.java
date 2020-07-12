@@ -19,6 +19,7 @@ public final class ActionManager {
     private final Observable<Boolean> digging = new Observable<>(false);
     private final Observable<Boolean> delayed = new Observable<>(false);
     private final Observable<Boolean> teleported = new Observable<>(false);
+    private final Observable<Boolean> steer = new Observable<>(false);
 
     private int lastAttack, lastDig, lastFlying, lastDelayedFlying, lastTeleport;
 
@@ -52,6 +53,7 @@ public final class ActionManager {
         this.attacking.set(false);
         this.swinging.set(false);
         this.attacking.set(false);
+        this.steer.set(false);
 
         this.digging.set(digging);
         this.delayed.set(lagging);
@@ -61,6 +63,10 @@ public final class ActionManager {
         this.lastFlying = now;
 
         playerData.getTicks().set(now + 1);
+    }
+
+    public void onSteerVehicle() {
+        this.steer.set(true);
     }
 
     public void onTeleport() {
