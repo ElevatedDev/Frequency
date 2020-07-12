@@ -24,6 +24,7 @@ public final class InvalidB extends PositionCheck {
 
         // Get the client onGround from the client
         final boolean onGround = positionUpdate.isOnGround();
+        final boolean touchingLiquid = playerData.getPositionManager().getTouchingLiquid().get();
 
         // Get the deltas for each axis
         final double deltaX = to.getX() - from.getX();
@@ -31,7 +32,7 @@ public final class InvalidB extends PositionCheck {
         final double deltaZ = to.getZ() - from.getZ();
 
         // If the delta is greater than 0.0 and the player is on ground (impossible)
-        if (deltaY > 0.0 && onGround) {
+        if (deltaY > 0.0 && onGround && !touchingLiquid) {
             final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
             // If the player is moving too, flag
