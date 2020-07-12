@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.util;
 
 import com.google.common.collect.Lists;
+import lombok.experimental.UtilityClass;
 import net.minecraft.server.v1_8_R3.MathHelper;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Location;
@@ -14,14 +15,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public final class MathUtil {
+@UtilityClass
+public class MathUtil {
 
-    // We don't want to initialise a class that has every method declared as static
-    public MathUtil() throws Exception {
-        throw new Exception("You may not initialise utility classes.");
-    }
-
-    public static final double EXPANDER = Math.pow(2, 24);
+    public final double EXPANDER = Math.pow(2, 24);
 
     /**
      *
@@ -30,7 +27,7 @@ public final class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public static double getVariance(final Iterable<? extends Number> data) {
+    public double getVariance(final Iterable<? extends Number> data) {
         int count = 0;
 
         double sum = 0.0;
@@ -54,7 +51,7 @@ public final class MathUtil {
         return variance;
     }
 
-    public static int getPingInTicks(long ping) {
+    public int getPingInTicks(long ping) {
         return MathHelper.floor(ping / 50.);
     }
 
@@ -65,7 +62,7 @@ public final class MathUtil {
      * @See - https://en.wikipedia.org/wiki/Standard_deviation
      * @See - https://en.wikipedia.org/wiki/Variance
      */
-    public static double getStandardDeviation(final Iterable<? extends Number> data) {
+    public double getStandardDeviation(final Iterable<? extends Number> data) {
         final double variance = getVariance(data);
 
         // The standard deviation is the square root of variance. (sqrt(s^2))
@@ -79,7 +76,7 @@ public final class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Skewness
      */
-    public static double getSkewness(Iterable<? extends Number> data) {
+    public double getSkewness(Iterable<? extends Number> data) {
         double sum = 0;
         int count = 0;
 
@@ -110,7 +107,7 @@ public final class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Outlier
      */
-    public static Pair<List<Double>, List<Double>> getOutliers(final Collection<? extends Number> collection) {
+    public Pair<List<Double>, List<Double>> getOutliers(final Collection<? extends Number> collection) {
         final List<Double> values = new ArrayList<>();
 
         for (final Number number : collection) {
@@ -144,7 +141,7 @@ public final class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Kurtosis
      */
-    public static double getKurtosis(final Iterable<? extends Number> data) {
+    public double getKurtosis(final Iterable<? extends Number> data) {
         double sum = 0.0;
         int count = 0;
 
@@ -178,7 +175,7 @@ public final class MathUtil {
      *
      * @See - https://en.wikipedia.org/wiki/Median
      */
-    private static double getMedian(final List<Double> data) {
+    private double getMedian(final List<Double> data) {
         if (data.size() % 2 == 0) {
             return (data.get(data.size() / 2) + data.get(data.size() / 2 - 1)) / 2;
         } else {
@@ -192,7 +189,7 @@ public final class MathUtil {
      * @param previous - The previous value
      * @return - The GCD of those two values
      */
-    public static long getGcd(long current, long previous) {
+    public long getGcd(long current, long previous) {
         return (previous <= 16384L) ? current : getGcd(previous, current % previous);
     }
 
@@ -201,10 +198,8 @@ public final class MathUtil {
      * @param to - The current location
      * @return - The horizontal distance using (x^2 + z^2)
      */
-    public static double getMagnitude(final Location from, final Location to) {
-        final Vector a = to.toVector();
-        final Vector b = from.toVector();
-
+    public double getMagnitude(final Location from, final Location to) {
+        if (from.getWorld() != to.getWorld()) return 0.0;
         a.setY(0.0);
         b.setY(0.0);
 
@@ -216,7 +211,7 @@ public final class MathUtil {
      * @param effect - The potion effect you want to get the amplifier of
      * @return - The amplifier added by one to make things more readable
      */
-    public static int getPotionLevel(final Player player, final PotionEffectType effect) {
+    public int getPotionLevel(final Player player, final PotionEffectType effect) {
         final int effectId = effect.getId();
 
         if (!player.hasPotionEffect(PotionEffectType.SPEED)) return 0;
@@ -229,7 +224,7 @@ public final class MathUtil {
      * @param data - The sample of clicks you want to get the cps from
      * @return - The cps using the average as a method of calculation
      */
-    public static double getCps(final Iterable<? extends Number> data) {
+    public double getCps(final Iterable<? extends Number> data) {
         double sum = 0;
         int count = 0;
 

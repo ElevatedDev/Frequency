@@ -32,7 +32,7 @@ certain checks.
 handled in a different thread using an executor. The actual alerts/violations are handled via a list, to allow us to clear old alerts every 9000ms.
 
 ## Working on Frequency
-Here we will lay out all the important information you need to know getting setup to work on Frequency.
+Here we will lay out all the important information you need to know getting setup to work on Frequency. Always be sure to follow the structure of the project. We want everything to remain as readable and clean as possible so there's no future confusion or any conflicts. 
 
 ### Getting Setup
 1) Fork Frequency
@@ -41,4 +41,4 @@ Here we will lay out all the important information you need to know getting setu
 4) You will find that the spigot dependency is missing. You can run BuildTools with a script Dawson made (https://www.dropbox.com/s/oj3v6arxfpfcb96/BuildTools.zip?dl=0). We have to do this because of licensing issues. However, it is really simple to use and there are instructions inside the ZIP file.
 
 ### Important Git Conventions
-Always make sure that your master is up to date with the Frequency one. **NEVER** work on master. When making a feature, format the branch based on master with "feature/{name}" or "bugfix/{name}". These you can submit in a pull request. The whole point of this is to help prevent merging conflicts and allow for a cleaner git history. 
+Always make sure that your master is up to date with the Frequency one. **NEVER** work on master. When making a feature, format the branch based on master with "feature/{name}" or "bugfix/{name}". Then you can submit the branch in a pull request. We will not be merging master to master. The whole point of this is to help prevent merging conflicts and allow for a cleaner git history. 

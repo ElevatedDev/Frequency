@@ -11,7 +11,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @Getter
-public enum FrequencyAPI {
+public enum Frequency {
     INSTANCE;
 
     private FrequencyPlugin plugin;

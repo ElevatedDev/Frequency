@@ -3,7 +3,6 @@ package xyz.elevated.frequency.data.impl;
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
 import lombok.Getter;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistA;
 import xyz.elevated.frequency.check.impl.aimassist.AimAssistB;
