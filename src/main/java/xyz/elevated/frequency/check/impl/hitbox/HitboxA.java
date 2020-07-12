@@ -13,6 +13,7 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 
 @CheckData(name = "Hitbox (A)")
 public final class HitboxA extends PacketCheck {
+    private double buffer = 0.0;
 
     public HitboxA(PlayerData playerData) {
         super(playerData);
@@ -44,7 +45,13 @@ public final class HitboxA extends PacketCheck {
                     }).min().orElse(-1);
 
             if(distance > 3) {
-                fail();
+                buffer += 1.5;
+
+                if (buffer > 3) {
+                    fail();
+                }
+            } else {
+                buffer = Math.max(buffer - 0.75, 0);
             }
         }
     }
