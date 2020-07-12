@@ -26,7 +26,7 @@ public enum ExemptType {
     /**
      * Return if a player sent a teleport packet in the last 120ms.
      */
-    TELEPORTING(playerData -> playerData.getActionManager().getTeleported().get() || System.currentTimeMillis() - playerData.getJoined().get() < 5000L),
+    TELEPORTING(playerData -> playerData.getActionManager().getTeleported().get() || playerData.getTicks().get() - playerData.getJoined().get() < 50L),
 
     /**
      * Returns true if the player has had any velocity changes in the past 9000ms

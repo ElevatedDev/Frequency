@@ -30,9 +30,10 @@ public final class PlayerData {
 
     private final Observable<Boolean> sprinting = new Observable<>(false);
     private final Observable<Boolean> cinematic = new Observable<>(false);
-    private final Observable<Long> joined = new Observable<>(0L);
+    private final Observable<Integer> joined = new Observable<>(0);
     private final Observable<Entity> target = new Observable<>(null);
     private final Observable<Long> ping = new Observable<>(0L);
+    private final Observable<Integer> ticks = new Observable<>(0);
     private final Observable<BoundingBox> boundingBox = new Observable<>(new BoundingBox(0, 0, 0));
 
     private final RotationUpdate rotationUpdate = new RotationUpdate(0, 0);
@@ -43,12 +44,12 @@ public final class PlayerData {
     private final CheckManager checkManager = new CheckManager(this);
     private final ExemptManager exceptManager = new ExemptManager(this);
     private final PositionManager positionManager = new PositionManager(this);
+    private final ActionManager actionManager = new ActionManager(this);
     private final VelocityManager velocityManager = new VelocityManager();
-
-    private final ActionManager actionManager = new ActionManager();
 
     public PlayerData(final Player bukkitPlayer) {
         this.bukkitPlayer = bukkitPlayer;
+
         target.observe((from, to) -> {
             if(from == null || from.getEntityId() != to.getEntityId()) {
                 getTargetLocations().clear();

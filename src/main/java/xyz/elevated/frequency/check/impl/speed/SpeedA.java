@@ -16,14 +16,14 @@ import xyz.elevated.frequency.update.PositionUpdate;
 import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 
-@CheckData(name = "Speed")
-public final class Speed extends PositionCheck {
+@CheckData(name = "Speed (A)")
+public final class SpeedA extends PositionCheck {
     private double buffer = 0.0;
     private double blockSlipperiness = 0.91;
     private double lastHorizontalDistance = 0.0;
     private boolean belowBlock = false;
 
-    public Speed(final PlayerData playerData) {
+    public SpeedA(final PlayerData playerData) {
         super(playerData);
     }
 
@@ -100,7 +100,7 @@ public final class Speed extends PositionCheck {
         }
 
         // Update previous values
-        this.lastHorizontalDistance = horizontalDistance / blockSlipperiness;
+        this.lastHorizontalDistance = horizontalDistance * blockSlipperiness;
         this.belowBlock = playerData.getBoundingBox().get().expand(0.25, 0.0, 0.25)
                 .move(0.0, 1.0, 0.0)
                 .checkBlocks(player.getWorld(),

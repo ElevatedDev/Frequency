@@ -22,6 +22,7 @@ public final class InvalidPosition extends PositionCheck {
         final Location to = positionUpdate.getTo();
 
         final double deltaX = to.getX() - from.getX();
+        final double deltaY = to.getY() - from.getY();
         final double deltaZ = to.getZ() - from.getZ();
 
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
@@ -30,7 +31,7 @@ public final class InvalidPosition extends PositionCheck {
         final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.VELOCITY);
         final boolean sprinting = playerData.getSprinting().get();
 
-        if (exempt || sprinting) return;
+        if (exempt || !sprinting) return;
 
         if (acceleration > 0.3) {
             buffer += 0.5;
@@ -44,7 +45,8 @@ public final class InvalidPosition extends PositionCheck {
             buffer = Math.max(buffer - 0.125, 0);
         }
 
-        if (horizontalDistance < 1e-02 && acceleration == 0.0) {
+        // Its impossible to make that small of a movement without it being rounded to 0
+        if (deltaY >= 0.0 && horizontalDistance < 1e-06 && acceleration == 0.0) {
             fail();
         }
 

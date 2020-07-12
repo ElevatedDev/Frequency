@@ -43,7 +43,7 @@ public final class KillAuraB extends RotationCheck {
             if (deviation > 6.f && averageDelta > 1.5f && averageYaw < 30.d) {
                 buffer += 0.5;
 
-                if (buffer > 2.5) {
+                if (buffer > 3.5) {
                     fail();
                 }
             } else {

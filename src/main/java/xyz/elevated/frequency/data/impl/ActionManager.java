@@ -1,11 +1,14 @@
 package xyz.elevated.frequency.data.impl;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
+import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.observable.Observable;
 
-@Getter
+@Getter @RequiredArgsConstructor
 public final class ActionManager {
+    private final PlayerData playerData;
 
     /*
     We're using observables so we don't reset variables all the time which hogs performance
@@ -16,8 +19,9 @@ public final class ActionManager {
     private final Observable<Boolean> digging = new Observable<>(false);
     private final Observable<Boolean> delayed = new Observable<>(false);
     private final Observable<Boolean> teleported = new Observable<>(false);
+    private final Observable<Boolean> steer = new Observable<>(false);
 
-    private long lastAttack, lastDig, lastFlying, lastDelayedFlying, lastTeleport;
+    private int lastAttack, lastDig, lastFlying, lastDelayedFlying, lastTeleport;
 
     public void onArmAnimation() {
         this.swinging.set(true);
@@ -26,7 +30,7 @@ public final class ActionManager {
     public void onAttack() {
         this.attacking.set(true);
 
-        this.lastAttack = System.currentTimeMillis();
+        this.lastAttack = playerData.getTicks().get();
     }
 
     public void onPlace() {
@@ -34,20 +38,22 @@ public final class ActionManager {
     }
 
     public void onDig() {
-        this.lastDig = System.currentTimeMillis();
+        this.lastDig = playerData.getTicks().get();
     }
 
     public void onFlying() {
-        final long now = System.currentTimeMillis();
+        final int now = playerData.getTicks().get();
 
-        final boolean delayed = now - lastFlying > 120L;
-        final boolean digging = now - lastDig < 500;
-        final boolean lagging = now - lastDelayedFlying < 120L;
-        final boolean teleporting = now - lastTeleport < 120L;
+        final boolean delayed = now - lastFlying > 2;
+        final boolean digging = now - lastDig < 5;
+        final boolean lagging = now - lastDelayedFlying < 2;
+        final boolean teleporting = now - lastTeleport < 2;
 
         this.placing.set(false);
         this.attacking.set(false);
         this.swinging.set(false);
+        this.attacking.set(false);
+        this.steer.set(false);
 
         this.digging.set(digging);
         this.delayed.set(lagging);
@@ -55,13 +61,19 @@ public final class ActionManager {
 
         this.lastDelayedFlying = delayed ? now : lastDelayedFlying;
         this.lastFlying = now;
+
+        playerData.getTicks().set(now + 1);
+    }
+
+    public void onSteerVehicle() {
+        this.steer.set(true);
     }
 
     public void onTeleport() {
-        this.lastTeleport = System.currentTimeMillis();
+        this.lastTeleport = playerData.getTicks().get();
     }
 
     public void onBukkitDig() {
-        this.lastDig = System.currentTimeMillis();
+        this.lastDig = playerData.getTicks().get();
     }
 }

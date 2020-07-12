@@ -19,15 +19,19 @@ public final class AimAssistA extends RotationCheck {
 
     @Override
     public void process(final RotationUpdate rotationUpdate) {
+        // Get the client ticks
+        final int now = playerData.getTicks().get();
+
         // Get the deltas from the rotation update
         final float deltaYaw = rotationUpdate.getDeltaYaw();
         final float deltaPitch = rotationUpdate.getDeltaPitch();
 
         // Make sure the player isn't using cinematic
         final boolean cinematic = playerData.getCinematic().get();
+        final boolean attacking = now - playerData.getActionManager().getLastAttack() < 2;
 
         // If the conditions are met, add to the list
-        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.f && deltaPitch < 30.f && !cinematic) {
+        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 30.f && deltaPitch < 30.f && !cinematic && attacking) {
             samples.add(deltaPitch);
         }
 

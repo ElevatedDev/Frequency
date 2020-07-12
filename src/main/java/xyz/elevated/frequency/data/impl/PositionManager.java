@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Boat;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.material.Stairs;
 import org.bukkit.material.Step;
@@ -16,6 +19,8 @@ import xyz.elevated.frequency.exempt.ExemptManager;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.observable.Observable;
 import xyz.elevated.frequency.update.PositionUpdate;
+
+import java.util.Arrays;
 
 @RequiredArgsConstructor @Getter
 public final class PositionManager {
@@ -29,12 +34,15 @@ public final class PositionManager {
     private final Observable<Boolean> touchingLiquid = new Observable<>(false);
     private final Observable<Boolean> touchingHalfBlock = new Observable<>(false);
     private final Observable<Boolean> touchingClimbable = new Observable<>(false);
+    private final Observable<Boolean> touchingIllegalBlock = new Observable<>(false);
 
     public void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
         this.handleCollisions();
 
         final World world = playerData.getBukkitPlayer().getWorld();
         final Player bukkitPlayer = playerData.getBukkitPlayer();
+
+        final Object[] entities = bukkitPlayer.getNearbyEntities(4.0, 4.0, 4.0).toArray();
 
         // Convert the data to bukkit locations and parse them
         final Location location = new Location(world, posX, posY, posZ);
@@ -60,6 +68,10 @@ public final class PositionManager {
             return;
         }
 
+        if (Arrays.stream(entities).anyMatch(entity -> entity instanceof Minecart || entity instanceof Boat)) {
+            return;
+        }
+
         // Parse the position update to the checks
         playerData.getCheckManager().getChecks().stream().filter(PositionCheck.class::isInstance).forEach(check -> check.process(positionUpdate));
 
@@ -79,10 +91,12 @@ public final class PositionManager {
         final boolean touchingLiquid = boundingBox.checkBlocks(world, material -> material == Material.WATER || material == Material.LAVA || material == Material.STATIONARY_WATER || material == Material.STATIONARY_LAVA);
         final boolean touchingHalfBlock = boundingBox.checkBlocks(world, material -> material.getData() == Stairs.class || material.getData() == Step.class);
         final boolean touchingClimbable = boundingBox.checkBlocks(world, material ->  material == Material.LADDER || material == Material.LAVA);
+        final boolean touchingIllegalBlock = boundingBox.checkBlocks(world, material -> material == Material.WATER_LILY || material == Material.BREWING_STAND);
 
-        this.touchingAir.set(touchingAir);
+        this.touchingAir.set(touchingAir && !touchingIllegalBlock);
         this.touchingLiquid.set(touchingLiquid);
         this.touchingHalfBlock.set(touchingHalfBlock);
         this.touchingClimbable.set(touchingClimbable);
+        this.touchingIllegalBlock.set(touchingIllegalBlock);
     }
 }
