@@ -3,7 +3,6 @@ package xyz.elevated.frequency.check.impl.speed;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.MathHelper;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,9 +17,8 @@ import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Speed (A)")
 public final class SpeedA extends PositionCheck {
-    private double buffer = 0.0;
-    private double blockSlipperiness = 0.91;
-    private double lastHorizontalDistance = 0.0;
+
+    private double buffer = 0.0d, blockSlipperiness = 0.91d, lastHorizontalDistance = 0.0d;
     private boolean belowBlock = false;
 
     public SpeedA(final PlayerData playerData) {
