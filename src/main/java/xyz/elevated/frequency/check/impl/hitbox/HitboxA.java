@@ -37,7 +37,7 @@ public final class HitboxA extends PacketCheck {
             int now = Frequency.INSTANCE.getTickProcessor().getTicks();
             int ping = MathUtil.getPingInTicks(playerData.getPing().get()) + 3;
 
-            Vector origin = playerData.getPositionUpdate().getTo().toVector();
+            Vector origin = playerData.getPositionUpdate().get().getTo().toVector();
 
             double distance = playerData.getTargetLocations().stream()
                     .filter(pair -> Math.abs(now - pair.getY() - ping) < 2)

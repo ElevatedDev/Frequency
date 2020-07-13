@@ -39,7 +39,9 @@ public final class AutoClickerF extends PacketCheck {
                 // Get the deviation outliers the the cps from the math util
                 final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
-                final double cps = MathUtil.getCps(samples);
+                final double cps = playerData.getCps().get();
+
+                Bukkit.broadcastMessage("C: " + cps);
 
                 // If the deviation is relatively low along with the outliers and the cps is rounded
                 if (deviation < 0.3 && outliers < 2 && cps % 1.0 == 0.0) {

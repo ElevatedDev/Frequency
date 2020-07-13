@@ -34,11 +34,12 @@ public final class PlayerData {
     private final Observable<Entity> target = new Observable<>(null);
     private final Observable<Long> ping = new Observable<>(0L);
     private final Observable<Integer> ticks = new Observable<>(0);
+    private final Observable<Double> cps = new Observable<>(0.0);
+    private final Observable<Double> rate = new Observable<>(0.0);
     private final Observable<BoundingBox> boundingBox = new Observable<>(new BoundingBox(0, 0, 0));
 
-    private final RotationUpdate rotationUpdate = new RotationUpdate(0, 0);
-    @Setter
-    private PositionUpdate positionUpdate = new PositionUpdate(null, null, false);
+    private final Observable<RotationUpdate> rotationUpdate = new Observable<>(new RotationUpdate(0, 0));
+    private final Observable<PositionUpdate> positionUpdate = new Observable<>(new PositionUpdate(null, null, false));
 
     private final RotationManager rotationManager = new RotationManager(this);
     private final CheckManager checkManager = new CheckManager(this);
