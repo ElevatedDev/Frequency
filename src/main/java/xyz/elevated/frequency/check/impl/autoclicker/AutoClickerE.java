@@ -25,8 +25,9 @@ public final class AutoClickerE extends PacketCheck {
     @Override
     public void process(final Object object) {
         if (object instanceof WrappedPlayInArmAnimation) {
-            final boolean valid = movements < 5 && !playerData.getActionManager().getDigging().get() && !playerData.getActionManager().getPlacing().get();
-
+            final boolean valid = playerData.getCps().get() > 6.5 &&
+                    movements < 5 && !playerData.getActionManager().getDigging().get() && !playerData.getActionManager().getPlacing().get();
+            
             if (valid) samples.add(movements);
 
             if (samples.size() == 20) {
