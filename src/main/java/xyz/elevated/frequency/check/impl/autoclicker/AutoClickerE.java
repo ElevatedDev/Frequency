@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.autoclicker;
 
+import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -17,7 +18,7 @@ public final class AutoClickerE extends PacketCheck {
 
     private int movements = 0;
     private final Deque<Integer> samples = new LinkedList<>();
-
+    
     public AutoClickerE(final PlayerData playerData) {
         super(playerData);
     }
@@ -26,9 +27,9 @@ public final class AutoClickerE extends PacketCheck {
     public void process(final Object object) {
         if (object instanceof WrappedPlayInArmAnimation) {
             final boolean valid = movements < 5 && !playerData.getActionManager().getDigging().get() && !playerData.getActionManager().getPlacing().get();
-
+            
             if (valid) samples.add(movements);
-
+            
             if (samples.size() == 20) {
                 final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
@@ -40,7 +41,7 @@ public final class AutoClickerE extends PacketCheck {
 
                 samples.clear();
             }
-
+            
             movements = 0;
         } else if (object instanceof WrappedPlayInFlying) {
             ++movements;

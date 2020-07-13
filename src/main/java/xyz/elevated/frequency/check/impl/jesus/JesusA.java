@@ -15,6 +15,7 @@ public final class JesusA extends PositionCheck {
 
     @Override
     public void process(final PositionUpdate positionUpdate) {
+
         // Get the locations from the position update
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
@@ -30,7 +31,7 @@ public final class JesusA extends PositionCheck {
         final boolean stationary = deltaX % 1.0 == 0.0 && deltaZ % 1.0 == 0.0;
 
         // If the delta is greater than 0.0 and the player is stationary
-        if (deltaY > 0.0 && !onGround && !touchingLiquid && stationary) {
+        if (deltaY > 0.0 && !onGround && touchingLiquid && stationary) {
             final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
             // If the player is moving too, flag
