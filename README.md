@@ -42,3 +42,6 @@ Here we will lay out all the important information you need to know getting setu
 
 ### Important Git Conventions
 Always make sure that your master is up to date with the Frequency one. **NEVER** work on master. When making a feature, format the branch based on master with "feature/{name}" or "bugfix/{name}". Then you can submit the branch in a pull request. We will not be merging master to master. The whole point of this is to help prevent merging conflicts and allow for a cleaner git history. 
+
+### How to report bugs/issues
+Always make sure to give an in-depth explaination of anything that happened when you first encountered the issue. If you can, give a possible theory to what could be wrong, and finally provide some proof of the bug happening in the exact situation.
