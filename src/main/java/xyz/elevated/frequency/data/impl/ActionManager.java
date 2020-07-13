@@ -23,6 +23,7 @@ public final class ActionManager {
     private final Observable<Boolean> delayed = new Observable<>(false);
     private final Observable<Boolean> teleported = new Observable<>(false);
     private final Observable<Boolean> steer = new Observable<>(false);
+    private final Observable<Boolean> packetDigging = new Observable<>(false);
 
     private int lastAttack = 0, lastDig = 0, lastFlying = 0, lastDelayedFlying = 0, lastTeleport = 0, movements = 0;
 
@@ -57,6 +58,8 @@ public final class ActionManager {
     }
 
     public void onDig() {
+        this.packetDigging.set(true);
+        
         this.lastDig = playerData.getTicks().get();
     }
 
@@ -64,7 +67,7 @@ public final class ActionManager {
         final int now = playerData.getTicks().get();
 
         final boolean delayed = now - lastFlying > 2;
-        final boolean digging = now - lastDig < 8;
+        final boolean digging = now - lastDig < 8 || packetDigging.get();
         final boolean lagging = now - lastDelayedFlying < 2;
         final boolean teleporting = now - lastTeleport < 2;
 
@@ -73,6 +76,7 @@ public final class ActionManager {
         this.swinging.set(false);
         this.attacking.set(false);
         this.steer.set(false);
+        this.packetDigging.set(false);
 
         this.digging.set(digging);
         this.delayed.set(lagging);
