@@ -17,12 +17,12 @@ import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Speed")
-public final class Speed extends PositionCheck {
+public final class SpeedA extends PositionCheck {
     private int buffer;
     private double blockSlipperiness = 0.91;
     private double lastHorizontalDistance = 0.0;
 
-    public Speed(final PlayerData playerData) {
+    public SpeedA(final PlayerData playerData) {
         super(playerData);
     }
 
@@ -53,10 +53,10 @@ public final class Speed extends PositionCheck {
 
         //How minecraft calculates speed increase. We cast as a float because this is what the client does.
         //MCP just prints the casted float as a double. 0.2 is the effect modifier.
-        attributeSpeed+= MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)0.2 * attributeSpeed;
+        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)0.2 * attributeSpeed;
 
         //How minecraft calculates slowness. 0.15 is the effect modifier.
-        attributeSpeed+= MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)-.15 * attributeSpeed;
+        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)-.15 * attributeSpeed;
 
         if (onGround) {
             blockSlipperiness *= 0.91f;
@@ -73,7 +73,7 @@ public final class Speed extends PositionCheck {
         } else {
             //We use the Player object as this will effectively be the previous tick.
             //0.026 is the value whe the player sprints, while 0.02 is when walking.
-            attributeSpeed = entityPlayer.isSpectator() ? 0.026 : 0.02;
+            attributeSpeed = playerData.getSprinting().get() ? 0.026 : 0.02;
             //This is basically the air resistance of the player.
             blockSlipperiness = 0.91f;
         }
@@ -87,7 +87,7 @@ public final class Speed extends PositionCheck {
 
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail
         //NOTE to elevated: just use a god damn integer for your buffer thank you.
-        if (movementSpeed > 0 && !exempt) {
+        if (movementSpeed > 1.0 && !exempt) {
             buffer = Math.min(500, buffer + 10); //We do this to prevent integer overflow.
 
             if (buffer > 40) {
@@ -96,7 +96,6 @@ public final class Speed extends PositionCheck {
         } else if(buffer > 0) buffer--;
 
         // Update previous values
-        //NOTE from Dawson to whoever made this check: why the hell did you divide this? NO!!!!!!!!!!!!!!!!!
         this.lastHorizontalDistance = horizontalDistance * blockSlipperiness;
 
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
