@@ -86,7 +86,6 @@ public final class SpeedA extends PositionCheck {
         final double movementSpeed = (horizontalDistance - lastHorizontalDistance) / attributeSpeed;
 
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail
-        //NOTE to elevated: just use a god damn integer for your buffer thank you.
         if (movementSpeed > 1.0 && !exempt) {
             buffer = Math.min(500, buffer + 10); //We do this to prevent integer overflow.
 
