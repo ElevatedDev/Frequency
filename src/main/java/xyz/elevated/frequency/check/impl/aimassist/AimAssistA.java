@@ -10,9 +10,10 @@ import java.util.Deque;
 
 @CheckData(name = "AimAssist (A)")
 public final class AimAssistA extends RotationCheck {
+
     private final Deque<Float> samples = Lists.newLinkedList();
-    private double buffer = 0.0;
-    
+    private double buffer = 0.0d;
+
     public AimAssistA(final PlayerData playerData) {
         super(playerData);
     }
