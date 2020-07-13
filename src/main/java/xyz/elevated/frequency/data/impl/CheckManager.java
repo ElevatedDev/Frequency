@@ -15,13 +15,15 @@ import xyz.elevated.frequency.check.impl.hitbox.HitboxA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidA;
 import xyz.elevated.frequency.check.impl.invalid.InvalidB;
 import xyz.elevated.frequency.check.impl.invalid.InvalidC;
+import xyz.elevated.frequency.check.impl.invalid.InvalidD;
 import xyz.elevated.frequency.check.impl.invaliddirection.InvalidDirection;
 import xyz.elevated.frequency.check.impl.invalidposition.InvalidPosition;
 import xyz.elevated.frequency.check.impl.inventory.InventoryA;
 import xyz.elevated.frequency.check.impl.inventory.InventoryB;
+import xyz.elevated.frequency.check.impl.jesus.JesusA;
 import xyz.elevated.frequency.check.impl.killaura.*;
 import xyz.elevated.frequency.check.impl.speed.SpeedA;
-import xyz.elevated.frequency.check.impl.timer.Timer;
+import xyz.elevated.frequency.check.impl.timer.TimerA;
 import xyz.elevated.frequency.data.PlayerData;
 
 import java.util.Collection;
@@ -56,6 +58,7 @@ public final class CheckManager {
                 .put(InvalidA.class, new InvalidA(playerData))
                 .put(InvalidB.class, new InvalidB(playerData))
                 .put(InvalidC.class, new InvalidC(playerData))
+                .put(InvalidD.class, new InvalidD(playerData))
                 .put(FlyA.class, new FlyA(playerData))
                 .put(FlyB.class, new FlyB(playerData))
                 .put(FlyC.class, new FlyC(playerData))
@@ -67,10 +70,12 @@ public final class CheckManager {
                 .put(AutoClickerD.class, new AutoClickerD(playerData))
                 .put(AutoClickerE.class, new AutoClickerE(playerData))
                 .put(AutoClickerF.class, new AutoClickerF(playerData))
+                .put(AutoClickerG.class, new AutoClickerG(playerData))
                 .put(InventoryA.class, new InventoryA(playerData))
                 .put(InventoryB.class, new InventoryB(playerData))
-                .put(Timer.class, new Timer(playerData))
+                .put(TimerA.class, new TimerA(playerData))
                 .put(SpeedA.class, new SpeedA(playerData))
+                .put(JesusA.class, new JesusA(playerData))
                 .put(InvalidPosition.class, new InvalidPosition(playerData))
                 .put(InvalidDirection.class, new InvalidDirection(playerData))
                 .build();

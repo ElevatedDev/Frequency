@@ -1,22 +1,20 @@
 package xyz.elevated.frequency.check.impl.timer;
 
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
-import xyz.elevated.frequency.util.EvictingList;
-import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.MovingStats;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
-@CheckData(name = "Timer")
-public final class Timer extends PacketCheck {
+@CheckData(name = "Timer (A)")
+public final class TimerA extends PacketCheck {
+
     private long lastFlying = 0L;
     private final MovingStats movingStats = new MovingStats(20);
     private int streak = 0;
 
-    public Timer(final PlayerData playerData) {
+    public TimerA(final PlayerData playerData) {
         super(playerData);
     }
 

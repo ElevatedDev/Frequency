@@ -11,12 +11,12 @@ import java.util.Deque;
 
 @CheckData(name = "KillAura (B)")
 public final class KillAuraB extends RotationCheck {
+
     private final Deque<Float> samplesYaw = Lists.newLinkedList();
     private final Deque<Float> samplesPitch = Lists.newLinkedList();
 
-    private double buffer = 0.0;
-    private double lastAverage = 0.0;
-    
+    private double buffer = 0.0d, lastAverage = 0.0d;
+
     public KillAuraB(final PlayerData playerData) {
         super(playerData);
     }
@@ -25,9 +25,9 @@ public final class KillAuraB extends RotationCheck {
     public void process(final RotationUpdate rotationUpdate) {
         final float deltaYaw = rotationUpdate.getDeltaYaw();
         final float deltaPitch = rotationUpdate.getDeltaPitch();
-        
+
         final boolean attacking = System.currentTimeMillis() - playerData.getActionManager().getLastAttack() < 500L;
-        
+
         if (deltaYaw > 0.0 && deltaPitch > 0.0 && attacking) {
             samplesYaw.add(deltaYaw);
             samplesPitch.add(deltaPitch);
@@ -43,7 +43,7 @@ public final class KillAuraB extends RotationCheck {
             if (deviation > 6.f && averageDelta > 1.5f && averageYaw < 30.d) {
                 buffer += 0.5;
 
-                if (buffer > 2.5) {
+                if (buffer > 3.5) {
                     fail();
                 }
             } else {

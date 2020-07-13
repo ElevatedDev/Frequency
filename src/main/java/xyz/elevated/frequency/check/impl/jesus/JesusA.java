@@ -1,18 +1,15 @@
-package xyz.elevated.frequency.check.impl.invalid;
+package xyz.elevated.frequency.check.impl.jesus;
 
-import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Location;
 import xyz.elevated.frequency.check.CheckData;
-import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.PositionUpdate;
-import xyz.elevated.frequency.util.NmsUtil;
 
-@CheckData(name = "Invalid (B)")
-public final class InvalidB extends PositionCheck {
+@CheckData(name = "Jesus (A)")
+public final class JesusA extends PositionCheck {
 
-    public InvalidB(final PlayerData playerData) {
+    public JesusA(final PlayerData playerData) {
         super(playerData);
     }
 
@@ -22,17 +19,18 @@ public final class InvalidB extends PositionCheck {
         final Location from = positionUpdate.getFrom();
         final Location to = positionUpdate.getTo();
 
-        // Get the client onGround from the client
-        final boolean onGround = positionUpdate.isOnGround();
-        final boolean touchingLiquid = playerData.getPositionManager().getTouchingLiquid().get();
-
         // Get the deltas for each axis
         final double deltaX = to.getX() - from.getX();
         final double deltaY = to.getY() - from.getY();
         final double deltaZ = to.getZ() - from.getZ();
 
-        // If the delta is greater than 0.0 and the player is on ground (impossible)
-        if (deltaY > 0.0 && onGround && !touchingLiquid) {
+        // Get the player's on ground and make sure he is stationary
+        final boolean onGround = positionUpdate.isOnGround();
+        final boolean touchingLiquid = playerData.getPositionManager().getTouchingLiquid().get();
+        final boolean stationary = deltaX % 1.0 == 0.0 && deltaZ % 1.0 == 0.0;
+
+        // If the delta is greater than 0.0 and the player is stationary
+        if (deltaY > 0.0 && !onGround && !touchingLiquid && stationary) {
             final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
             // If the player is moving too, flag

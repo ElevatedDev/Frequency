@@ -1,6 +1,5 @@
 package xyz.elevated.frequency.check.impl.fly;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
@@ -10,9 +9,9 @@ import xyz.elevated.frequency.update.PositionUpdate;
 
 @CheckData(name = "Fly (C)")
 public final class FlyC extends PositionCheck {
-    private double lastDeltaY;
+
+    private double lastDeltaY = 0.0d, buffer = 0.0d;
     private int ticks = 0;
-    private double buffer = 0.0;
 
     public FlyC(final PlayerData playerData) {
         super(playerData);

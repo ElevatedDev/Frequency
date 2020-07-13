@@ -1,15 +1,13 @@
 package xyz.elevated.frequency.util;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.ChatColor;
 
-public final class ColorUtil {
-
-    public ColorUtil() throws Exception {
-        throw new Exception("You may not initialise utility classes.");
-    }
+@UtilityClass
+public class ColorUtil {
 
     // & to paragraph symbol
-    public static String format(final String string) {
+    public String format(final String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 }

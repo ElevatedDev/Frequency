@@ -8,7 +8,8 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
 @CheckData(name = "BadPackets (I)")
 public final class BadPacketsI extends PacketCheck {
-    private float lastYaw, lastPitch;
+
+    private float lastYaw = 0.0f, lastPitch = 0.0f;
 
     public BadPacketsI(final PlayerData playerData) {
         super(playerData);
@@ -19,7 +20,8 @@ public final class BadPacketsI extends PacketCheck {
         if (object instanceof WrappedPlayInFlying) {
             final WrappedPlayInFlying wrapper = (WrappedPlayInFlying) object;
 
-            if (!wrapper.hasLook()) return;
+            if (!wrapper.hasLook() || playerData.getBukkitPlayer().isInsideVehicle()
+                    || playerData.getActionManager().getSteer().get()) return;
 
             final float yaw = wrapper.getYaw();
             final float pitch = wrapper.getPitch();

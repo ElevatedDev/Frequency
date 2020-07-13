@@ -9,7 +9,8 @@ import xyz.elevated.frequency.update.PositionUpdate;
 
 @CheckData(name = "Fly (B)")
 public final class FlyB extends PositionCheck {
-    private double lastDeltaY = 0.0, buffer = 0.0;
+
+    private double lastDeltaY = 0.0d, buffer = 0.0d;
     private int ticks = 0;
 
     public FlyB(final PlayerData playerData) {

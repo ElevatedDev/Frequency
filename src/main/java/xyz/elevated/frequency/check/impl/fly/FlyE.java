@@ -1,6 +1,5 @@
 package xyz.elevated.frequency.check.impl.fly;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.potion.PotionEffectType;
 import xyz.elevated.frequency.check.CheckData;
@@ -12,7 +11,8 @@ import xyz.elevated.frequency.util.MathUtil;
 
 @CheckData(name = "Fly (E)")
 public final class FlyE extends PositionCheck {
-    private Location lastGroundLocation = null;
+
+    private Location lastGroundLocation;
     private int movements = 0;
 
     public FlyE(final PlayerData playerData) {
@@ -43,7 +43,7 @@ public final class FlyE extends PositionCheck {
         final int jumpModifier = MathUtil.getPotionLevel(playerData.getBukkitPlayer(), PotionEffectType.JUMP);
 
         if (moving && !exempt && !ground && deltaY >= 0.0) {
-            final double distanceGround = MathUtil.getMagnitude(to, lastGroundLocation);
+            final double distanceGround = lastGroundLocation != null ? MathUtil.getMagnitude(to, lastGroundLocation) : 0.0;
             final double threshold = jumpModifier > 0 ? 5.0 + (Math.pow(jumpModifier + 4.2, 2.0) / 16.0) : 5.0;
 
             // Normally I would avoid using the sqrt as its quite heavy on performance.
