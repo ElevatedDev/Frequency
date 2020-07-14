@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.check.impl.autoclicker;
 
 import com.google.common.collect.Lists;
+import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
