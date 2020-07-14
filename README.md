@@ -38,7 +38,6 @@ Here we will lay out all the important information you need to know getting setu
 1) Fork Frequency
 2) Get your git environment setup on your computer.
 3) Load the directory into your project as Maven.
-4) You will find that the spigot dependency is missing. You can run BuildTools with a script Dawson made (https://www.dropbox.com/s/oj3v6arxfpfcb96/BuildTools.zip?dl=0). We have to do this because of licensing issues. However, it is really simple to use and there are instructions inside the ZIP file.
 
 ### Important Git Conventions
 Always make sure that your master is up to date with the Frequency one. **NEVER** work on master. When making a feature, format the branch based on master with "feature/{name}" or "bugfix/{name}". Then you can submit the branch in a pull request. We will not be merging master to master. The whole point of this is to help prevent merging conflicts and allow for a cleaner git history. 
