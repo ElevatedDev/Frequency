@@ -51,7 +51,7 @@ public final class PositionManager {
         final PositionUpdate positionUpdate = new PositionUpdate(lastLocation, location, onGround);
         final ExemptManager exemptManager = playerData.getExceptManager();
 
-        playerData.setPositionUpdate(positionUpdate);
+        playerData.getPositionUpdate().set(positionUpdate);
 
         // Make sure the player isn't inside the void or getting teleported
         if (exemptManager.isExempt(ExemptType.TELEPORTING, ExemptType.VOID)) {

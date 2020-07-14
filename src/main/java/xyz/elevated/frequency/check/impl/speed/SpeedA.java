@@ -16,18 +16,19 @@ import xyz.elevated.frequency.update.PositionUpdate;
 import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 
-@CheckData(name = "Speed (A)")
+@CheckData(name = "Speed")
 public final class SpeedA extends PositionCheck {
-    private double buffer = 0.0;
+    private int buffer;
     private double blockSlipperiness = 0.91;
     private double lastHorizontalDistance = 0.0;
-    private boolean belowBlock = false;
 
     public SpeedA(final PlayerData playerData) {
         super(playerData);
     }
 
     @Override
+    //Most values are found in the EntityLivingBase class on the clientside.
+    //They can even be found inside the EntityLiving nms class.
     public void process(final PositionUpdate positionUpdate) {
         // Get the location update from the position update
         final Location from = positionUpdate.getFrom();
@@ -50,61 +51,51 @@ public final class SpeedA extends PositionCheck {
         final boolean onGround = entityPlayer.onGround;
         final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
 
-        // Calculate the player's amplifier speed
-        final int amplifierSpeed = MathUtil.getPotionLevel(player, PotionEffectType.SPEED);
+        //How minecraft calculates speed increase. We cast as a float because this is what the client does.
+        //MCP just prints the casted float as a double. 0.2 is the effect modifier.
+        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)0.2 * attributeSpeed;
+
+        //How minecraft calculates slowness. 0.15 is the effect modifier.
+        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)-.15 * attributeSpeed;
 
         if (onGround) {
             blockSlipperiness *= 0.91f;
 
-            attributeSpeed *= blockSlipperiness > 0.708 ? 1.3 : 0.23315;
+            attributeSpeed *= 1.3; //This basically just replicates math done by the client with a single constant.
             attributeSpeed *= 0.16277136 / Math.pow(blockSlipperiness, 3);
 
-            if (deltaY > 0.4199) {
-                final double var1 = to.getYaw() * 0.017453292F;
-                final double extraSpeedJumpX = Math.sin(var1) * 0.2F;
-                final double extraSpeedJumpZ = Math.cos(var1) * 0.2F;
-
-                final double extraJumpSpeed = Math.sqrt(Math.pow(extraSpeedJumpX, 2) + Math.pow(extraSpeedJumpZ, 2));
-
-                attributeSpeed += extraJumpSpeed;
-            } else {
-                attributeSpeed -= .1053;
+            //Only do this when the player is sprinting. You dont move forward without sprinting my guy.
+            if (deltaY > 0.4199 && entityPlayer.isSprinting()) {
+                //It's not necessary to do any angle work since it'll always be a factor of 0.2.
+                //Angle work is only necessary if we are checking motionX motionZ on its own, not together.
+                attributeSpeed += 0.2;
             }
         } else {
-            attributeSpeed = 0.026;
+            //We use the Player object as this will effectively be the previous tick.
+            //0.026 is the value whe the player sprints, while 0.02 is when walking.
+            attributeSpeed = playerData.getSprinting().get() ? 0.026 : 0.02;
+            //This is basically the air resistance of the player.
             blockSlipperiness = 0.91f;
         }
 
         // Add to the attribute speed according to velocity
         attributeSpeed += playerData.getVelocityManager().getMaxVertical();
 
-        // Get the proper speedup threshold
-        double threshold = belowBlock ? 3.6 : 1.0;
-
         // Get the horizontal distance and convert to the movement speed
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
         final double movementSpeed = (horizontalDistance - lastHorizontalDistance) / attributeSpeed;
 
-        // Increase the threshold according to the amplifier speed
-        if (amplifierSpeed > 0) threshold += amplifierSpeed * 0.17;
-
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail
-        if (movementSpeed > threshold && !exempt) {
-            buffer += 0.25;
+        if (movementSpeed > 1.0 && !exempt) {
+            buffer = Math.min(500, buffer + 10); //We do this to prevent integer overflow.
 
-            if (buffer > 0.5) {
+            if (buffer > 40) {
                 fail();
             }
-        } else {
-            buffer = Math.max(buffer - 0.005, 0);
-        }
+        } else if(buffer > 0) buffer--;
 
         // Update previous values
         this.lastHorizontalDistance = horizontalDistance * blockSlipperiness;
-        this.belowBlock = playerData.getBoundingBox().get().expand(0.25, 0.0, 0.25)
-                .move(0.0, 1.0, 0.0)
-                .checkBlocks(player.getWorld(),
-                m -> m != Material.AIR);
 
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,

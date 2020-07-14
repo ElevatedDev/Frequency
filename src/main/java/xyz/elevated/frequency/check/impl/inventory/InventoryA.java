@@ -10,12 +10,12 @@ import xyz.elevated.frequency.util.Pair;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInWindowClick;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
 @CheckData(name = "Inventory (A)")
 public final class InventoryA extends PacketCheck {
+
     private int movements = 0;
     private final Deque<Integer> samples = Lists.newLinkedList();
 

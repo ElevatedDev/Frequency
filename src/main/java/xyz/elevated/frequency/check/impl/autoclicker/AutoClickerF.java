@@ -1,7 +1,6 @@
 package xyz.elevated.frequency.check.impl.autoclicker;
 
 import com.google.common.collect.Lists;
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -17,7 +16,7 @@ import java.util.List;
 public final class AutoClickerF extends PacketCheck {
 
     private int movements = 0;
-    private double buffer = 0.0;
+    private double buffer = 0.0d;
     private final Deque<Integer> samples = Lists.newLinkedList();
 
     public AutoClickerF(final PlayerData playerData) {
@@ -39,7 +38,9 @@ public final class AutoClickerF extends PacketCheck {
                 // Get the deviation outliers the the cps from the math util
                 final double deviation = MathUtil.getStandardDeviation(samples);
                 final double outliers = outlierPair.getX().size() + outlierPair.getY().size();
-                final double cps = MathUtil.getCps(samples);
+                final double cps = playerData.getCps().get();
+
+                Bukkit.broadcastMessage("C: " + cps);
 
                 // If the deviation is relatively low along with the outliers and the cps is rounded
                 if (deviation < 0.3 && outliers < 2 && cps % 1.0 == 0.0) {

@@ -1,11 +1,9 @@
 package xyz.elevated.frequency.check.impl.autoclicker;
 
 import com.google.common.collect.Lists;
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
-import xyz.elevated.frequency.util.EvictingList;
 import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInArmAnimation;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
@@ -14,10 +12,11 @@ import java.util.Deque;
 
 @CheckData(name = "AutoClicker (B)")
 public final class AutoClickerB extends PacketCheck {
+
     private final Deque<Integer> samples = Lists.newLinkedList();
     private int movements = 0, streak = 0;
 
-    private double lastKurtosis, lastSkewness, lastDeviation;
+    private double lastKurtosis = 0.0d, lastSkewness = 0.0d, lastDeviation = 0.0d;
 
     public AutoClickerB(final PlayerData playerData) {
         super(playerData);
