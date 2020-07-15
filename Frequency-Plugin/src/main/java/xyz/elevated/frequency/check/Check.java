@@ -9,7 +9,6 @@ import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.util.LogUtil;
 
-import java.util.Deque;
 import java.util.List;
 
 @Getter

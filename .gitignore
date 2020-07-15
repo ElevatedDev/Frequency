@@ -120,6 +120,8 @@ $RECYCLE.BIN/
 
 # Project stuff
 target/
+Frequency-Api/target
+Frequency-Plugin/target
 
 #IntelliJ
 .idea/**

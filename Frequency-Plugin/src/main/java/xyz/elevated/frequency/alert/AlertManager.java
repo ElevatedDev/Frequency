@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import xyz.elevated.frequency.Frequency;
 import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.data.PlayerData;
+import xyz.elevated.frequency.events.FrequencyAlertEvent;
 import xyz.elevated.frequency.util.ColorUtil;
 
 import java.util.List;
@@ -40,6 +41,9 @@ public final class AlertManager {
 
         if (violations > threshold) {
             //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + player.getName() + " [Frequency] Unfair Advantage");;
+            FrequencyAlertEvent alertEvent = new FrequencyAlertEvent(player, check.getCheckName(), violations, threshold);
+            Bukkit.getPluginManager().callEvent(alertEvent); // Calling the alert event
+
             Bukkit.broadcastMessage(message);
 
             alerts.clear();
