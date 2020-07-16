@@ -34,17 +34,20 @@ public final class AimAssistE extends RotationCheck {
         final double currentX = deltaYaw / constantYaw;
         final double currentY = deltaPitch / constantPitch;
 
-        // Get the estimated mouse delta from the old rotations
+        // Get the estimated mouse delta from the old rotations using the new constant
         final double previousX = lastDeltaYaw / constantYaw;
         final double previousY = lastDeltaPitch / constantPitch;
 
+        // Make sure the rotation is not very large and not equal to zero and get the modulo of the xys
         if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 20.f && deltaPitch < 20.f) {
             final double moduloX = currentX % previousX;
             final double moduloY = currentY % previousY;
 
+            // Get the floor delta of the the moduloes
             final double floorModuloX = Math.abs(Math.floor(moduloX) - moduloX);
             final double floorModuloY = Math.abs(Math.floor(moduloY) - moduloY);
 
+            // Impossible to have a different constant in two rotations
             final boolean invalidX = moduloX > 90.d && floorModuloX > 0.1;
             final boolean invalidY = moduloY > 90.d && floorModuloY > 0.1;
 
