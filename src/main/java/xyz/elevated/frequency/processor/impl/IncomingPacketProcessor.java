@@ -5,6 +5,7 @@ import org.bukkit.entity.Entity;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.BoundingBox;
 import xyz.elevated.frequency.data.PlayerData;
+import xyz.elevated.frequency.data.impl.PositionManager;
 import xyz.elevated.frequency.data.impl.RotationManager;
 import xyz.elevated.frequency.processor.type.Processor;
 import xyz.elevated.frequency.util.NmsUtil;
@@ -29,11 +30,9 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
             final boolean onGround = wrapper.onGround();
 
             if (hasPos) {
-                final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ);
+                final PositionManager positionManager = playerData.getPositionManager();
 
-                playerData.getPositionManager().handle(posX, posY, posZ, onGround);
-                playerData.getBoundingBox().set(boundingBox);
-                playerData.getBoundingBoxes().add(boundingBox);
+                positionManager.handle(posX, posY, posZ, onGround);
             }
 
             if (hasLook) {

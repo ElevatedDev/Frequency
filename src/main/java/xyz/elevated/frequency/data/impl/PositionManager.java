@@ -37,7 +37,7 @@ public final class PositionManager {
     private final Observable<Boolean> touchingIllegalBlock = new Observable<>(false);
 
     public void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
-        this.handleCollisions();
+        final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ);
 
         final World world = playerData.getBukkitPlayer().getWorld();
         final Player bukkitPlayer = playerData.getBukkitPlayer();
@@ -75,15 +75,21 @@ public final class PositionManager {
         // Parse the position update to the checks
         playerData.getCheckManager().getChecks().stream().filter(PositionCheck.class::isInstance).forEach(check -> check.process(positionUpdate));
 
+        // Parse the bounding boxes properly
+        playerData.getBoundingBox().set(boundingBox);
+        playerData.getBoundingBoxes().add(boundingBox);
+
+        // Handle collisions
+        this.handleCollisions(boundingBox);
+
         // Pass the data to the last variables.
         this.lastPosX = posX;
         this.lastPosY = posY;
         this.lastPosZ = posZ;
     }
 
-    private void handleCollisions() {
+    private void handleCollisions(final BoundingBox boundingBox) {
         final World world = playerData.getBukkitPlayer().getWorld();
-        final BoundingBox boundingBox = playerData.getBoundingBox().get();
 
         boundingBox.expand(0.5, 0.07, 0.5).move(0.0, -0.55, 0.0);
 
