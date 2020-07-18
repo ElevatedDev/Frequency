@@ -4,10 +4,7 @@ import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
 import lombok.Getter;
 import xyz.elevated.frequency.check.Check;
-import xyz.elevated.frequency.check.impl.aimassist.AimAssistA;
-import xyz.elevated.frequency.check.impl.aimassist.AimAssistB;
-import xyz.elevated.frequency.check.impl.aimassist.AimAssistC;
-import xyz.elevated.frequency.check.impl.aimassist.AimAssistD;
+import xyz.elevated.frequency.check.impl.aimassist.*;
 import xyz.elevated.frequency.check.impl.autoclicker.*;
 import xyz.elevated.frequency.check.impl.badpackets.*;
 import xyz.elevated.frequency.check.impl.fly.*;
@@ -46,6 +43,7 @@ public final class CheckManager {
                 .put(AimAssistB.class, new AimAssistB(playerData))
                 .put(AimAssistC.class, new AimAssistC(playerData))
                 .put(AimAssistD.class, new AimAssistD(playerData))
+                .put(AimAssistE.class, new AimAssistE(playerData))
                 .put(BadPacketsA.class, new BadPacketsA(playerData))
                 .put(BadPacketsB.class, new BadPacketsB(playerData))
                 .put(BadPacketsC.class, new BadPacketsC(playerData))

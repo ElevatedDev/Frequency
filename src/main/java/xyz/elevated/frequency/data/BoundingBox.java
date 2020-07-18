@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 import xyz.elevated.frequency.util.NmsUtil;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 @Getter
@@ -133,48 +134,26 @@ public final class BoundingBox {
 
 
     public boolean checkBlocks(final World world, final Predicate<Material> predicate) {
+        final int n = (int)Math.floor(this.minX);
+        final int n2 = (int)Math.ceil(this.maxX);
+        final int n3 = (int)Math.floor(this.minY);
+        final int n4 = (int)Math.ceil(this.maxY);
+        final int n5 = (int)Math.floor(this.minZ);
+        final int n6 = (int)Math.ceil(this.maxZ);
 
-        final int minX = (int) Math.floor(this.minX);
-        final int minY = (int) Math.max(Math.floor(this.minY), 0);
-        final int minZ = (int) Math.floor(this.minZ);
+        ArrayList<Block> list = new ArrayList<>();
+        list.add(world.getBlockAt(n, n3, n5));
 
-        final int maxX = (int) Math.ceil(this.maxX);
-        final int maxY = (int) Math.min(Math.ceil(this.maxY), world.getMaxHeight());
-        final int maxZ = (int) Math.ceil(this.maxZ);
-
-        final int length = (maxX - minX) * (maxZ - minZ) * Math.max(1, maxY - minY);
-
-        if (length > 100000) {
-            return false;
-        }
-
-        final BlockPosition blockLocation = new BlockPosition(minX, minY, minZ);
-
-        while (blockLocation.getX() < maxX) {
-            while (blockLocation.getZ() < maxZ) {
-                while (blockLocation.getY() < maxY) {
-
-                    Block block = blockLocation.getBlock(world);
-
-                    if(block == null) return false;
-
-                    if (!predicate.test(block.getType())) {
-                        return false;
-                    }
-
-                    blockLocation.setY(blockLocation.getY() + 1);
+        for (int i = n; i < n2; ++i) {
+            for (int j = n3; j < n4; ++j) {
+                for (int k = n5; k < n6; ++k) {
+                    list.add(world.getBlockAt(i, j, k));
                 }
-
-                blockLocation.setY(minY);
-                blockLocation.setZ(blockLocation.getZ() + 1);
             }
-
-            blockLocation.setZ(minZ);
-            blockLocation.setY(minY);
-            blockLocation.setX(blockLocation.getX() + 1);
         }
 
-        return true;
+
+        return list.stream().allMatch(block -> predicate.test(block.getType()));
     }
 
     public double getCenterX() {
