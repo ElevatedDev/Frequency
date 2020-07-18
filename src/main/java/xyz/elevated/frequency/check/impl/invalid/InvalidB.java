@@ -23,7 +23,7 @@ public final class InvalidB extends PositionCheck {
         final Location to = positionUpdate.getTo();
 
         // Get the client onGround from the client
-        final boolean onGround = positionUpdate.isOnGround();
+        final boolean onGround = !playerData.getPositionManager().getTouchingAir().get() && positionUpdate.isOnGround();
         final boolean touchingLiquid = playerData.getPositionManager().getTouchingLiquid().get();
 
         // Get the deltas for each axis
