@@ -35,16 +35,14 @@ public final class InvalidD extends PacketCheck {
                 final double horizontalDistance = Math.hypot(posX - lastPosX, posZ - lastPosZ);
                 final double acceleration = Math.abs(horizontalDistance - lastHorizontalDistance);
 
-                final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
-                final boolean attacking = attacked;
-
-                if (attacking && !exempt) {
+                if (attacked) {
                     final Entity entity = playerData.getTarget().get();
 
                     final boolean exist = entity instanceof Player;
                     final boolean flag = acceleration < 1e-04 && horizontalDistance > lastHorizontalDistance * 0.99;
+                    final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
 
-                    if (exist && flag) {
+                    if (exist && flag && !exempt) {
                         buffer += 0.25;
 
                         if (buffer > 1.25) {
@@ -53,9 +51,10 @@ public final class InvalidD extends PacketCheck {
                     } else {
                         buffer = Math.max(buffer - 0.5, 0);
                     }
+
+                    attacked = false;
                 }
 
-                attacked = false;
                 lastHorizontalDistance = horizontalDistance;
                 lastPosX = posX;
                 lastPosZ = posZ;
