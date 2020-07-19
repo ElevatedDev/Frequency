@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableClassToInstanceMap;
 import lombok.Getter;
 import xyz.elevated.frequency.check.Check;
 import xyz.elevated.frequency.check.impl.aimassist.*;
+import xyz.elevated.frequency.check.impl.aimassist.cinematic.Cinematic;
 import xyz.elevated.frequency.check.impl.autoclicker.*;
 import xyz.elevated.frequency.check.impl.badpackets.*;
 import xyz.elevated.frequency.check.impl.fly.*;
@@ -39,6 +40,7 @@ public final class CheckManager {
                 .put(KillAuraF.class, new KillAuraF(playerData))
                 .put(KillAuraG.class, new KillAuraG(playerData))
                 .put(HitboxA.class, new HitboxA(playerData))
+                .put(Cinematic.class, new Cinematic(playerData))
                 .put(AimAssistA.class, new AimAssistA(playerData))
                 .put(AimAssistB.class, new AimAssistB(playerData))
                 .put(AimAssistC.class, new AimAssistC(playerData))
