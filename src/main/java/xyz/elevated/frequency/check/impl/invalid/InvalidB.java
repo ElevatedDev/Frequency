@@ -6,6 +6,7 @@ import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
+import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.update.PositionUpdate;
 import xyz.elevated.frequency.util.NmsUtil;
 
@@ -25,6 +26,7 @@ public final class InvalidB extends PositionCheck {
         // Get the client onGround from the client
         final boolean onGround = !playerData.getPositionManager().getTouchingAir().get() && positionUpdate.isOnGround();
         final boolean touchingLiquid = playerData.getPositionManager().getTouchingLiquid().get();
+        final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.LAGGING);
 
         // Get the deltas for each axis
         final double deltaX = to.getX() - from.getX();
@@ -32,7 +34,7 @@ public final class InvalidB extends PositionCheck {
         final double deltaZ = to.getZ() - from.getZ();
 
         // If the delta is greater than 0.0 and the player is on ground (impossible)
-        if (deltaY > 0.0 && onGround && !touchingLiquid) {
+        if (deltaY > 0.0 && onGround && !touchingLiquid && !exempt) {
             final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
             // If the player is moving too, flag
