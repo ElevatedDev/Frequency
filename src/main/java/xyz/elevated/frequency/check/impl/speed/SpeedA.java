@@ -18,7 +18,7 @@ import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Speed")
 public final class SpeedA extends PositionCheck {
-    private int buffer;
+    private int buffer = 0, streak = 0;
     private double blockSlipperiness = 0.91;
     private double lastHorizontalDistance = 0.0;
 
@@ -92,10 +92,11 @@ public final class SpeedA extends PositionCheck {
             if (buffer > 40) {
                 fail();
             }
-        } else if(buffer > 0) buffer--;
+        }
 
         // Update previous values
         this.lastHorizontalDistance = horizontalDistance * blockSlipperiness;
+        this.buffer = Math.max(buffer - 1, 0);
 
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
                 MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,
