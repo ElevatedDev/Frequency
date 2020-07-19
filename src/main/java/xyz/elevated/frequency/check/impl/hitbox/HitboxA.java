@@ -18,7 +18,7 @@ public final class HitboxA extends PacketCheck {
 
     private double buffer = 0.0d;
 
-    public HitboxA(PlayerData playerData) {
+    public HitboxA(final PlayerData playerData) {
         super(playerData);
     }
 
@@ -27,7 +27,7 @@ public final class HitboxA extends PacketCheck {
         if(object instanceof WrappedPlayInUseEntity) {
             final WrappedPlayInUseEntity wrapper = (WrappedPlayInUseEntity) object;
 
-            Entity target = playerData.getTarget().get();
+            final Entity target = playerData.getTarget().get();
 
             if(!(target instanceof LivingEntity)
                     || playerData.getTargetLocations().size() < 30) return;
@@ -35,12 +35,12 @@ public final class HitboxA extends PacketCheck {
             if (wrapper.getAction() != PacketPlayInUseEntity.EnumEntityUseAction.ATTACK
                     || playerData.getBukkitPlayer().getGameMode() == GameMode.CREATIVE) return;
 
-            int now = Frequency.INSTANCE.getTickProcessor().getTicks();
-            int ping = MathUtil.getPingInTicks(playerData.getPing().get()) + 3;
+            final int now = Frequency.INSTANCE.getTickProcessor().getTicks();
+            final int ping = MathUtil.getPingInTicks(playerData.getPing().get()) + 3;
 
-            Vector origin = playerData.getPositionUpdate().get().getTo().toVector();
+            final Vector origin = playerData.getPositionUpdate().get().getTo().toVector();
 
-            double distance = playerData.getTargetLocations().stream()
+            final double distance = playerData.getTargetLocations().stream()
                     .filter(pair -> Math.abs(now - pair.getY() - ping) < 2)
                     .mapToDouble(pair -> {
                         AxisAlignedBB aabb = pair.getX();
@@ -52,7 +52,7 @@ public final class HitboxA extends PacketCheck {
                         return origin.setY(0).distance(loc) - Math.hypot(widthX, widthZ) - .1f;
                     }).min().orElse(-1);
 
-            if(distance > 3) {
+            if (distance > 3) {
                 buffer += 1.5;
 
                 if (buffer > 3) {
