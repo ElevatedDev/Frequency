@@ -34,7 +34,7 @@ public final class TimerA extends PacketCheck {
                 final double threshold = 7.07;
                 final double deviation = movingStats.getStdDev(threshold);
 
-                if (deviation > threshold || Double.isNaN(deviation)) {
+                if (deviation >= threshold || Double.isNaN(deviation)) {
                     streak = 0;
 
                     break analyze;
