@@ -24,19 +24,25 @@ public final class TimerA extends PacketCheck {
             final long now = System.currentTimeMillis();
             final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.TPS, ExemptType.LAGGING);
 
-            if (!exempt) {
+            sample: {
+                if (exempt) break sample;
+
                 movingStats.add(now - lastFlying);
             }
 
-            final double threshold = 7.07;
-            final double deviation = movingStats.getStdDev(threshold);
+            analyze: {
+                final double threshold = 7.07;
+                final double deviation = movingStats.getStdDev(threshold);
 
-            if (deviation < threshold && !Double.isNaN(deviation)) {
+                if (deviation > threshold || Double.isNaN(deviation)) {
+                    streak = 0;
+
+                    break analyze;
+                }
+
                 if (++streak > 7) {
                     fail();
                 }
-            } else {
-                streak = 0;
             }
 
             this.lastFlying = now;
