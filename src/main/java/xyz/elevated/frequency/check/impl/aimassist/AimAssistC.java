@@ -55,12 +55,12 @@ public final class AimAssistC extends RotationCheck {
 
                     // If the rotation is invalid and he attacked, flag
                     if (invalid && attacked) {
-                        if (++buffer > 5) {
+                        if (++buffer > 7) {
                             fail();
                         }
                     }
                 } else {
-                    buffer = Math.max(buffer - 1.5, 0);
+                    buffer = Math.max(buffer - 2.5, 0);
                 }
             } else {
                 buffer = 0;
