@@ -10,7 +10,9 @@ import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 @CheckData(name = "Inventory (B)", threshold = 3)
 public final class InventoryB extends PacketCheck {
 
+    private long lastFlying = System.currentTimeMillis();
     private boolean inventory = false;
+    private int buffer = 0;
 
     public InventoryB(final PlayerData playerData) {
         super(playerData);
@@ -28,14 +30,22 @@ public final class InventoryB extends PacketCheck {
             }
 
             if (inventory) {
+                final long now = System.currentTimeMillis();
+
+                final boolean lagging = now - lastFlying > 60L;
                 final boolean attacking = playerData.getActionManager().getAttacking().get();
                 final boolean swinging = playerData.getActionManager().getSwinging().get();
 
-                if (attacking || swinging) {
-                    fail();
+                if (!lagging && (attacking || swinging)) {
+                    if (++buffer > 2) {
+                        fail();
+                    }
+                } else {
+                    buffer = 0;
                 }
             }
         } else if (object instanceof WrappedPlayInFlying) {
+            lastFlying = System.currentTimeMillis();
             inventory = false;
         }
     }
