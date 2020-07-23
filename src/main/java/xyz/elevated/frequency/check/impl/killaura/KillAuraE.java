@@ -22,7 +22,7 @@ public final class KillAuraE extends PacketCheck {
             final WrappedPlayInUseEntity wrapper = (WrappedPlayInUseEntity) object;
 
             if (wrapper.getAction() == PacketPlayInUseEntity.EnumEntityUseAction.ATTACK) {
-                final boolean proper = movements < 4 && lastMovements < 4;
+                final boolean proper = playerData.getCps().get() > 7.2 && movements < 4 && lastMovements < 4;
 
                 if (proper) {
                     final boolean flag = movements == lastMovements;
