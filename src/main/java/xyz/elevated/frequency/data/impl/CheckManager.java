@@ -71,6 +71,7 @@ public final class CheckManager {
                 .put(AutoClickerE.class, new AutoClickerE(playerData))
                 .put(AutoClickerF.class, new AutoClickerF(playerData))
                 .put(AutoClickerG.class, new AutoClickerG(playerData))
+                .put(AutoClickerH.class, new AutoClickerH(playerData))
                 .put(InventoryA.class, new InventoryA(playerData))
                 .put(InventoryB.class, new InventoryB(playerData))
                 .put(TimerA.class, new TimerA(playerData))
