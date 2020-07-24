@@ -22,19 +22,17 @@ public final class AutoClickerH extends PacketCheck {
     @Override
     public void process(final Object object) {
         if (object instanceof WrappedPlayInArmAnimation) {
-            final boolean valid = movements < 4 && !playerData.getActionManager().getDigging().get();
+            final boolean valid = playerData.getCps().get() > 7.d && movements < 4 && !playerData.getActionManager().getDigging().get();
 
             if (valid) samples.add(movements);
 
             if (samples.size() == 20) {
-                final double cps = playerData.getCps().get();
-
                 final double average = samples.stream().mapToDouble(d -> d).average().orElse(0.0);
                 final double deviation = MathUtil.getStandardDeviation(samples);
 
                 final double duplicates = samples.size() - samples.stream().distinct().count();
 
-                if (cps > 7.d && average < 4 && deviation < 1.25 && duplicates > 10) fail();
+                if (average < 4 && deviation < 1.25 && duplicates > 10) fail();
             }
 
             movements = 0;
