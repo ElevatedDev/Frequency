@@ -10,10 +10,7 @@ import xyz.elevated.frequency.check.impl.autoclicker.*;
 import xyz.elevated.frequency.check.impl.badpackets.*;
 import xyz.elevated.frequency.check.impl.fly.*;
 import xyz.elevated.frequency.check.impl.hitbox.HitboxA;
-import xyz.elevated.frequency.check.impl.invalid.InvalidA;
-import xyz.elevated.frequency.check.impl.invalid.InvalidB;
-import xyz.elevated.frequency.check.impl.invalid.InvalidC;
-import xyz.elevated.frequency.check.impl.invalid.InvalidD;
+import xyz.elevated.frequency.check.impl.invalid.*;
 import xyz.elevated.frequency.check.impl.invaliddirection.InvalidDirection;
 import xyz.elevated.frequency.check.impl.invalidposition.InvalidPosition;
 import xyz.elevated.frequency.check.impl.inventory.InventoryA;
@@ -59,6 +56,7 @@ public final class CheckManager {
                 .put(InvalidB.class, new InvalidB(playerData))
                 .put(InvalidC.class, new InvalidC(playerData))
                 .put(InvalidD.class, new InvalidD(playerData))
+                .put(InvalidE.class, new InvalidE(playerData))
                 .put(FlyA.class, new FlyA(playerData))
                 .put(FlyB.class, new FlyB(playerData))
                 .put(FlyC.class, new FlyC(playerData))
