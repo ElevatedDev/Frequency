@@ -91,6 +91,8 @@ public final class SpeedA extends PositionCheck {
 
             if (buffer > 40) {
                 fail();
+
+                buffer /= 2;
             }
         }
 
