@@ -71,6 +71,8 @@ public final class AimAssistD extends RotationCheck {
             applied = false;
 
             return result;
+        } else {
+            applied = true;
         }
 
         return 0L;
