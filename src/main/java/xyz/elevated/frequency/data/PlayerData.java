@@ -26,6 +26,8 @@ public final class PlayerData {
     private final EvictingList<BoundingBox> boundingBoxes = new EvictingList<>(10);
     private final EvictingList<Location> locationsSent = new EvictingList<>(10);
     private final EvictingList<Pair<AxisAlignedBB, Integer>> targetLocations = new EvictingList<>(30);
+
+    private final Map<Short, Long> transactionUpdates = new HashMap<>();
     private final Map<Integer, Long> keepAliveUpdates = new HashMap<>();
 
     private final Observable<Boolean> sprinting = new Observable<>(false);
@@ -33,6 +35,7 @@ public final class PlayerData {
     private final Observable<Integer> joined = new Observable<>(0);
     private final Observable<Entity> target = new Observable<>(null);
     private final Observable<Long> ping = new Observable<>(0L);
+    private final Observable<Long> transactionPing = new Observable<>(0L);
     private final Observable<Integer> ticks = new Observable<>(0);
     private final Observable<Double> cps = new Observable<>(0.0);
     private final Observable<Double> rate = new Observable<>(0.0);

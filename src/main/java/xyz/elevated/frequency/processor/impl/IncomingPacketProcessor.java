@@ -11,12 +11,15 @@ import xyz.elevated.frequency.processor.type.Processor;
 import xyz.elevated.frequency.util.NmsUtil;
 import xyz.elevated.frequency.wrapper.impl.client.*;
 
+import java.util.Random;
+
 public final class IncomingPacketProcessor implements Processor<Packet<PacketListenerPlayIn>> {
 
     @Override
     public void process(final PlayerData playerData, final Packet<PacketListenerPlayIn> packet) {
         if (packet instanceof PacketPlayInFlying) {
             final WrappedPlayInFlying wrapper = new WrappedPlayInFlying(packet);
+            final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
 
             final double posX = wrapper.getX();
             final double posY = wrapper.getY();
@@ -40,6 +43,8 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
 
                 rotationManager.handle(yaw, pitch);
             }
+
+            entityPlayer.playerConnection.sendPacket(new PacketPlayOutTransaction(new Random().nextInt(), (short) (playerData.getTicks().get() & Short.MAX_VALUE), true));
 
             playerData.getVelocityManager().apply();
             playerData.getActionManager().onFlying();
@@ -137,6 +142,20 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
             final WrappedPlayInSteerVehicle wrapper = new WrappedPlayInSteerVehicle(packet);
 
             playerData.getActionManager().onSteerVehicle();
+            playerData.getCheckManager().getChecks().stream()
+                    .filter(PacketCheck.class::isInstance)
+                    .forEach(check -> check.process(wrapper));
+        } else if (packet instanceof PacketPlayInTransaction) {
+            final WrappedPlayInTransaction wrapper = new WrappedPlayInTransaction(packet);
+
+            final long now = System.currentTimeMillis();
+            playerData.getTransactionUpdates().computeIfPresent(wrapper.getHash(), (id, time) -> {
+                playerData.getTransactionPing().set(now - time);
+                playerData.getTransactionUpdates().remove(id);
+
+                return time;
+            });
+
             playerData.getCheckManager().getChecks().stream()
                     .filter(PacketCheck.class::isInstance)
                     .forEach(check -> check.process(wrapper));
