@@ -4,8 +4,8 @@ import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutKeepAlive;
 import xyz.elevated.frequency.wrapper.PacketWrapper;
 
-public class WrappedOutKeepAlive extends PacketWrapper {
-    public WrappedOutKeepAlive(Packet<?> instance) {
+public final class WrappedPlayOutKeepAlive extends PacketWrapper {
+    public WrappedPlayOutKeepAlive(Packet<?> instance) {
         super(instance, PacketPlayOutKeepAlive.class);
     }
 
