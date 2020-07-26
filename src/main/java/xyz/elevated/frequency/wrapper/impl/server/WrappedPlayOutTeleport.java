@@ -4,7 +4,7 @@ import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityTeleport;
 import xyz.elevated.frequency.wrapper.PacketWrapper;
 
-public class WrappedPlayOutTeleport extends PacketWrapper {
+public final class WrappedPlayOutTeleport extends PacketWrapper {
 
     public WrappedPlayOutTeleport(final Packet<?> instance) {
         super(instance, PacketPlayOutEntityTeleport.class);

@@ -9,6 +9,4 @@ public final class WrappedPlayInSteerVehicle extends PacketWrapper {
     public WrappedPlayInSteerVehicle(final Packet<?> instance) {
         super(instance, PacketPlayInSteerVehicle.class);
     }
-
-
 }
