@@ -65,7 +65,7 @@ public final class SpeedA extends PositionCheck {
             attributeSpeed *= 0.16277136 / Math.pow(blockSlipperiness, 3);
 
             //Only do this when the player is sprinting. You dont move forward without sprinting my guy.
-            if (deltaY > 0.4199 && entityPlayer.isSprinting()) {
+            if (deltaY > 0.4199 && playerData.getSprinting().get()) {
                 //It's not necessary to do any angle work since it'll always be a factor of 0.2.
                 //Angle work is only necessary if we are checking motionX motionZ on its own, not together.
                 attributeSpeed += 0.2;
