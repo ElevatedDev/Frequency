@@ -41,8 +41,9 @@ public final class InvalidD extends PacketCheck {
                     final boolean exist = entity instanceof Player;
                     final boolean flag = acceleration < 1e-04 && horizontalDistance > lastHorizontalDistance * 0.99;
                     final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
+                    final boolean sprinting = playerData.getSprinting().get();
 
-                    if (exist && flag && !exempt) {
+                    if (sprinting && exist && flag && !exempt) {
                         buffer += 0.25;
 
                         if (buffer > 1.25) {

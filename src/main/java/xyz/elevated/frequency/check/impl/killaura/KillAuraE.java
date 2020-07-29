@@ -31,9 +31,9 @@ public final class KillAuraE extends PacketCheck {
                         ++invalid;
                     }
 
-                    if (++total == 25) {
+                    if (++total == 30) {
 
-                        if (invalid > 20)
+                        if (invalid > 28)
                             fail();
 
                         total = 0;
