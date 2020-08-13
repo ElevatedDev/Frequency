@@ -61,7 +61,7 @@ public final class SpeedA extends PositionCheck {
         if (onGround) {
             blockSlipperiness *= 0.91f;
 
-            attributeSpeed *= 1.3; //This basically just replicates math done by the client with a single constant.
+            if(playerData.getSprinting().get()) attributeSpeed *= 1.3; //This basically just replicates math done by the client with a single constant.
             attributeSpeed *= 0.16277136 / Math.pow(blockSlipperiness, 3);
 
             //Only do this when the player is sprinting. You dont move forward without sprinting my guy.
