@@ -34,7 +34,7 @@ public final class InvalidB extends PositionCheck {
         final double deltaZ = to.getZ() - from.getZ();
 
         // If the delta is greater than 0.0 and the player is on ground (impossible)
-        if (deltaY > 0.0 && onGround && !touchingLiquid && !exempt) {
+        if (deltaY > 0.2 && onGround && !touchingLiquid && !exempt) {
             final double horizontalDistance = Math.hypot(deltaX, deltaZ);
 
             // If the player is moving too, flag
