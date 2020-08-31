@@ -1,3 +1,5 @@
+![imgur](https://i.imgur.com/FN2dqsq.png)
+
 # Frequency
 
 This is an open source anticheat mainly developed and maintained by Elevated and Gson, with help from Dawson. 
