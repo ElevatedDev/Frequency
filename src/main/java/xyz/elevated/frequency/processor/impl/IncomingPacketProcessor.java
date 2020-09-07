@@ -135,6 +135,7 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
         } else if (packet instanceof PacketPlayInBlockPlace) {
             final WrappedPlayInBlockPlace wrapper =  new WrappedPlayInBlockPlace(packet);
 
+            playerData.getActionManager().onPlace();
             playerData.getCheckManager().getChecks().stream()
                     .filter(PacketCheck.class::isInstance)
                     .forEach(check -> check.process(wrapper));
