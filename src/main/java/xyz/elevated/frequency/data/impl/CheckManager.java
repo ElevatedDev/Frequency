@@ -19,7 +19,7 @@ import xyz.elevated.frequency.check.impl.jesus.JesusA;
 import xyz.elevated.frequency.check.impl.killaura.*;
 import xyz.elevated.frequency.check.impl.pingspoof.PingSpoofA;
 import xyz.elevated.frequency.check.impl.pingspoof.PingSpoofB;
-import xyz.elevated.frequency.check.impl.speed.SpeedA;
+import xyz.elevated.frequency.check.impl.speed.Speed;
 import xyz.elevated.frequency.check.impl.timer.TimerA;
 import xyz.elevated.frequency.data.PlayerData;
 
@@ -74,7 +74,7 @@ public final class CheckManager {
                 .put(InventoryA.class, new InventoryA(playerData))
                 .put(InventoryB.class, new InventoryB(playerData))
                 .put(TimerA.class, new TimerA(playerData))
-                .put(SpeedA.class, new SpeedA(playerData))
+                .put(Speed.class, new Speed(playerData))
                 .put(JesusA.class, new JesusA(playerData))
                 .put(InvalidPosition.class, new InvalidPosition(playerData))
                 .put(InvalidDirection.class, new InvalidDirection(playerData))
