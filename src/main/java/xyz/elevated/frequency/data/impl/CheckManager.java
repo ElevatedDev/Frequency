@@ -54,6 +54,7 @@ public final class CheckManager {
                 .put(BadPacketsG.class, new BadPacketsG(playerData))
                 .put(BadPacketsH.class, new BadPacketsH(playerData))
                 .put(BadPacketsI.class, new BadPacketsI(playerData))
+                .put(BadPacketsJ.class, new BadPacketsJ(playerData))
                 .put(InvalidA.class, new InvalidA(playerData))
                 .put(InvalidB.class, new InvalidB(playerData))
                 .put(InvalidC.class, new InvalidC(playerData))
