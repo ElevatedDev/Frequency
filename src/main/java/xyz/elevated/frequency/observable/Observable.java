@@ -20,14 +20,11 @@ public final class Observable<T> {
     }
 
     public void set(final T value) {
-
         final T oldValue = this.value;
 
         this.value = value;
 
-        observers.forEach((it) ->
-                it.handle(oldValue, value)
-        );
+        observers.forEach(it -> it.handle(oldValue, value));
     }
 
 
@@ -42,8 +39,6 @@ public final class Observable<T> {
 
     @FunctionalInterface
     public interface ChangeObserver<T> {
-
         void handle(final T from, final T to);
-
     }
 }
