@@ -41,12 +41,12 @@ public abstract class Check<T> {
         alertManager.fail();
     }
 
-    protected boolean isExempt(final ExemptType exceptType) {
-        return playerData.getExceptManager().isExempt(exceptType);
+    protected boolean isExempt(final ExemptType exemptType) {
+        return playerData.getExemptManager().isExempt(exemptType);
     }
 
-    protected boolean isExempt(final ExemptType... exceptTypes) {
-        return playerData.getExceptManager().isExempt(exceptTypes);
+    protected boolean isExempt(final ExemptType... exemptTypes) {
+        return playerData.getExemptManager().isExempt(exemptTypes);
     }
 
     public abstract void process(final T object);

@@ -12,6 +12,7 @@ import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.material.Stairs;
 import org.bukkit.material.Step;
+import org.bukkit.util.Vector;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.BoundingBox;
 import xyz.elevated.frequency.data.PlayerData;
@@ -49,7 +50,7 @@ public final class PositionManager {
         final Location lastLocation = new Location(world, lastPosX, lastPosY, lastPosZ);
 
         final PositionUpdate positionUpdate = new PositionUpdate(lastLocation, location, onGround);
-        final ExemptManager exemptManager = playerData.getExceptManager();
+        final ExemptManager exemptManager = playerData.getExemptManager();
 
         playerData.getPositionUpdate().set(positionUpdate);
 

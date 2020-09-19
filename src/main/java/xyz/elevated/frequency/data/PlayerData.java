@@ -46,7 +46,7 @@ public final class PlayerData {
 
     private final RotationManager rotationManager = new RotationManager(this);
     private final CheckManager checkManager = new CheckManager(this);
-    private final ExemptManager exceptManager = new ExemptManager(this);
+    private final ExemptManager exemptManager = new ExemptManager(this);
     private final PositionManager positionManager = new PositionManager(this);
     private final ActionManager actionManager = new ActionManager(this);
     private final VelocityManager velocityManager = new VelocityManager();
