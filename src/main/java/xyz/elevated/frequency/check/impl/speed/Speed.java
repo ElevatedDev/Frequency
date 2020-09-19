@@ -61,7 +61,7 @@ public final class Speed extends PositionCheck {
         attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)0.2 * attributeSpeed;
 
         //How minecraft calculates slowness. 0.15 is the effect modifier.
-        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)-.15 * attributeSpeed;
+        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SLOW) * (float)-.15 * attributeSpeed;
 
         if (onGround) {
             blockSlipperiness *= 0.91f;
