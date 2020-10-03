@@ -27,7 +27,7 @@ public final class FlyC extends PositionCheck {
         final double deltaZ = to.getZ() - from.getZ();
 
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
-        final double acceleration = Math.abs(deltaX - lastDeltaY);
+        final double acceleration = Math.abs(deltaY - lastDeltaY);
 
         final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.VELOCITY);
         final boolean touchingAir = playerData.getPositionManager().getTouchingAir().get();
