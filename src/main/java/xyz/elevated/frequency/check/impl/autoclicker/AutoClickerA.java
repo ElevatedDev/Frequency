@@ -32,7 +32,7 @@ public final class AutoClickerA extends PacketCheck {
             if (valid) samples.add(movements);
 
             if (samples.size() == 20) {
-                // Get the putliers properly from the math utility
+                // Get the outliers properly from the math utility
                 final Pair<List<Double>, List<Double>> outlierPair = MathUtil.getOutliers(samples);
 
                 // Get the deviation from the math utility and the outliers
