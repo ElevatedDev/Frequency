@@ -28,6 +28,8 @@ public final class Speed extends PositionCheck {
     /*
      * Most values are found in the EntityLivingBase class on the client-side.
      * They can even be found inside the EntityLiving nms class.
+     *
+     * Don't modify unless you know what you're doing.
      */
 
     @Override
