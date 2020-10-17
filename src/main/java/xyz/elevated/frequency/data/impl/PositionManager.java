@@ -37,7 +37,7 @@ public final class PositionManager {
     private final Observable<Boolean> touchingClimbable = new Observable<>(false);
     private final Observable<Boolean> touchingIllegalBlock = new Observable<>(false);
 
-    public void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
+    public synchronized void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
         final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ);
 
         final World world = playerData.getBukkitPlayer().getWorld();
@@ -89,7 +89,7 @@ public final class PositionManager {
         this.lastPosZ = posZ;
     }
 
-    private void handleCollisions(final BoundingBox boundingBox) {
+    private synchronized void handleCollisions(final BoundingBox boundingBox) {
         final World world = playerData.getBukkitPlayer().getWorld();
 
         boundingBox.expand(0.5, 0.07, 0.5).move(0.0, -0.55, 0.0);
