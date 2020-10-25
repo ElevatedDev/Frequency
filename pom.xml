@@ -48,6 +48,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
+        <repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
     </repositories>
 
     <dependencies>
@@ -85,6 +89,12 @@
             <groupId>org.atteo.classindex</groupId>
             <artifactId>classindex</artifactId>
             <version>3.6</version>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+	        <groupId>com.github.godead</groupId>
+	        <artifactId>lilliputian</artifactId>
+	        <version>0.1.13</version>
+	    </dependency>
     </dependencies>
 </project>
