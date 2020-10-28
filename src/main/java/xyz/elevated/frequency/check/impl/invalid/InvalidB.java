@@ -1,14 +1,11 @@
 package xyz.elevated.frequency.check.impl.invalid;
 
-import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Location;
 import xyz.elevated.frequency.check.CheckData;
-import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.update.PositionUpdate;
-import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Invalid (B)")
 public final class InvalidB extends PositionCheck {

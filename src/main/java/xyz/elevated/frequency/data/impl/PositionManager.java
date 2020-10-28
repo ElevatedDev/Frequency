@@ -69,6 +69,7 @@ public final class PositionManager {
             return;
         }
 
+        // Make sure players is not on a boat/minecart
         if (Arrays.stream(entities).anyMatch(entity -> entity instanceof Minecart || entity instanceof Boat)) {
             return;
         }

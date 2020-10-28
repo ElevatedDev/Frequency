@@ -1,12 +1,9 @@
 package xyz.elevated.frequency.check.impl.badpackets;
 
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PostCheck;
 import xyz.elevated.frequency.data.PlayerData;
-import xyz.elevated.frequency.wrapper.PacketWrapper;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInArmAnimation;
-import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
 @CheckData(name = "BadPackets (B)")
 public final class BadPacketsB extends PostCheck {

@@ -1,7 +1,5 @@
 package xyz.elevated.frequency.check.impl.aimassist;
 
-import com.google.common.collect.Maps;
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.RotationCheck;
 import xyz.elevated.frequency.data.PlayerData;

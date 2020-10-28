@@ -2,14 +2,11 @@ package xyz.elevated.frequency.check;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
-import org.bukkit.BanList;
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.alert.AlertManager;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.util.LogUtil;
 
-import java.util.Deque;
 import java.util.List;
 
 @Getter
