@@ -1,8 +1,5 @@
 package xyz.elevated.frequency.check.type;
 
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketListenerPlayIn;
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.wrapper.PacketWrapper;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
