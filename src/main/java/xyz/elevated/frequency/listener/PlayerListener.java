@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import xyz.elevated.frequency.Frequency;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.packet.PacketHandler;
+import xyz.elevated.frequency.tick.TickManager;
 import xyz.elevated.frequency.util.NmsUtil;
 
 public final class PlayerListener implements Listener {
@@ -21,9 +22,11 @@ public final class PlayerListener implements Listener {
         final Player player = event.getPlayer();
         final PlayerData playerData = Frequency.INSTANCE.getPlayerDataManager().getData(player);
 
+        final int ticks = playerData.getTicks().get();
         final ChannelPipeline channelPipeline = NmsUtil.getPlayerPipeline(player);
 
         playerData.getActionManager().onTeleport();
+        playerData.getJoined().set(ticks);
         Frequency.INSTANCE.getExecutorPacket().execute(() -> channelPipeline.addBefore("packet_handler", "frequency_packet_handler", new PacketHandler(playerData)));
     }
 
