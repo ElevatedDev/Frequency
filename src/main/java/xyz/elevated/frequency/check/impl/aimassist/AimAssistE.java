@@ -53,7 +53,7 @@ public final class AimAssistE extends RotationCheck {
             if (invalidX || invalidY) {
                 buffer = Math.min(buffer + 1, 200);
 
-                if (buffer > 10) {
+                if (buffer > 15) {
                     fail();
                 }
             } else {

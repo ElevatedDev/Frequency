@@ -36,7 +36,7 @@ public final class HitboxA extends PacketCheck {
                     || playerData.getBukkitPlayer().getGameMode() == GameMode.CREATIVE) return;
 
             final int now = Frequency.INSTANCE.getTickProcessor().getTicks();
-            final int ping = MathUtil.getPingInTicks(playerData.getPing().get()) + 3;
+            final int ping = MathUtil.getPingInTicks(playerData.getKeepAlivePing().get()) + 3;
 
             final Vector origin = playerData.getPositionUpdate().get().getTo().toVector();
 

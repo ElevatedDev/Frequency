@@ -55,6 +55,9 @@ public final class Speed extends PositionCheck {
         final boolean onGround = entityPlayer.onGround;
         final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
 
+        // Properly calculate max jump for jump threshold
+        final int modifierJump = MathUtil.getPotionLevel(player, PotionEffectType.JUMP);
+
         /*
          * How minecraft calculates speed increase. We cast as a float because this is what the client does.
          * MCP just prints the casted float as a double. 0.2 is the effect modifier.
@@ -62,7 +65,7 @@ public final class Speed extends PositionCheck {
         attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)0.2 * attributeSpeed;
 
         //How minecraft calculates slowness. 0.15 is the effect modifier.
-        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SPEED) * (float)-.15 * attributeSpeed;
+        attributeSpeed += MathUtil.getPotionLevel(player, PotionEffectType.SLOW) * (float)-.15 * attributeSpeed;
 
         if (onGround) {
             blockSlipperiness *= 0.91f;
@@ -71,7 +74,7 @@ public final class Speed extends PositionCheck {
             attributeSpeed *= 0.16277136 / Math.pow(blockSlipperiness, 3);
 
             //Only do this when the player is sprinting. You dont move forward without sprinting my guy.
-            if (deltaY > 0.4199 && playerData.getSprinting().get()) {
+            if (deltaY > 0.4199 + modifierJump * 0.1 && playerData.getSprinting().get()) {
                 /*
                  * It's not necessary to do any angle work since it'll always be a factor of 0.2.
                  * Angle work is only necessary if we are checking motionX motionZ on its own, not together.
@@ -90,7 +93,7 @@ public final class Speed extends PositionCheck {
         }
 
         // Add to the attribute speed according to velocity
-        attributeSpeed += playerData.getVelocityManager().getMaxVertical();
+        attributeSpeed += playerData.getVelocityManager().getMaxHorizontal();
 
         // Get the horizontal distance and convert to the movement speed
         final double horizontalDistance = Math.hypot(deltaX, deltaZ);
@@ -105,16 +108,17 @@ public final class Speed extends PositionCheck {
 
                 buffer /= 2;
             }
+        } else {
+            buffer = Math.max(buffer - 1, 0);
         }
 
         // Update previous values
-        this.lastHorizontalDistance = horizontalDistance * blockSlipperiness;
-        this.buffer = Math.max(buffer - 1, 0);
-
         this.blockSlipperiness = entityPlayer.world.getType(new BlockPosition(MathHelper.floor(to.getX()),
-                MathHelper.floor(entityPlayer.getBoundingBox().b) - 1,
+                MathHelper.floor(to.getY()) - 1,
                 MathHelper.floor(to.getZ())))
                 .getBlock()
                 .frictionFactor * 0.91F;
+
+        this.lastHorizontalDistance = horizontalDistance * blockSlipperiness;
     }
 }

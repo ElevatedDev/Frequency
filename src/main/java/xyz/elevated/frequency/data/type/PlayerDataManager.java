@@ -21,7 +21,7 @@ public final class PlayerDataManager {
         return playerDataMap.remove(uuid);
     }
 
-    public Collection<PlayerData> getUniversalData() {
+    public Collection<PlayerData> getEntries() {
         return playerDataMap.values();
     }
 }

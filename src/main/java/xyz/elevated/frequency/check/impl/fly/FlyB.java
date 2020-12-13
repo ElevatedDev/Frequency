@@ -30,9 +30,7 @@ public final class FlyB extends PositionCheck {
 
         final boolean touchingAir = playerData.getPositionManager().getTouchingAir().get();
 
-        if (exempt || resetting) {
-            return;
-        }
+        if (exempt || resetting) return;
 
         if (touchingAir) {
             ++ticks;
