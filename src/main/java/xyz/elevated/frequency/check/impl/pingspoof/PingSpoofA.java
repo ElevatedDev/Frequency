@@ -17,7 +17,7 @@ public final class PingSpoofA extends PacketCheck {
     public void process(final Object object) {
         if (object instanceof WrappedPlayInFlying) {
             final long transactionPing = playerData.getTransactionPing().get();
-            final long keepAlivePing = playerData.getPing().get();
+            final long keepAlivePing = playerData.getKeepAlivePing().get();
 
             final boolean joined = playerData.getTicks().get() - playerData.getJoined().get() < 10;
             final boolean exempt = this.isExempt(ExemptType.LAGGING, ExemptType.TELEPORTING, ExemptType.TPS, ExemptType.CHUNK);

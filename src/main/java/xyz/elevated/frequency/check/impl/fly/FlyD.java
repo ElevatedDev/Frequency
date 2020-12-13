@@ -55,6 +55,8 @@ public final class FlyD extends PositionCheck {
                 total = 0.0;
                 buffer = 0.0;
             }
+        } else {
+            ticks = 0;
         }
     }
 }

@@ -2,10 +2,7 @@ package xyz.elevated.frequency.util;
 
 import io.netty.channel.ChannelPipeline;
 import lombok.experimental.UtilityClass;
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.Entity;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.WorldServer;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -35,6 +32,18 @@ public class NmsUtil {
 
     public ChannelPipeline getPlayerPipeline(final Player player) {
         return getEntityPlayerPipeline(getEntityPlayer(player));
+    }
+
+    public PlayerConnection getPlayerConnection(final PlayerData playerData) {
+        final Player player = playerData.getBukkitPlayer();
+
+        return getPlayerConnection(player);
+    }
+
+    public PlayerConnection getPlayerConnection(final Player player) {
+        final EntityPlayer entityPlayer = getEntityPlayer(player);
+
+        return entityPlayer.playerConnection;
     }
 
     public Block getBlock(final Location location) {

@@ -44,8 +44,6 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
                 rotationManager.handle(yaw, pitch);
             }
 
-            entityPlayer.playerConnection.sendPacket(new PacketPlayOutTransaction(new Random().nextInt(), (short) (playerData.getTicks().get() & Short.MAX_VALUE), true));
-
             playerData.getVelocityManager().apply();
             playerData.getActionManager().onFlying();
             playerData.getCheckManager().getChecks().stream()
@@ -119,12 +117,7 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
         } else if(packet instanceof PacketPlayInKeepAlive) {
             final WrappedPlayInKeepAlive wrapper = new WrappedPlayInKeepAlive(packet);
 
-            long now = System.currentTimeMillis();
-            playerData.getKeepAliveUpdates().computeIfPresent(wrapper.getTime(), (id, time) -> {
-                playerData.getPing().set(now - time);
-                playerData.getKeepAliveUpdates().remove(id);
-                return time;
-            });
+            playerData.getConnectionManager().onKeepAlive(wrapper.getTime(), System.currentTimeMillis());
             playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInClientCommand) {
             final WrappedPlayInClientCommand wrapper = new WrappedPlayInClientCommand(packet);
@@ -150,13 +143,8 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
             final WrappedPlayInTransaction wrapper = new WrappedPlayInTransaction(packet);
 
             final long now = System.currentTimeMillis();
-            playerData.getTransactionUpdates().computeIfPresent(wrapper.getHash(), (id, time) -> {
-                playerData.getTransactionPing().set(now - time);
-                playerData.getTransactionUpdates().remove(id);
 
-                return time;
-            });
-
+            playerData.getConnectionManager().onTransaction(wrapper.getHash(), now);
             playerData.getCheckManager().getChecks().stream()
                     .filter(PacketCheck.class::isInstance)
                     .forEach(check -> check.process(wrapper));
