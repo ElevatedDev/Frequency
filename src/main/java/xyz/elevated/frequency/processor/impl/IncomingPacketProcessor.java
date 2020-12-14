@@ -1,6 +1,7 @@
 package xyz.elevated.frequency.processor.impl;
 
 import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.BoundingBox;
@@ -33,8 +34,9 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
 
             if (hasPos) {
                 final PositionManager positionManager = playerData.getPositionManager();
+                final World world = playerData.getBukkitPlayer().getWorld();
 
-                positionManager.handle(posX, posY, posZ, onGround);
+                positionManager.handle(world, posX, posY, posZ, onGround);
             }
 
             if (hasLook) {

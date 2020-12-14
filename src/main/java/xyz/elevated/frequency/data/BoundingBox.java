@@ -19,16 +19,17 @@ public final class BoundingBox {
     private double maxX, maxY, maxZ;
 
     private final long timestamp = System.currentTimeMillis();
+    private final World world;
 
     public BoundingBox(final Location position) {
-        this(position.getX(), position.getY(), position.getZ());
+        this(position.getX(), position.getY(), position.getZ(), position.getWorld());
     }
 
-    public BoundingBox(final double x, final double y, final double z) {
-        this(x, x, y, y, z, z);
+    public BoundingBox(final double x, final double y, final double z, final World world) {
+        this(x, x, y, y, z, z, world);
     }
 
-    public BoundingBox(final double minX, final double maxX, final double minY, final double maxY, final double minZ, final double maxZ) {
+    public BoundingBox(final double minX, final double maxX, final double minY, final double maxY, final double minZ, final double maxZ, final World world) {
         if (minX < maxX) {
             this.minX = minX;
             this.maxX = maxX;
@@ -50,6 +51,8 @@ public final class BoundingBox {
             this.minZ = maxZ;
             this.maxZ = minZ;
         }
+
+        this.world = world;
     }
 
     public double distance(final Location location) {
@@ -70,7 +73,7 @@ public final class BoundingBox {
         return Math.sqrt(dx + dz);
     }
 
-    public Vector getDirection(final World world) {
+    public Vector getDirection() {
         final double centerX = (minX + maxX) / 2.0;
         final double centerY = (minY + maxY) / 2.0;
         final double centerZ = (minZ + maxZ) / 2.0;
@@ -123,7 +126,7 @@ public final class BoundingBox {
     }
 
 
-    public boolean checkBlocks(final World world, final Predicate<Material> predicate) {
+    public boolean checkBlocks(final Predicate<Material> predicate) {
         final int first = (int) Math.floor(this.minX);
         final int second = (int) Math.ceil(this.maxX);
         final int third = (int) Math.floor(this.minY);

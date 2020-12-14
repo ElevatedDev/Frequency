@@ -43,7 +43,7 @@ public final class PlayerData {
     private final Observable<Integer> ticks = new Observable<>(0);
     private final Observable<Double> cps = new Observable<>(0.0);
     private final Observable<Double> rate = new Observable<>(0.0);
-    private final Observable<BoundingBox> boundingBox = new Observable<>(new BoundingBox(0, 0, 0));
+    private final Observable<BoundingBox> boundingBox = new Observable<>(new BoundingBox(0, 0, 0, null));
 
     private final Observable<RotationUpdate> rotationUpdate = new Observable<>(new RotationUpdate(0, 0));
     private final Observable<PositionUpdate> positionUpdate = new Observable<>(new PositionUpdate(null, null, false));
