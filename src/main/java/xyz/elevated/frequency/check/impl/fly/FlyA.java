@@ -33,9 +33,7 @@ public final class FlyA extends PositionCheck {
         final boolean illegal = playerData.getPositionManager().getTouchingClimbable().get() || playerData.getPositionManager().getTouchingLiquid().get();
 
         if (!illegal && clientGround != serverGround) {
-            if (++buffer > 4) {
-                fail();
-            }
+            if (++buffer > 4) fail();
         } else {
             buffer = 0;
         }

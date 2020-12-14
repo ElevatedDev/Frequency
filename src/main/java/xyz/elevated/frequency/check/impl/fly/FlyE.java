@@ -48,9 +48,7 @@ public final class FlyE extends PositionCheck {
 
             // Normally I would avoid using the sqrt as its quite heavy on performance.
             if (Math.sqrt(distanceGround) > threshold) {
-                if (++movements > 5) {
-                    fail();
-                }
+                if (++movements > 5) fail();
             } else {
                 movements = 0;
             }
