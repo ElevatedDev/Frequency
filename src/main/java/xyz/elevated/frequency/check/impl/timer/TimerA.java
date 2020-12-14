@@ -1,5 +1,6 @@
 package xyz.elevated.frequency.check.impl.timer;
 
+import org.bukkit.Bukkit;
 import xyz.elevated.frequency.Frequency;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
@@ -67,7 +68,7 @@ public final class TimerA extends PacketCheck {
                     * and we're subtracting from it the actual delay received. This will act as our "buffer" system.
                      */
                     allowance += 50;
-                    allowance = Math.min(allowance - delay, 0);
+                    allowance -= delay;
 
                     // Our previous threshold can act as one here too.
                     if (allowance > Math.floor(threshold)) fail();
