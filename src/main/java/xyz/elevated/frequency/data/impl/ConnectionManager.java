@@ -2,7 +2,6 @@ package xyz.elevated.frequency.data.impl;
 
 import lombok.RequiredArgsConstructor;
 import xyz.elevated.frequency.data.PlayerData;
-import xyz.elevated.frequency.observable.Observable;
 
 import java.util.Map;
 import java.util.Optional;
@@ -14,21 +13,13 @@ public final class ConnectionManager {
     public void onTransaction(final short actionNumber, final long now) {
         final Optional<Long> entry = this.getTransactionTime(actionNumber);
 
-        entry.ifPresent(time -> {
-            final long delay = now - time;
-
-            playerData.getTransactionPing().set(delay);
-        });
+        entry.ifPresent(time -> playerData.getTransactionPing().set(now - time));
     }
 
     public void onKeepAlive(final int identification, final long now) {
         final Optional<Long> entry = this.getKeepAliveTime(identification);
 
-        entry.ifPresent(time -> {
-            final long delay = now - time;
-
-            playerData.getKeepAlivePing().set(delay);
-        });
+        entry.ifPresent(time -> playerData.getKeepAlivePing().set(now - time));
     }
 
     public Optional<Long> getTransactionTime(final short actionNumber) {
