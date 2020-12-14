@@ -22,6 +22,8 @@ public final class AimAssistE extends RotationCheck {
 
     @Override
     public void process(final RotationUpdate rotationUpdate) {
+        final int now = playerData.getTicks().get();
+
         // Get the deltas from the rotation update
         final float deltaYaw = rotationUpdate.getDeltaYaw();
         final float deltaPitch = rotationUpdate.getDeltaPitch();
@@ -42,8 +44,12 @@ public final class AimAssistE extends RotationCheck {
         final double previousX = lastDeltaYaw / constantYaw;
         final double previousY = lastDeltaPitch / constantPitch;
 
+        // Make sure the player is attacking or placing to filter out the check
+        final boolean action = now - playerData.getActionManager().getLastAttack() < 3
+                || now - playerData.getActionManager().getLastPlace() < 3;
+
         // Make sure the rotation is not very large and not equal to zero and get the modulo of the xys
-        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 20.f && deltaPitch < 20.f) {
+        if (deltaYaw > 0.0 && deltaPitch > 0.0 && deltaYaw < 20.f && deltaPitch < 20.f && action) {
             final double moduloX = currentX % previousX;
             final double moduloY = currentY % previousY;
 
@@ -58,9 +64,7 @@ public final class AimAssistE extends RotationCheck {
             if (invalidX && invalidY) {
                 buffer = Math.min(buffer + 1, 200);
 
-                if (buffer > 15) {
-                    fail();
-                }
+                if (buffer > 6) fail();
             } else {
                 buffer = 0;
             }
