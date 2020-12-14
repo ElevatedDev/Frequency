@@ -43,9 +43,7 @@ public final class KillAuraB extends RotationCheck {
             if (deviation > 6.f && averageDelta > 1.5f && averageYaw < 30.d) {
                 buffer += 0.5;
 
-                if (buffer > 3.5) {
-                    fail();
-                }
+                if (buffer > 2.0) fail();
             } else {
                 buffer = Math.max(buffer - 0.125, 0);
             }
