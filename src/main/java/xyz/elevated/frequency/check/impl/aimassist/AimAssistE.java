@@ -6,10 +6,15 @@ import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.RotationUpdate;
 import xyz.elevated.frequency.util.MathUtil;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @CheckData(name = "AimAssist (E)")
 public final class AimAssistE extends RotationCheck {
     private float lastDeltaYaw = 0.0f, lastDeltaPitch = 0.0f;
     private int buffer = 0;
+
+    private static final double MODULO_THRESHOLD = 90F;
+    private static final double LINEAR_THRESHOLD = 0.1F;
 
     public AimAssistE(final PlayerData playerData) {
         super(playerData);
@@ -47,10 +52,10 @@ public final class AimAssistE extends RotationCheck {
             final double floorModuloY = Math.abs(Math.floor(moduloY) - moduloY);
 
             // Impossible to have a different constant in two rotations
-            final boolean invalidX = moduloX > 90.d && floorModuloX > 0.1;
-            final boolean invalidY = moduloY > 90.d && floorModuloY > 0.1;
+            final boolean invalidX = moduloX > MODULO_THRESHOLD && floorModuloX > LINEAR_THRESHOLD;
+            final boolean invalidY = moduloY > MODULO_THRESHOLD && floorModuloY > LINEAR_THRESHOLD;
 
-            if (invalidX || invalidY) {
+            if (invalidX && invalidY) {
                 buffer = Math.min(buffer + 1, 200);
 
                 if (buffer > 15) {

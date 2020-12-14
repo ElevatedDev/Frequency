@@ -29,28 +29,49 @@ public final class InvalidD extends PacketCheck {
             final WrappedPlayInFlying wrapper = (WrappedPlayInFlying) object;
 
             if (wrapper.hasPos()) {
+                // Get position values from wrapper
                 final double posX = wrapper.getX();
                 final double posZ = wrapper.getZ();
 
+                // Calculate the basic horizontal distance and the acceleration
                 final double horizontalDistance = Math.hypot(posX - lastPosX, posZ - lastPosZ);
                 final double acceleration = Math.abs(horizontalDistance - lastHorizontalDistance);
 
-                if (attacked) {
-                    final Entity entity = playerData.getTarget().get();
+                /*
+                * The theory is, when the player attacks an entity they get slowed down by 0.6. Here we're simply checking
+                * if the player had any sort of slowdown when attacking a player. If not, that means that the player's
+                * motion was not messed with. When that happens, increase a buffer to reduce possible false positives.
+                 */
+                motion: {
+                    final Entity target = playerData.getTarget().get();
 
-                    final boolean exist = entity instanceof Player;
-                    final boolean flag = acceleration < 1e-04 && horizontalDistance > lastHorizontalDistance * 0.99;
+                    /*
+                    * The player only gets slowed down in Minecraft when he's hitting another player. Not if
+                    * he is hitting a mob. Thus, we need to make sure that the entity attacked is surely a
+                    * player, and not a mob or this check is going to false to bits since the theory is wrong then,
+                     */
+                    final boolean exists = target instanceof Player;
                     final boolean exempt = this.isExempt(ExemptType.TPS, ExemptType.TELEPORTING);
+
+                    /*
+                    * We don't want to run the check if the player has not attacked or if the entity attacked
+                    * was not a player of if the player did not attack at all. Thus, we're breaking on these scenarios.
+                     */
+                    if (exempt || !exists || !attacked) break motion;
+
+                    /*
+                    * The check only is valid if the player is sprinting, so we also need to make sure that the player'ss
+                    * sprinting status are true, or the check again is not going to work as expected.
+                     */
+                    final boolean accelerated = acceleration < 1e-04 && horizontalDistance > lastHorizontalDistance * 0.99;
                     final boolean sprinting = playerData.getSprinting().get();
 
-                    if (sprinting && exist && flag && !exempt) {
+                    if (accelerated && sprinting) {
                         buffer += 0.25;
 
-                        if (buffer > 1.25) {
-                            fail();
-                        }
+                        if (buffer > 1.25) fail();
                     } else {
-                        buffer = Math.max(buffer - 0.5, 0);
+                        buffer = Math.max(buffer - 0.25, 0);
                     }
 
                     attacked = false;
