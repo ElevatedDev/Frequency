@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class EvictingMap<K, V> extends HashMap<K, V> {
+public final class EvictingMap<K, V> extends HashMap<K, V> {
     @Getter private final int size;
     private final Deque<K> storedKeys = new LinkedList<>();
 

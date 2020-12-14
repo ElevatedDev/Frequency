@@ -18,7 +18,7 @@ public enum Frequency {
 
     private final ProcessorManager processorManager = new ProcessorManager();
     private final PlayerDataManager playerDataManager = new PlayerDataManager();
-    private final TickManager tickProcessor = new TickManager();
+    private final TickManager tickManager = new TickManager();
 
     private final Executor executorAlert = Executors.newSingleThreadExecutor();
     private final Executor executorPacket = Executors.newSingleThreadExecutor();
@@ -28,7 +28,7 @@ public enum Frequency {
 
         assert plugin != null : "Something went wrong! The plugin was null. (Startup)";
 
-        tickProcessor.start();
+        tickManager.start();
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), plugin);
     }
 
@@ -37,6 +37,6 @@ public enum Frequency {
 
         assert plugin != null : "Something went wrong! The plugin was null. (Shutdown)";
 
-        tickProcessor.stop();
+        tickManager.stop();
     }
 }

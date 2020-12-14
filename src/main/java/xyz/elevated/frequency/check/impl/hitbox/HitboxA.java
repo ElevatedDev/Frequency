@@ -13,8 +13,6 @@ import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 
-import java.util.function.Predicate;
-
 @CheckData(name = "Hitbox (A)")
 public final class HitboxA extends PacketCheck {
     private double buffer = 0.0;
@@ -36,7 +34,7 @@ public final class HitboxA extends PacketCheck {
             if (wrapper.getAction() != PacketPlayInUseEntity.EnumEntityUseAction.ATTACK
                     || playerData.getBukkitPlayer().getGameMode() == GameMode.CREATIVE) return;
 
-            final int now = Frequency.INSTANCE.getTickProcessor().getTicks();
+            final int now = Frequency.INSTANCE.getTickManager().getTicks();
             final int ping = MathUtil.getPingInTicks(playerData.getKeepAlivePing().get()) + 3;
 
             final Vector origin = playerData.getPositionUpdate().get().getTo().toVector();

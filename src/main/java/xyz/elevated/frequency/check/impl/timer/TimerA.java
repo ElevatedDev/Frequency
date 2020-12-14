@@ -1,6 +1,5 @@
 package xyz.elevated.frequency.check.impl.timer;
 
-import org.bukkit.Bukkit;
 import xyz.elevated.frequency.Frequency;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
@@ -26,7 +25,7 @@ public final class TimerA extends PacketCheck {
 
         if (flying) {
             // Get the server ticks and the current time for the check processing
-            final int serverTicks = Frequency.INSTANCE.getTickProcessor().getTicks();
+            final int serverTicks = Frequency.INSTANCE.getTickManager().getTicks();
             final long now = System.currentTimeMillis();
 
             /*

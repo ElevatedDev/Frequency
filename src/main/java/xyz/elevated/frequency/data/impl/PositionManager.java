@@ -37,12 +37,10 @@ public final class PositionManager {
     private final Observable<Boolean> touchingClimbable = new Observable<>(false);
     private final Observable<Boolean> touchingIllegalBlock = new Observable<>(false);
 
-    public synchronized void handle(final double posX, final double posY, final double posZ, final boolean onGround) {
-        final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ);
+    public synchronized void handle(final World world, final double posX, final double posY, final double posZ, final boolean onGround) {
+        final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ, world);
 
-        final World world = playerData.getBukkitPlayer().getWorld();
         final Player bukkitPlayer = playerData.getBukkitPlayer();
-
         final Object[] entities = bukkitPlayer.getNearbyEntities(4.0, 4.0, 4.0).toArray();
 
         // Convert the data to bukkit locations and parse them
@@ -91,15 +89,13 @@ public final class PositionManager {
     }
 
     private synchronized void handleCollisions(final BoundingBox boundingBox) {
-        final World world = playerData.getBukkitPlayer().getWorld();
-
         boundingBox.expand(0.5, 0.07, 0.5).move(0.0, -0.55, 0.0);
 
-        final boolean touchingAir = boundingBox.checkBlocks(world, material -> material == Material.AIR);
-        final boolean touchingLiquid = boundingBox.checkBlocks(world, material -> material == Material.WATER || material == Material.LAVA || material == Material.STATIONARY_WATER || material == Material.STATIONARY_LAVA);
-        final boolean touchingHalfBlock = boundingBox.checkBlocks(world, material -> material.getData() == Stairs.class || material.getData() == Step.class);
-        final boolean touchingClimbable = boundingBox.checkBlocks(world, material ->  material == Material.LADDER || material == Material.LAVA);
-        final boolean touchingIllegalBlock = boundingBox.checkBlocks(world, material -> material == Material.WATER_LILY || material == Material.BREWING_STAND);
+        final boolean touchingAir = boundingBox.checkBlocks(material -> material == Material.AIR);
+        final boolean touchingLiquid = boundingBox.checkBlocks(material -> material == Material.WATER || material == Material.LAVA || material == Material.STATIONARY_WATER || material == Material.STATIONARY_LAVA);
+        final boolean touchingHalfBlock = boundingBox.checkBlocks(material -> material.getData() == Stairs.class || material.getData() == Step.class);
+        final boolean touchingClimbable = boundingBox.checkBlocks(material -> material == Material.LADDER || material == Material.LAVA);
+        final boolean touchingIllegalBlock = boundingBox.checkBlocks(material -> material == Material.WATER_LILY || material == Material.BREWING_STAND);
 
         this.touchingAir.set(touchingAir && !touchingIllegalBlock);
         this.touchingLiquid.set(touchingLiquid);
