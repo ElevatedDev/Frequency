@@ -71,7 +71,7 @@ public final class ActionManager {
         final int attack = now - lastAttack;
 
         final boolean delayed = now - lastFlying > 2;
-        final boolean digging = now - lastDig < 8 || packetDigging.get();
+        final boolean digging = now - lastDig < 15 || packetDigging.get();
         final boolean lagging = now - lastDelayedFlying < 2;
         final boolean teleporting = now - lastTeleport < 2;
         final boolean recent = attack < 200;
