@@ -33,7 +33,8 @@ public final class InvalidB extends PositionCheck {
 
         // Get the right circumstances. We don't want to run the check on these as it increases the margin of error
         final boolean environment = !positionManager.getTouchingAir().get()
-                && !positionManager.getTouchingHalfBlock().get() && !positionManager.getTouchingLiquid().get()
+                && !positionManager.getTouchingHalfBlock().get()
+                && !positionManager.getTouchingLiquid().get()
                 && positionUpdate.isOnGround();
 
         // We don't want the check to run when the player is on the void or when he's receiving velocity
