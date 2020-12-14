@@ -37,7 +37,7 @@ public final class InvalidB extends PositionCheck {
                 && positionUpdate.isOnGround();
 
         // We don't want the check to run when the player is on the void or when he's receiving velocity
-        final boolean exempt = this.isExempt(ExemptType.VOID, ExemptType.VELOCITY);
+        final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.VOID, ExemptType.VELOCITY);
 
         /*
         * The player should never exceed the distance of their basic head height. For our case we could
