@@ -19,9 +19,7 @@ public final class BadPacketsF extends PacketCheck {
         if (object instanceof WrappedPlayInHeldItemSlot) {
             final WrappedPlayInHeldItemSlot wrapper = (WrappedPlayInHeldItemSlot) object;
 
-            if (wrapper.getSlot() == lastSlot) {
-                fail();
-            }
+            if (wrapper.getSlot() == lastSlot) fail();
 
             this.lastSlot = wrapper.getSlot();
         }

@@ -1,6 +1,6 @@
 package xyz.elevated.frequency.check.impl.badpackets;
 
-import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
+import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity.EnumEntityUseAction;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
@@ -18,7 +18,9 @@ public final class BadPacketsJ extends PacketCheck {
         if (object instanceof WrappedPlayInUseEntity) {
             final WrappedPlayInUseEntity wrapper = (WrappedPlayInUseEntity) object;
 
-            if (wrapper.getAction() == PacketPlayInUseEntity.EnumEntityUseAction.ATTACK) {
+            handle: {
+                if (wrapper.getAction() != EnumEntityUseAction.ATTACK) break handle;
+
                 final boolean placing = playerData.getActionManager().getPlacing().get();
 
                 if (placing) fail();

@@ -65,11 +65,13 @@ public final class ActionManager {
 
     public void onFlying() {
         final int now = playerData.getTicks().get();
+        final int attack = now - lastAttack;
 
         final boolean delayed = now - lastFlying > 2;
         final boolean digging = now - lastDig < 8 || packetDigging.get();
         final boolean lagging = now - lastDelayedFlying < 2;
         final boolean teleporting = now - lastTeleport < 2;
+        final boolean recent = attack < 200;
 
         this.placing.set(false);
         this.attacking.set(false);
@@ -85,8 +87,10 @@ public final class ActionManager {
         this.lastDelayedFlying = delayed ? now : lastDelayedFlying;
         this.lastFlying = now;
 
-        movements++;
+        playerData.getTarget().set(recent ? playerData.getTarget().get() : null);
         playerData.getTicks().set(now + 1);
+
+        movements++;
     }
 
     public void onSteerVehicle() {

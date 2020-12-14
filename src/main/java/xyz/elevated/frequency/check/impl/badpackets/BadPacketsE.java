@@ -18,8 +18,6 @@ public final class BadPacketsE extends PostCheck {
     public void process(final Object object) {
         final boolean post = this.isPost(object);
 
-        if (post) {
-            fail();
-        }
+        if (post) fail();
     }
 }

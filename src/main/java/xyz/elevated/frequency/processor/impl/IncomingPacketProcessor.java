@@ -19,7 +19,6 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
     public void process(final PlayerData playerData, final Packet<PacketListenerPlayIn> packet) {
         if (packet instanceof PacketPlayInFlying) {
             final WrappedPlayInFlying wrapper = new WrappedPlayInFlying(packet);
-            final EntityPlayer entityPlayer = NmsUtil.getEntityPlayer(playerData);
 
             final double posX = wrapper.getX();
             final double posY = wrapper.getY();

@@ -38,9 +38,7 @@ public final class FlyC extends PositionCheck {
             if (ticks > 6 && horizontalDistance > 0.1 && (deltaY == 0.0 || acceleration == 0.0)) {
                 buffer += 0.25;
 
-                if (buffer > 0.75) {
-                    fail();
-                }
+                if (buffer > 0.75) fail();
             } else {
                 buffer = Math.max(buffer - 0.12, 0.0);
             }

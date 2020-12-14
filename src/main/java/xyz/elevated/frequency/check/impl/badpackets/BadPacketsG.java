@@ -24,9 +24,7 @@ public final class BadPacketsG extends PacketCheck {
 
             final boolean invalid = ++count > 1 && wrapper.getAction() == lastAction;
 
-            if (invalid) {
-                fail();
-            }
+            if (invalid) fail();
 
             this.lastAction = wrapper.getAction();
         } else if (object instanceof WrappedPlayInFlying) {

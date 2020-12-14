@@ -38,8 +38,7 @@ public final class FlyB extends PositionCheck {
             if (ticks > 5 && Math.abs(estimation - deltaY) > 0.002) {
                 buffer += 1.5;
 
-                if (buffer > 5)
-                    fail();
+                if (buffer > 5) fail();
             } else {
                 buffer = Math.max(0, buffer - 1.25);
             }
