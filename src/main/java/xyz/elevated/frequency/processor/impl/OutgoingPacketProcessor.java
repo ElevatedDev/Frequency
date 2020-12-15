@@ -36,14 +36,6 @@ public final class OutgoingPacketProcessor implements Processor<Packet<PacketLis
             }
         } else if (packet instanceof PacketPlayOutPosition) {
             playerData.getActionManager().onTeleport();
-        } else if(packet instanceof PacketPlayOutKeepAlive) {
-            final WrappedPlayOutKeepAlive wrapper = new WrappedPlayOutKeepAlive(packet);
-
-            playerData.getKeepAliveUpdates().put(wrapper.getTime(), System.currentTimeMillis());
-        } else if (packet instanceof PacketPlayOutTransaction) {
-            final WrappedPlayOutTransaction wrapper = new WrappedPlayOutTransaction(packet);
-
-            playerData.getTransactionUpdates().put(wrapper.getHash(), System.currentTimeMillis());
         }
     }
 }
