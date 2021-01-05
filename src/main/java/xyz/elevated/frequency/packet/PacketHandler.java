@@ -14,6 +14,7 @@ import xyz.elevated.frequency.processor.impl.OutgoingPacketProcessor;
 
 @RequiredArgsConstructor
 public final class PacketHandler extends ChannelDuplexHandler {
+
     private final PlayerData playerData;
 
     @Override
