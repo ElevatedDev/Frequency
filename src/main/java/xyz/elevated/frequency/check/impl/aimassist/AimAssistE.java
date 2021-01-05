@@ -53,7 +53,7 @@ public final class AimAssistE extends RotationCheck {
             final double moduloX = currentX % previousX;
             final double moduloY = currentY % previousY;
 
-            // Get the floor delta of the the moduloes
+            // Get the floor delta of the the modulos
             final double floorModuloX = Math.abs(Math.floor(moduloX) - moduloX);
             final double floorModuloY = Math.abs(Math.floor(moduloY) - moduloY);
 
