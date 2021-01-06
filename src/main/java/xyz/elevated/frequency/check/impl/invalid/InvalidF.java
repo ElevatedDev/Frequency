@@ -43,10 +43,8 @@ public final class InvalidF extends PositionCheck {
             fail();
         }
 
-        if (step && !exempt) {
-            if (deltaY > 0.6F) {
-                fail();
-            }
+        if (step && deltaY > 0.6F && !exempt) {
+            fail();
         }
     }
 }
