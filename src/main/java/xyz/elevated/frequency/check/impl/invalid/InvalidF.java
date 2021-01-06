@@ -29,22 +29,20 @@ public final class InvalidF extends PositionCheck {
 
         final double deltaY = to.getY() - from.getY();
 
-        final boolean step = deltaY % 0.015625 == 0.0 && from.getY() % 0.015625 == 0.0;
+        final boolean deltaModulo = deltaY % 0.015625 == 0.0;
+        final boolean lastGround = from.getY() % 0.015625 == 0.0;
+
+        final boolean step = deltaModulo && lastGround;
 
         final double modifierJump = MathUtil.getPotionLevel(player, PotionEffectType.JUMP) * 0.1F;
         final double expectedJumpMotion = 0.42F + modifierJump;
 
-        final boolean onGround = entityPlayer.onGround;
+        final boolean ground = entityPlayer.onGround;
 
         final boolean exempt = this.isExempt(ExemptType.VELOCITY, ExemptType.TELEPORTING);
-        final boolean invalid = deltaY > expectedJumpMotion && !onGround && !step;
+        final boolean invalid = deltaY > expectedJumpMotion && !ground && !step;
 
-        if (invalid && !exempt) {
-            fail();
-        }
-
-        if (step && deltaY > 0.6F && !exempt) {
-            fail();
-        }
+        if (invalid && !exempt) fail();
+        if (step && deltaY > 0.6F && !exempt) fail();
     }
 }
