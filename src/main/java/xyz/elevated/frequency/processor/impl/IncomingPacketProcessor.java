@@ -118,7 +118,7 @@ public final class IncomingPacketProcessor implements Processor<Packet<PacketLis
         } else if(packet instanceof PacketPlayInKeepAlive) {
             final WrappedPlayInKeepAlive wrapper = new WrappedPlayInKeepAlive(packet);
 
-            playerData.getConnectionManager().onKeepAlive(wrapper.getTime(), System.currentTimeMillis());
+            playerData.getConnectionManager().onKeepAlive(wrapper.getId(), System.currentTimeMillis());
             playerData.getCheckManager().getChecks().stream().filter(PacketCheck.class::isInstance).forEach(check -> check.process(wrapper));
         } else if (packet instanceof PacketPlayInClientCommand) {
             final WrappedPlayInClientCommand wrapper = new WrappedPlayInClientCommand(packet);
