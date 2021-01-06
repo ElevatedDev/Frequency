@@ -9,11 +9,7 @@ public final class WrappedPlayInKeepAlive extends PacketWrapper {
         super(instance, PacketPlayInKeepAlive.class);
     }
 
-    public int getTime() {
+    public int getId() {
         return get("a");
-    }
-
-    public void setTime(int time) {
-        set("a", time);
     }
 }

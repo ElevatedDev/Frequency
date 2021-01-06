@@ -26,7 +26,7 @@ public final class BadPacketsI extends PacketCheck {
             final float yaw = wrapper.getYaw();
             final float pitch = wrapper.getPitch();
 
-            final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.LAGGING, ExemptType.TPS);
+            final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.LAGGING, ExemptType.TPS, ExemptType.VEHICLE);
 
             if (yaw == lastYaw && pitch == lastPitch && !exempt) {
                 fail();

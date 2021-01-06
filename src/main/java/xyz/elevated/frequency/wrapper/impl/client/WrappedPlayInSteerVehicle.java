@@ -10,5 +10,11 @@ public final class WrappedPlayInSteerVehicle extends PacketWrapper {
         super(instance, PacketPlayInSteerVehicle.class);
     }
 
+    public float getForward() {
+        return get("a");
+    }
 
+    public float getSide() {
+        return get("b");
+    }
 }

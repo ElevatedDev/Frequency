@@ -36,6 +36,7 @@ public final class PositionManager {
     private final Observable<Boolean> touchingHalfBlock = new Observable<>(false);
     private final Observable<Boolean> touchingClimbable = new Observable<>(false);
     private final Observable<Boolean> touchingIllegalBlock = new Observable<>(false);
+    private final Observable<Object[]> nearbyEntities = new Observable<>(null);
 
     public synchronized void handle(final World world, final double posX, final double posY, final double posZ, final boolean onGround) {
         final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ, world);
@@ -72,8 +73,8 @@ public final class PositionManager {
             return;
         }
 
-        // Parse the position update to the checks
-        playerData.getCheckManager().getChecks().stream().filter(PositionCheck.class::isInstance).forEach(check -> check.process(positionUpdate));
+        // Compensate for nearby entities
+        nearbyEntities.set(entities);
 
         // Parse the bounding boxes properly
         playerData.getBoundingBox().set(boundingBox);
@@ -81,6 +82,9 @@ public final class PositionManager {
 
         // Handle collisions
         this.handleCollisions(boundingBox);
+
+        // Parse the position update to the checks
+        playerData.getCheckManager().getChecks().stream().filter(PositionCheck.class::isInstance).forEach(check -> check.process(positionUpdate));
 
         // Pass the data to the last variables.
         this.lastPosX = posX;
