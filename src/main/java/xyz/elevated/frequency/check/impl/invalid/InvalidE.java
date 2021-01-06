@@ -34,7 +34,8 @@ public final class InvalidE extends PositionCheck {
         if (!exempt && touchingAir && offsetH > 0.005 && offsetY < 90.d) {
             double attributeSpeed = lastOffsetH * 0.91F + 0.02;
 
-            if (playerData.getSprinting().get()) attributeSpeed += 0.0063;
+            final boolean sprinting = playerData.getSprinting().get();
+            if (sprinting) attributeSpeed += 0.0063;
 
             if (offsetH - attributeSpeed > 1e-12 && offsetH > 0.1 && attributeSpeed > 0.075) {
                 if (++buffer > 5) {

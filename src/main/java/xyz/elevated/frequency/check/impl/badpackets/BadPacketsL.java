@@ -11,7 +11,7 @@ public final class BadPacketsL extends PacketCheck {
 
     private int streak = 0;
 
-    public BadPacketsL(PlayerData playerData) {
+    public BadPacketsL(final PlayerData playerData) {
         super(playerData);
     }
 
