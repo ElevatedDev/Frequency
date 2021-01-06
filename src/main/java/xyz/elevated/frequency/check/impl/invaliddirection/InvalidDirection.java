@@ -19,6 +19,11 @@ public final class InvalidDirection extends PacketCheck {
 
             if (wrapper.hasLook()) {
                 final float pitch = Math.abs(wrapper.getPitch());
+
+                /*
+                 * Pitch will always be clamped between 90 and -90 (even when teleporting, etc). This threshold is here
+                 * because of some PvP client which messed it up on climbables, however it has since been fixed.
+                 */
                 final float threshold = playerData.getPositionManager().getTouchingClimbable().get() ? 91.11f : 90.f;
 
                 if (pitch > threshold) {
