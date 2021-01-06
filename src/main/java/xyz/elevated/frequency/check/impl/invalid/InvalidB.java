@@ -8,6 +8,7 @@ import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.data.impl.PositionManager;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.update.PositionUpdate;
+import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Invalid (B)")
@@ -54,7 +55,7 @@ public final class InvalidB extends PositionCheck {
         * for a false positive. Thus, we're checking if the player is also on ground and exceeding the threshold
          */
         if (deltaY > threshold && environment && !exempt) {
-            final double horizontalDistance = Math.hypot(deltaX, deltaZ);
+            final double horizontalDistance = MathUtil.magnitude(deltaX, deltaZ);
 
             // Making sure the player is actually moving
             if (horizontalDistance > 0.1) fail();

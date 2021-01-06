@@ -49,7 +49,7 @@ public final class HitboxA extends PacketCheck {
 
                         final Vector loc = new Vector(box.a + widthX, 0, box.c + widthZ);
 
-                        return origin.setY(0).distance(loc) - Math.hypot(widthX, widthZ) - .1f;
+                        return origin.setY(0).distance(loc) - MathUtil.magnitude(widthX, widthZ) - .1f;
                     }).min().orElse(-1);
 
             if (distance > 3) {

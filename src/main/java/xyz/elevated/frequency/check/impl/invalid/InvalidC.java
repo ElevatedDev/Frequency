@@ -6,6 +6,7 @@ import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.PositionUpdate;
+import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 
 @CheckData(name = "Invalid (C)")
@@ -28,7 +29,7 @@ public final class InvalidC extends PositionCheck {
         final double deltaX = to.getX() - from.getZ();
         final double deltaZ = to.getZ() - from.getZ();
 
-        final double offset = Math.hypot(deltaX, deltaZ);
+        final double offset = MathUtil.magnitude(deltaX, deltaZ);
         final double velocity = entityPlayer.motX + entityPlayer.motY;
 
         final boolean onGround = positionUpdate.isOnGround();

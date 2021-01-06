@@ -9,6 +9,7 @@ import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
+import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.util.NmsUtil;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
@@ -34,7 +35,7 @@ public final class InvalidD extends PacketCheck {
                 final double posZ = wrapper.getZ();
 
                 // Calculate the basic horizontal distance and the acceleration
-                final double horizontalDistance = Math.hypot(posX - lastPosX, posZ - lastPosZ);
+                final double horizontalDistance = MathUtil.magnitude(posX - lastPosX, posZ - lastPosZ);
                 final double acceleration = Math.abs(horizontalDistance - lastHorizontalDistance);
 
                 /*

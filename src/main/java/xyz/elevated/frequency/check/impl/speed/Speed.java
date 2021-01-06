@@ -96,7 +96,7 @@ public final class Speed extends PositionCheck {
         attributeSpeed += playerData.getVelocityManager().getMaxHorizontal();
 
         // Get the horizontal distance and convert to the movement speed
-        final double horizontalDistance = Math.hypot(deltaX, deltaZ);
+        final double horizontalDistance = MathUtil.magnitude(deltaX, deltaZ);
         final double movementSpeed = (horizontalDistance - lastHorizontalDistance) / attributeSpeed;
 
         // If thr movement speed is greater than the threshold and the player isn't exempt, fail

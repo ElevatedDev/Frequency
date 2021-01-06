@@ -6,6 +6,7 @@ import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.update.PositionUpdate;
+import xyz.elevated.frequency.util.MathUtil;
 
 @CheckData(name = "Invalid (E)")
 public final class InvalidE extends PositionCheck {
@@ -25,7 +26,7 @@ public final class InvalidE extends PositionCheck {
         final double deltaY = to.getY() - from.getY();
         final double deltaZ = to.getZ() - from.getZ();
 
-        final double offsetH = Math.hypot(deltaX, deltaZ);
+        final double offsetH = MathUtil.magnitude(deltaX, deltaZ);
         final double offsetY = Math.abs(deltaY);
 
         final boolean exempt = this.isExempt(ExemptType.TELEPORTING, ExemptType.VELOCITY);
