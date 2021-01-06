@@ -1,12 +1,14 @@
 package xyz.elevated.frequency.check.impl.badpackets;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
+import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInArmAnimation;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInUseEntity;
 
+@CheckData(name = "BadPackets (N)")
 public class BadPacketsN extends PacketCheck {
 
     private boolean swung;
