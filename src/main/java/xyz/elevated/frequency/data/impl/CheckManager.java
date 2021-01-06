@@ -64,6 +64,7 @@ public final class CheckManager {
                 .put(InvalidC.class, new InvalidC(playerData))
                 .put(InvalidD.class, new InvalidD(playerData))
                 .put(InvalidE.class, new InvalidE(playerData))
+                .put(InvalidF.class, new InvalidF(playerData))
                 .put(FlyA.class, new FlyA(playerData))
                 .put(FlyB.class, new FlyB(playerData))
                 .put(FlyC.class, new FlyC(playerData))
