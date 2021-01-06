@@ -101,6 +101,16 @@ public class MathUtil {
         return 3 * (mean - median) / variance;
     }
 
+    public static double magnitude(final double... points) {
+        double sum = 0.0;
+
+        for (final double point : points) {
+            sum += point * point;
+        }
+
+        return Math.sqrt(sum);
+    }
+
     /**
      * @param - The collection of numbers you want analyze
      * @return - A pair of the high and low outliers

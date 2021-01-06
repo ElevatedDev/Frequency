@@ -5,6 +5,7 @@ import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.PositionUpdate;
+import xyz.elevated.frequency.util.MathUtil;
 
 @CheckData(name = "Jesus (A)")
 public final class JesusA extends PositionCheck {
@@ -31,7 +32,7 @@ public final class JesusA extends PositionCheck {
 
         // If the delta is greater than 0.0 and the player is stationary
         if (deltaY > 0.0 && !onGround && !touchingLiquid && stationary) {
-            final double horizontalDistance = Math.hypot(deltaX, deltaZ);
+            final double horizontalDistance = MathUtil.magnitude(deltaX, deltaZ);
 
             // If the player is moving too, flag
             if (horizontalDistance > 0.1) {

@@ -3,6 +3,7 @@ package xyz.elevated.frequency.check.impl.killaura;
 import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.PacketCheck;
 import xyz.elevated.frequency.data.PlayerData;
+import xyz.elevated.frequency.util.MathUtil;
 import xyz.elevated.frequency.wrapper.impl.client.WrappedPlayInFlying;
 
 @CheckData(name = "KillAura (F)")
@@ -28,7 +29,7 @@ public final class KillAuraF extends PacketCheck {
             final float yaw = wrapper.getYaw();
             final float pitch = wrapper.getPitch();
 
-            final double horizontalDistance = Math.hypot(posX - lastPosX, posZ - lastPosZ);
+            final double horizontalDistance = MathUtil.magnitude(posX - lastPosX, posZ - lastPosZ);
 
             // Player moved
             if (horizontalDistance > 0.0) {

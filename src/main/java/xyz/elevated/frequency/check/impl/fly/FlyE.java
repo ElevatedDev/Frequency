@@ -31,7 +31,7 @@ public final class FlyE extends PositionCheck {
         final double deltaZ = to.getZ() - from.getZ();
 
         // Get the distance moved on the vertical level and the horizontal level
-        final double distanceH = Math.hypot(deltaX, deltaZ);
+        final double distanceH = MathUtil.magnitude(deltaX, deltaZ);
         final double distanceY = Math.abs(deltaY);
 
         // Make sure the player is moving isn't exempt and isn't on ground
