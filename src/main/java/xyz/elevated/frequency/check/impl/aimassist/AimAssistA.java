@@ -40,7 +40,7 @@ public final class AimAssistA extends RotationCheck {
         // If the list has reached a sample size of 120
         if (samples.size() == 120) {
             // Get the duplicates through the distinct method in the list
-            final int distinct = MathUtil.getDistinct(this.samples);
+            final int distinct = MathUtil.getDistinct(samples);
             final int duplicates = samples.size() - distinct;
 
             // Get the average from all the rotations to make sure they were't just spamming around their aim
