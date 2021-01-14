@@ -3,7 +3,6 @@ package xyz.elevated.frequency.util;
 import com.google.common.collect.Lists;
 import lombok.experimental.UtilityClass;
 import net.minecraft.server.v1_8_R3.MathHelper;
-import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -13,7 +12,9 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @UtilityClass
 public class MathUtil {
@@ -111,10 +112,22 @@ public class MathUtil {
         return Math.sqrt(sum);
     }
 
+    public static int getDistinct(final Collection<? extends Number> collection) {
+        Set<Object> set = new HashSet<>(collection);
+        return set.size();
+    }
+
+    /**
+     * @param - collection The collection of the numbers you want to get the duplicates from
+     * @return - The duplicate amount
+     */
+    public static int getDuplicates(final Collection<? extends Number> collection) {
+        return collection.size() - getDistinct(collection);
+    }
+
     /**
      * @param - The collection of numbers you want analyze
      * @return - A pair of the high and low outliers
-     *
      * @See - https://en.wikipedia.org/wiki/Outlier
      */
     public Pair<List<Double>, List<Double>> getOutliers(final Collection<? extends Number> collection) {
@@ -135,8 +148,7 @@ public class MathUtil {
         for (final Double value : values) {
             if (value < lowThreshold) {
                 tuple.getX().add(value);
-            }
-            else if (value > highThreshold) {
+            } else if (value > highThreshold) {
                 tuple.getY().add(value);
             }
         }
