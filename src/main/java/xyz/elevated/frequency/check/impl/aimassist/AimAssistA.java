@@ -5,6 +5,7 @@ import xyz.elevated.frequency.check.CheckData;
 import xyz.elevated.frequency.check.type.RotationCheck;
 import xyz.elevated.frequency.data.PlayerData;
 import xyz.elevated.frequency.update.RotationUpdate;
+import xyz.elevated.frequency.util.MathUtil;
 
 import java.util.Deque;
 
@@ -39,7 +40,7 @@ public final class AimAssistA extends RotationCheck {
         // If the list has reached a sample size of 120
         if (samples.size() == 120) {
             // Get the duplicates through the distinct method in the list
-            final int distinct = (int) (samples.stream().distinct().count());
+            final int distinct = MathUtil.getDistinct(samples);
             final int duplicates = samples.size() - distinct;
 
             // Get the average from all the rotations to make sure they were't just spamming around their aim

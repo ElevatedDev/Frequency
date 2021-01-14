@@ -6,13 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Boat;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Vehicle;
 import org.bukkit.material.Stairs;
 import org.bukkit.material.Step;
-import org.bukkit.util.Vector;
 import xyz.elevated.frequency.check.type.PositionCheck;
 import xyz.elevated.frequency.data.BoundingBox;
 import xyz.elevated.frequency.data.PlayerData;
@@ -20,6 +17,7 @@ import xyz.elevated.frequency.exempt.ExemptManager;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.observable.Observable;
 import xyz.elevated.frequency.update.PositionUpdate;
+import xyz.elevated.frequency.util.PlayerUtil;
 
 import java.util.Arrays;
 
@@ -42,7 +40,7 @@ public final class PositionManager {
         final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ, world);
 
         final Player bukkitPlayer = playerData.getBukkitPlayer();
-        final Object[] entities = bukkitPlayer.getNearbyEntities(4.0, 4.0, 4.0).toArray();
+        final Object[] entities = PlayerUtil.getEntitiesWithinRadius(bukkitPlayer.getLocation(), 3).toArray();
 
         // Convert the data to bukkit locations and parse them
         final Location location = new Location(world, posX, posY, posZ);
@@ -68,10 +66,8 @@ public final class PositionManager {
             return;
         }
 
-        // Make sure players is not on a boat/minecart
-        if (Arrays.stream(entities).anyMatch(entity -> entity instanceof Minecart || entity instanceof Boat)) {
-            return;
-        }
+        // Make sure players are not near vehicles
+        if (Arrays.stream(entities).anyMatch(entity -> entity instanceof Vehicle)) return;
 
         // Compensate for nearby entities
         nearbyEntities.set(entities);
