@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @UtilityClass
@@ -14,7 +15,7 @@ public class PlayerUtil {
 
     /**
      * Bukkit's getNearbyEntities method looks for all entities in all chunks
-     * This is a much lighter method and can also be used Asynchronously since we won't load any chunks
+     * This is a lighter method and can also be used Asynchronously since we won't load any chunks
      *
      * @param location The location to scan for nearby entities
      * @param radius   The radius to expand
@@ -36,17 +37,25 @@ public class PlayerUtil {
 
         final World world = location.getWorld();
 
-        List<Entity> entities = new ArrayList<>();
+        List<Entity> entities = new LinkedList<>();
 
         for (int xVal = minX; xVal <= maxX; xVal++) {
+
             for (int zVal = minZ; zVal <= maxZ; zVal++) {
-                if (world.isChunkLoaded(xVal, zVal)) {
-                    entities.addAll(Arrays.asList(world.getChunkAt(xVal, zVal).getEntities()));
+
+                if (!world.isChunkLoaded(xVal, zVal)) continue;
+
+                for (Entity entity : world.getChunkAt(xVal, zVal).getEntities()) {
+                    //We have to do this due to stupidness
+                    if (entity == null) continue;
+
+                    //Make sure the entity is within the radius specified
+                    if (entity.getLocation().distanceSquared(location) > radius * radius) continue;
+
+                    entities.add(entity);
                 }
             }
         }
-
-        entities.removeIf(entity -> entity.getLocation().distanceSquared(location) > radius * radius);
 
         return entities;
     }
