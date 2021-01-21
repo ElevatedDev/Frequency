@@ -66,7 +66,7 @@ public final class PositionManager {
             return;
         }
 
-        // Make sure players are not near vehicles
+        // Make sure the player is not near vehicles
         if (Arrays.stream(entities).anyMatch(entity -> entity instanceof Vehicle)) return;
 
         // Compensate for nearby entities

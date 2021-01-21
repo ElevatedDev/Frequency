@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @UtilityClass
@@ -14,7 +15,7 @@ public class PlayerUtil {
 
     /**
      * Bukkit's getNearbyEntities method looks for all entities in all chunks
-     * This is a much lighter method and can also be used Asynchronously since we won't load any chunks
+     * This is a lighter method and can also be used Asynchronously since we won't load any chunks
      *
      * @param location The location to scan for nearby entities
      * @param radius   The radius to expand
@@ -23,30 +24,37 @@ public class PlayerUtil {
      */
     public List<Entity> getEntitiesWithinRadius(final Location location, final double radius) {
 
-        final double expander = 16.0D;
+        final double divider = 16.0D;
 
-        final double x = location.getX();
-        final double z = location.getZ();
+        final double locationX = location.getX();
+        final double locationZ = location.getZ();
 
-        final int minX = (int) Math.floor((x - radius) / expander);
-        final int maxX = (int) Math.floor((x + radius) / expander);
+        final int minX = (int) Math.floor((locationX - radius) / divider);
+        final int maxX = (int) Math.floor((locationX + radius) / divider);
 
-        final int minZ = (int) Math.floor((z - radius) / expander);
-        final int maxZ = (int) Math.floor((z + radius) / expander);
+        final int minZ = (int) Math.floor((locationZ - radius) / divider);
+        final int maxZ = (int) Math.floor((locationZ + radius) / divider);
 
         final World world = location.getWorld();
 
-        List<Entity> entities = new ArrayList<>();
+        List<Entity> entities = new LinkedList<>();
 
-        for (int xVal = minX; xVal <= maxX; xVal++) {
-            for (int zVal = minZ; zVal <= maxZ; zVal++) {
-                if (world.isChunkLoaded(xVal, zVal)) {
-                    entities.addAll(Arrays.asList(world.getChunkAt(xVal, zVal).getEntities()));
+        for (int x = minX; x <= maxX; x++) {
+
+            for (int z = minZ; z <= maxZ; z++) {
+
+                if (!world.isChunkLoaded(x, z)) continue;
+
+                for (Entity entity : world.getChunkAt(x, z).getEntities()) {
+
+                    if (entity == null) continue;
+
+                    if (entity.getLocation().distanceSquared(location) > radius * radius) continue;
+
+                    entities.add(entity);
                 }
             }
         }
-
-        entities.removeIf(entity -> entity.getLocation().distanceSquared(location) > radius * radius);
 
         return entities;
     }
