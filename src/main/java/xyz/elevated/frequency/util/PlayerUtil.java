@@ -24,32 +24,31 @@ public class PlayerUtil {
      */
     public List<Entity> getEntitiesWithinRadius(final Location location, final double radius) {
 
-        final double expander = 16.0D;
+        final double divider = 16.0D;
 
-        final double x = location.getX();
-        final double z = location.getZ();
+        final double locationX = location.getX();
+        final double locationZ = location.getZ();
 
-        final int minX = (int) Math.floor((x - radius) / expander);
-        final int maxX = (int) Math.floor((x + radius) / expander);
+        final int minX = (int) Math.floor((locationX - radius) / divider);
+        final int maxX = (int) Math.floor((locationX + radius) / divider);
 
-        final int minZ = (int) Math.floor((z - radius) / expander);
-        final int maxZ = (int) Math.floor((z + radius) / expander);
+        final int minZ = (int) Math.floor((locationZ - radius) / divider);
+        final int maxZ = (int) Math.floor((locationZ + radius) / divider);
 
         final World world = location.getWorld();
 
         List<Entity> entities = new LinkedList<>();
 
-        for (int xVal = minX; xVal <= maxX; xVal++) {
+        for (int x = minX; x <= maxX; x++) {
 
-            for (int zVal = minZ; zVal <= maxZ; zVal++) {
+            for (int z = minZ; z <= maxZ; z++) {
 
-                if (!world.isChunkLoaded(xVal, zVal)) continue;
+                if (!world.isChunkLoaded(x, z)) continue;
 
-                for (Entity entity : world.getChunkAt(xVal, zVal).getEntities()) {
-                    //We have to do this due to stupidness
+                for (Entity entity : world.getChunkAt(x, z).getEntities()) {
+
                     if (entity == null) continue;
 
-                    //Make sure the entity is within the radius specified
                     if (entity.getLocation().distanceSquared(location) > radius * radius) continue;
 
                     entities.add(entity);
