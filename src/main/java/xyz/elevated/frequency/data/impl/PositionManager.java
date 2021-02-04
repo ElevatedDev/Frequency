@@ -17,7 +17,6 @@ import xyz.elevated.frequency.exempt.ExemptManager;
 import xyz.elevated.frequency.exempt.type.ExemptType;
 import xyz.elevated.frequency.observable.Observable;
 import xyz.elevated.frequency.update.PositionUpdate;
-import xyz.elevated.frequency.util.PlayerUtil;
 
 import java.util.Arrays;
 
@@ -40,7 +39,7 @@ public final class PositionManager {
         final BoundingBox boundingBox = new BoundingBox(posX, posY, posZ, world);
 
         final Player bukkitPlayer = playerData.getBukkitPlayer();
-        final Object[] entities = PlayerUtil.getEntitiesWithinRadius(bukkitPlayer.getLocation(), 3).toArray();
+        final Object[] entities = bukkitPlayer.getNearbyEntities(3, 3, 3).toArray();
 
         // Convert the data to bukkit locations and parse them
         final Location location = new Location(world, posX, posY, posZ);
