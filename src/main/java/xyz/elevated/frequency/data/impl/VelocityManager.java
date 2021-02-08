@@ -39,7 +39,7 @@ public final class VelocityManager {
     public double getMaxVertical() {
         try {
             return Math.sqrt(velocities.stream()
-                    .mapToDouble(VelocitySnapshot::getHorizontal)
+                    .mapToDouble(VelocitySnapshot::getVertical)
                     .max()
                     .orElse(0.f));
         } catch (Exception e) {
