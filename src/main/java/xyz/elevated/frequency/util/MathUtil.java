@@ -49,7 +49,7 @@ public class MathUtil {
             variance += Math.pow(number.doubleValue() - average, 2.0);
         }
 
-        return variance;
+        return variance / count;
     }
 
     public int getPingInTicks(long ping) {
