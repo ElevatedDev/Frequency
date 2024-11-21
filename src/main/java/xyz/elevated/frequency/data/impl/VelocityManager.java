@@ -38,10 +38,10 @@ public final class VelocityManager {
     // Get the highest vertical velocity
     public double getMaxVertical() {
         try {
-            return Math.sqrt(velocities.stream()
+            return velocities.stream()
                     .mapToDouble(VelocitySnapshot::getVertical)
                     .max()
-                    .orElse(0.f));
+                    .orElse(0.f);
         } catch (Exception e) {
             return 1.0;
         }
